@@ -1360,6 +1360,7 @@
         function closeModal() {
             const modal = document.getElementById('certificateModal');
             modal.style.display = 'none';
+            document.body.style.overflow = 'auto';
         }
 
         // Close modal when clicking outside the image
@@ -1367,6 +1368,7 @@
             const modal = document.getElementById('certificateModal');
             if (event.target == modal) {
                 modal.style.display = 'none';
+                document.body.style.overflow = 'auto';
             }
         }
 
