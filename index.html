@@ -1,0 +1,1381 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pilot Consultation and Marine Services</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            font-family: 'Inter', sans-serif;
+        }
+        
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: #f1f5f9;
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(180deg, #1e40af, #3b82f6);
+            border-radius: 4px;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(180deg, #1d4ed8, #2563eb);
+        }
+        .hero-bg {
+            background: linear-gradient(135deg, rgba(30, 64, 175, 0.95), rgba(59, 130, 246, 0.85)), 
+                       url('https://pilotconsultation2.files.wordpress.com/2023/12/sea-2.gif');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero-bg::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, transparent 30%, rgba(255, 255, 255, 0.1) 50%, transparent 70%);
+            animation: shimmer 3s infinite;
+        }
+        
+        @keyframes shimmer {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+        
+        .floating-animation {
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+        
+        .fade-in-up {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease-out;
+        }
+        
+        .fade-in-up.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .slide-in-left {
+            opacity: 0;
+            transform: translateX(-50px);
+            transition: all 0.8s ease-out;
+        }
+        
+        .slide-in-left.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        
+        .slide-in-right {
+            opacity: 0;
+            transform: translateX(50px);
+            transition: all 0.8s ease-out;
+        }
+        
+        .slide-in-right.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        
+        .scale-in {
+            opacity: 0;
+            transform: scale(0.8);
+            transition: all 0.8s ease-out;
+        }
+        
+        .scale-in.visible {
+            opacity: 1;
+            transform: scale(1);
+        }
+        .service-card {
+            background: linear-gradient(145deg, #ffffff, #f8fafc);
+            border: 1px solid rgba(59, 130, 246, 0.1);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(59, 130, 246, 0.1), transparent);
+            transition: left 0.6s;
+        }
+        
+        .service-card:hover::before {
+            left: 100%;
+        }
+        
+        .service-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 25px 50px rgba(59, 130, 246, 0.25);
+            border-color: rgba(59, 130, 246, 0.3);
+        }
+        
+        .glass-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        }
+        
+        .gradient-text {
+            background: linear-gradient(135deg, #1e40af, #3b82f6, #06b6d4);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .pulse-glow {
+            animation: pulse-glow 2s infinite;
+        }
+        
+        @keyframes pulse-glow {
+            0%, 100% {
+                box-shadow: 0 0 20px rgba(59, 130, 246, 0.4);
+            }
+            50% {
+                box-shadow: 0 0 40px rgba(59, 130, 246, 0.8);
+            }
+        }
+        
+        .nav-blur {
+            backdrop-filter: blur(20px);
+            background: rgba(30, 64, 175, 0.95);
+        }
+        
+        .typing-animation {
+            overflow: hidden;
+            border-right: 3px solid #3b82f6;
+            white-space: nowrap;
+            animation: typing 3.5s steps(40, end), blink-caret 0.75s step-end infinite;
+        }
+        
+        @keyframes typing {
+            from { width: 0; }
+            to { width: 100%; }
+        }
+        
+        @keyframes blink-caret {
+            from, to { border-color: transparent; }
+            50% { border-color: #3b82f6; }
+        }
+        .wave-divider {
+            position: relative;
+            height: 100px;
+            overflow: hidden;
+        }
+        .wave-divider svg {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+        
+        /* Certificate Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        
+        .modal-content {
+            max-width: 90vw;
+            max-height: 90vh;
+            width: auto;
+            height: auto;
+            object-fit: contain;
+            border-radius: 8px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+        }
+        
+        .modal-content, .close {
+            animation: zoom 0.3s;
+        }
+        
+        @keyframes zoom {
+            from {transform: scale(0)}
+            to {transform: scale(1)}
+        }
+        
+        .close {
+            position: absolute;
+            top: 15px;
+            right: 35px;
+            color: #f1f1f1;
+            font-size: 40px;
+            font-weight: bold;
+            transition: 0.3s;
+            cursor: pointer;
+        }
+        
+        .close:hover,
+        .close:focus {
+            color: #bbb;
+            text-decoration: none;
+        }
+        
+        .modal-caption {
+            margin: auto;
+            display: block;
+            width: 80%;
+            max-width: 700px;
+            text-align: center;
+            color: #ccc;
+            padding: 10px 0;
+            height: 150px;
+        }
+    </style>
+</head>
+<body class="font-sans text-gray-800">
+    <!-- Navigation -->
+    <nav class="nav-blur text-white sticky top-0 z-50 shadow-2xl border-b border-white/10">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <div class="flex items-center group">
+                <div class="relative overflow-hidden rounded-xl">
+                    <img src="https://pilotconsultation.com/wp-content/uploads/2023/12/screenshot-2023-12-12-143546.png" alt="Logo" class="h-14 mr-3 transition-transform duration-300 group-hover:scale-110">
+                </div>
+                <div class="hidden sm:block">
+                    <span class="text-2xl font-bold gradient-text bg-white bg-clip-text">Pilot Consultation</span>
+                    <p class="text-xs text-blue-200 font-medium">Marine Excellence</p>
+                </div>
+            </div>
+            <div class="hidden md:flex space-x-8">
+                <a href="#overview" class="nav-link relative px-3 py-2 text-sm font-medium transition-all duration-300 hover:text-blue-200 group">
+                    <span class="relative z-10">Overview</span>
+                    <div class="absolute inset-0 bg-white/10 rounded-lg scale-0 group-hover:scale-100 transition-transform duration-300"></div>
+                </a>
+                <a href="#mission" class="nav-link relative px-3 py-2 text-sm font-medium transition-all duration-300 hover:text-blue-200 group">
+                    <span class="relative z-10">Mission & Vision</span>
+                    <div class="absolute inset-0 bg-white/10 rounded-lg scale-0 group-hover:scale-100 transition-transform duration-300"></div>
+                </a>
+                <a href="#services" class="nav-link relative px-3 py-2 text-sm font-medium transition-all duration-300 hover:text-blue-200 group">
+                    <span class="relative z-10">Services</span>
+                    <div class="absolute inset-0 bg-white/10 rounded-lg scale-0 group-hover:scale-100 transition-transform duration-300"></div>
+                </a>
+                <a href="#policies" class="nav-link relative px-3 py-2 text-sm font-medium transition-all duration-300 hover:text-blue-200 group">
+                    <span class="relative z-10">Certificates</span>
+                    <div class="absolute inset-0 bg-white/10 rounded-lg scale-0 group-hover:scale-100 transition-transform duration-300"></div>
+                </a>
+                <a href="#contact" class="nav-link relative px-3 py-2 text-sm font-medium transition-all duration-300 hover:text-blue-200 group">
+                    <span class="relative z-10">Contact</span>
+                    <div class="absolute inset-0 bg-white/10 rounded-lg scale-0 group-hover:scale-100 transition-transform duration-300"></div>
+                </a>
+            </div>
+            <button class="md:hidden text-2xl p-2 rounded-lg hover:bg-white/10 transition-colors duration-300" id="menu-toggle">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+        <!-- Mobile menu -->
+        <div class="md:hidden hidden glass-card mx-4 mb-4 rounded-xl" id="mobile-menu">
+            <div class="p-4 space-y-2">
+                <a href="#overview" class="block px-4 py-3 hover:bg-white/10 rounded-lg transition-colors duration-300">Overview</a>
+                <a href="#mission" class="block px-4 py-3 hover:bg-white/10 rounded-lg transition-colors duration-300">Mission & Vision</a>
+                <a href="#services" class="block px-4 py-3 hover:bg-white/10 rounded-lg transition-colors duration-300">Services</a>
+                <a href="#policies" class="block px-4 py-3 hover:bg-white/10 rounded-lg transition-colors duration-300">Certificates</a>
+                <a href="#contact" class="block px-4 py-3 hover:bg-white/10 rounded-lg transition-colors duration-300">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-bg text-white py-40 px-4 text-center relative overflow-hidden">
+        <!-- Floating Elements -->
+        <div class="absolute inset-0 pointer-events-none">
+            <div class="floating-animation absolute top-20 left-10 w-20 h-20 bg-white/5 rounded-full blur-xl"></div>
+            <div class="floating-animation absolute top-40 right-20 w-32 h-32 bg-blue-400/10 rounded-full blur-2xl" style="animation-delay: -2s;"></div>
+            <div class="floating-animation absolute bottom-32 left-1/4 w-16 h-16 bg-cyan-400/10 rounded-full blur-xl" style="animation-delay: -4s;"></div>
+            <div class="floating-animation absolute bottom-20 right-1/3 w-24 h-24 bg-white/5 rounded-full blur-2xl" style="animation-delay: -1s;"></div>
+        </div>
+        
+        <div class="max-w-6xl mx-auto relative z-10">
+            <div class="fade-in-up mb-8">
+                <div class="inline-block px-6 py-2 bg-white/10 backdrop-blur-sm rounded-full border border-white/20 mb-6">
+                    <span class="text-sm font-medium text-blue-200">🌊 Professional Marine Services</span>
+                </div>
+            </div>
+            
+            <h1 class="text-5xl md:text-7xl font-bold mb-8 fade-in-up" style="animation-delay: 0.2s;">
+                <span class="block gradient-text bg-gradient-to-r from-white via-blue-100 to-cyan-200 bg-clip-text text-transparent">
+                    Pilot Consultation
+                </span>
+                <span class="block text-3xl md:text-5xl font-light mt-2 text-blue-100">
+                    & Marine Services
+                </span>
+            </h1>
+            
+            <div class="fade-in-up mb-12" style="animation-delay: 0.4s;">
+                <p class="text-xl md:text-2xl mb-4 text-blue-100 font-light max-w-3xl mx-auto leading-relaxed">
+                    Specialized marine inspection services based in 
+                    <span class="font-semibold text-white">Abu Dhabi, UAE</span>
+                </p>
+                <p class="text-lg text-blue-200 max-w-2xl mx-auto">
+                    IMCA certified diving system inspections • Marine vessel assessments • Professional excellence
+                </p>
+            </div>
+            
+            <div class="fade-in-up flex flex-col sm:flex-row gap-4 justify-center items-center" style="animation-delay: 0.6s;">
+                <a href="#contact" class="group relative px-8 py-4 bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-500 hover:to-cyan-500 text-white rounded-full font-semibold transition-all duration-300 transform hover:scale-105 hover:shadow-2xl pulse-glow">
+                    <span class="relative z-10 flex items-center">
+                        <i class="fas fa-anchor mr-2"></i>
+                        Get Started
+                    </span>
+                    <div class="absolute inset-0 bg-gradient-to-r from-white/20 to-transparent rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                </a>
+                
+                <a href="#services" class="group px-8 py-4 bg-white/10 backdrop-blur-sm hover:bg-white/20 text-white rounded-full font-semibold transition-all duration-300 border border-white/30 hover:border-white/50">
+                    <span class="flex items-center">
+                        <i class="fas fa-compass mr-2"></i>
+                        Our Services
+                    </span>
+                </a>
+            </div>
+            
+            <!-- Stats Section -->
+            <div class="mt-20 grid grid-cols-1 md:grid-cols-3 gap-8 fade-in-up" style="animation-delay: 0.8s;">
+                <div class="glass-card p-6 rounded-2xl text-center">
+                    <div class="text-3xl font-bold text-white mb-2">15+</div>
+                    <div class="text-blue-200 text-sm">Years Experience</div>
+                </div>
+                <div class="glass-card p-6 rounded-2xl text-center">
+                    <div class="text-3xl font-bold text-white mb-2">500+</div>
+                    <div class="text-blue-200 text-sm">Inspections Completed</div>
+                </div>
+                <div class="glass-card p-6 rounded-2xl text-center">
+                    <div class="text-3xl font-bold text-white mb-2">100%</div>
+                    <div class="text-blue-200 text-sm">IMCA Compliance</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Scroll Indicator -->
+        <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
+            <div class="w-6 h-10 border-2 border-white/30 rounded-full flex justify-center">
+                <div class="w-1 h-3 bg-white/50 rounded-full mt-2 animate-pulse"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Overview Section -->
+    <section id="overview" class="py-24 bg-gradient-to-br from-gray-50 to-blue-50 relative overflow-hidden">
+        <!-- Background Pattern -->
+        <div class="absolute inset-0 opacity-5">
+            <div class="absolute top-0 left-0 w-full h-full" style="background-image: radial-gradient(circle at 25% 25%, #3b82f6 2px, transparent 2px); background-size: 50px 50px;"></div>
+        </div>
+        
+        <div class="container mx-auto px-6 relative z-10">
+            <div class="text-center mb-16 fade-in-up">
+                <div class="inline-block px-4 py-2 bg-blue-100 text-blue-800 rounded-full text-sm font-semibold mb-4">
+                    About Our Company
+                </div>
+                <h2 class="text-4xl md:text-5xl font-bold gradient-text mb-4">Company Overview</h2>
+                <div class="w-24 h-1 bg-gradient-to-r from-blue-600 to-cyan-600 mx-auto"></div>
+            </div>
+            
+            <div class="flex flex-col lg:flex-row items-center gap-16">
+                <div class="lg:w-1/2 slide-in-left">
+                    <div class="space-y-8">
+                        <div class="bg-white p-8 rounded-2xl shadow-xl border border-blue-100 hover:shadow-2xl transition-all duration-500 hover:-translate-y-2">
+                            <div class="flex items-start space-x-4">
+                                <div class="w-12 h-12 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-xl flex items-center justify-center flex-shrink-0">
+                                    <i class="fas fa-building text-white text-xl"></i>
+                                </div>
+                                <div>
+                                    <h3 class="text-xl font-bold text-gray-900 mb-3">Who We Are</h3>
+                                    <p class="text-gray-600 leading-relaxed">
+                                        Pilot Consultation and Marine Services is a specialized marine company based in Abu Dhabi, UAE, dedicated to providing exceptional marine inspection services.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-white p-8 rounded-2xl shadow-xl border border-blue-100 hover:shadow-2xl transition-all duration-500 hover:-translate-y-2">
+                            <div class="flex items-start space-x-4">
+                                <div class="w-12 h-12 bg-gradient-to-br from-green-500 to-emerald-500 rounded-xl flex items-center justify-center flex-shrink-0">
+                                    <i class="fas fa-cogs text-white text-xl"></i>
+                                </div>
+                                <div>
+                                    <h3 class="text-xl font-bold text-gray-900 mb-3">What We Do</h3>
+                                    <p class="text-gray-600 leading-relaxed">
+                                        We offer professional services in commercial surface supplied air diving system inspection to meet IMCA requirements, plus comprehensive marine vessel inspections.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-white p-8 rounded-2xl shadow-xl border border-blue-100 hover:shadow-2xl transition-all duration-500 hover:-translate-y-2">
+                            <div class="flex items-start space-x-4">
+                                <div class="w-12 h-12 bg-gradient-to-br from-purple-500 to-pink-500 rounded-xl flex items-center justify-center flex-shrink-0">
+                                    <i class="fas fa-award text-white text-xl"></i>
+                                </div>
+                                <div>
+                                    <h3 class="text-xl font-bold text-gray-900 mb-3">Our Standards</h3>
+                                    <p class="text-gray-600 leading-relaxed">
+                                        All our services meet the highest international standards set by IMCA, ensuring safety, reliability, and compliance in every inspection.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="lg:w-1/2 slide-in-right">
+                    <div class="relative">
+                        <div class="absolute -inset-4 bg-gradient-to-r from-blue-600 to-cyan-600 rounded-3xl blur-2xl opacity-20 animate-pulse"></div>
+                        <div class="relative bg-white p-4 rounded-3xl shadow-2xl">
+                            <img src="https://pilotconsultation2.files.wordpress.com/2023/12/pexels-photo-16830015-2-edited.jpeg" alt="Marine Services" class="rounded-2xl w-full h-auto object-cover">
+                            <div class="absolute inset-0 bg-gradient-to-t from-blue-900/20 to-transparent rounded-2xl"></div>
+                        </div>
+                        
+                        <!-- Floating Stats -->
+                        <div class="absolute -bottom-6 -left-6 bg-white p-6 rounded-2xl shadow-xl border border-blue-100">
+                            <div class="text-center">
+                                <div class="text-2xl font-bold text-blue-600">ISO 9001</div>
+                                <div class="text-sm text-gray-600">Certified</div>
+                            </div>
+                        </div>
+                        
+                        <div class="absolute -top-6 -right-6 bg-white p-6 rounded-2xl shadow-xl border border-blue-100">
+                            <div class="text-center">
+                                <div class="text-2xl font-bold text-green-600">IMCA</div>
+                                <div class="text-sm text-gray-600">Compliant</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Mission & Vision Section -->
+    <section id="mission" class="py-24 bg-gradient-to-br from-blue-900 via-blue-800 to-cyan-900 relative overflow-hidden">
+        <!-- Animated Background Elements -->
+        <div class="absolute inset-0">
+            <div class="absolute top-20 left-10 w-32 h-32 bg-blue-400/10 rounded-full blur-xl animate-pulse"></div>
+            <div class="absolute bottom-20 right-10 w-48 h-48 bg-cyan-400/10 rounded-full blur-xl animate-pulse" style="animation-delay: 1s;"></div>
+            <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-blue-300/5 rounded-full blur-2xl animate-pulse" style="animation-delay: 2s;"></div>
+        </div>
+        
+        <div class="container mx-auto px-6 relative z-10">
+            <div class="text-center mb-16 fade-in-up">
+                <div class="inline-block px-4 py-2 bg-white/10 backdrop-blur-sm text-white rounded-full text-sm font-semibold mb-4">
+                    Our Purpose
+                </div>
+                <h2 class="text-4xl md:text-5xl font-bold text-white mb-4">Mission & Vision</h2>
+                <div class="w-24 h-1 bg-gradient-to-r from-cyan-400 to-blue-400 mx-auto"></div>
+            </div>
+            
+            <div class="grid lg:grid-cols-2 gap-12">
+                <!-- Mission Card -->
+                <div class="group slide-in-left">
+                    <div class="relative">
+                        <div class="absolute -inset-1 bg-gradient-to-r from-cyan-400 to-blue-400 rounded-3xl blur opacity-25 group-hover:opacity-75 transition duration-1000 group-hover:duration-200"></div>
+                        <div class="relative bg-white/10 backdrop-blur-lg p-10 rounded-3xl border border-white/20 hover:bg-white/15 transition-all duration-500">
+                            <div class="flex items-center mb-6">
+                                <div class="w-16 h-16 bg-gradient-to-br from-cyan-400 to-blue-500 rounded-2xl flex items-center justify-center mr-4">
+                                    <i class="fas fa-bullseye text-white text-2xl"></i>
+                                </div>
+                                <h3 class="text-3xl font-bold text-white">Our Mission</h3>
+                            </div>
+                            <p class="text-blue-100 text-lg leading-relaxed mb-6">
+                                Provide unparalleled inspection services that consistently deliver thorough and reliable results, empowering our clients with the assurance they need to make informed decisions.
+                            </p>
+                            <p class="text-blue-100 text-lg leading-relaxed">
+                                We are dedicated to conducting thorough, precise, and reliable inspections that exceed industry standards.
+                            </p>
+                            
+                            <!-- Mission Points -->
+                            <div class="mt-8 space-y-3">
+                                <div class="flex items-center text-cyan-300">
+                                    <i class="fas fa-check-circle mr-3"></i>
+                                    <span>Unparalleled Service Quality</span>
+                                </div>
+                                <div class="flex items-center text-cyan-300">
+                                    <i class="fas fa-check-circle mr-3"></i>
+                                    <span>Thorough & Precise Inspections</span>
+                                </div>
+                                <div class="flex items-center text-cyan-300">
+                                    <i class="fas fa-check-circle mr-3"></i>
+                                    <span>Client Empowerment Focus</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Vision Card -->
+                <div class="group slide-in-right">
+                    <div class="relative">
+                        <div class="absolute -inset-1 bg-gradient-to-r from-blue-400 to-purple-400 rounded-3xl blur opacity-25 group-hover:opacity-75 transition duration-1000 group-hover:duration-200"></div>
+                        <div class="relative bg-white/10 backdrop-blur-lg p-10 rounded-3xl border border-white/20 hover:bg-white/15 transition-all duration-500">
+                            <div class="flex items-center mb-6">
+                                <div class="w-16 h-16 bg-gradient-to-br from-blue-400 to-purple-500 rounded-2xl flex items-center justify-center mr-4">
+                                    <i class="fas fa-eye text-white text-2xl"></i>
+                                </div>
+                                <h3 class="text-3xl font-bold text-white">Our Vision</h3>
+                            </div>
+                            <p class="text-blue-100 text-lg leading-relaxed mb-6">
+                                To be the leading marine inspection service provider in the UAE and region, recognized for delivering reliable inspection reports that contribute to the safety, reliability, and compliance of the industries and communities we serve.
+                            </p>
+                            
+                            <!-- Vision Points -->
+                            <div class="mt-8 space-y-3">
+                                <div class="flex items-center text-purple-300">
+                                    <i class="fas fa-star mr-3"></i>
+                                    <span>Regional Market Leader</span>
+                                </div>
+                                <div class="flex items-center text-purple-300">
+                                    <i class="fas fa-star mr-3"></i>
+                                    <span>Safety & Compliance Excellence</span>
+                                </div>
+                                <div class="flex items-center text-purple-300">
+                                    <i class="fas fa-star mr-3"></i>
+                                    <span>Community Impact Focus</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Bottom CTA -->
+            <div class="text-center mt-16 fade-in-up">
+                <div class="inline-flex items-center space-x-4 bg-white/10 backdrop-blur-sm px-8 py-4 rounded-full border border-white/20">
+                    <span class="text-white font-semibold">Ready to experience excellence?</span>
+                    <a href="#contact" class="bg-gradient-to-r from-cyan-400 to-blue-500 text-white px-6 py-2 rounded-full hover:from-cyan-500 hover:to-blue-600 transition-all duration-300 font-semibold">
+                        Get Started
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="py-24 bg-gradient-to-br from-gray-50 to-blue-50 relative overflow-hidden">
+        <!-- Background Pattern -->
+        <div class="absolute inset-0 opacity-5">
+            <div class="absolute top-0 left-0 w-full h-full" style="background-image: radial-gradient(circle at 75% 25%, #3b82f6 2px, transparent 2px); background-size: 60px 60px;"></div>
+        </div>
+        
+        <div class="container mx-auto px-6 relative z-10">
+            <div class="text-center mb-20 fade-in-up">
+                <div class="inline-block px-4 py-2 bg-blue-100 text-blue-800 rounded-full text-sm font-semibold mb-4">
+                    What We Offer
+                </div>
+                <h2 class="text-4xl md:text-5xl font-bold gradient-text mb-4">Our Services</h2>
+                <div class="w-24 h-1 bg-gradient-to-r from-blue-600 to-cyan-600 mx-auto mb-6"></div>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                    Comprehensive marine inspection services designed to ensure safety, compliance, and operational excellence
+                </p>
+            </div>
+            
+            <!-- Service 1: Diving System Inspection -->
+            <div class="mb-24">
+                <div class="flex flex-col lg:flex-row items-center gap-16">
+                    <div class="lg:w-1/2 slide-in-left">
+                        <div class="relative group">
+                            <div class="absolute -inset-4 bg-gradient-to-r from-blue-600 to-cyan-600 rounded-3xl blur-2xl opacity-20 group-hover:opacity-30 transition-all duration-500"></div>
+                            <div class="relative bg-white p-4 rounded-3xl shadow-2xl">
+                                <img src="https://pilotconsultation2.files.wordpress.com/2023/12/depositphotos_330013364_xl-2.jpg" alt="Diving Inspection" class="rounded-2xl w-full h-auto object-cover">
+                                <div class="absolute inset-0 bg-gradient-to-t from-blue-900/20 to-transparent rounded-2xl"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="lg:w-1/2 slide-in-right">
+                        <div class="space-y-6">
+                            <div class="flex items-center space-x-4">
+                                <div class="w-12 h-12 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-xl flex items-center justify-center">
+                                    <i class="fas fa-water text-white text-xl"></i>
+                                </div>
+                                <div class="w-16 h-1 bg-gradient-to-r from-blue-500 to-cyan-500"></div>
+                            </div>
+                            <h3 class="text-3xl md:text-4xl font-bold text-gray-900 leading-tight">
+                                Commercial Surface Supplied Air Diving System Inspection
+                            </h3>
+                            <div class="space-y-4 text-gray-600 text-lg leading-relaxed">
+                                <p>
+                                    Our team of experienced and certified technicians provides comprehensive inspection services in accordance with IMCA standards.
+                                </p>
+                                <p>
+                                    This includes an inspection and function test of the equipment to ensure compliance with safety standards. Our qualified team can also assist vessel owners in obtaining class diving notation.
+                                </p>
+                            </div>
+                            
+                            <!-- Key Features -->
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-8">
+                                <div class="flex items-center space-x-3 bg-blue-50 p-4 rounded-xl">
+                                    <i class="fas fa-certificate text-blue-600"></i>
+                                    <span class="font-semibold text-gray-800">IMCA Certified</span>
+                                </div>
+                                <div class="flex items-center space-x-3 bg-green-50 p-4 rounded-xl">
+                                    <i class="fas fa-tools text-green-600"></i>
+                                    <span class="font-semibold text-gray-800">Function Testing</span>
+                                </div>
+                                <div class="flex items-center space-x-3 bg-purple-50 p-4 rounded-xl">
+                                    <i class="fas fa-shield-alt text-purple-600"></i>
+                                    <span class="font-semibold text-gray-800">Safety Compliance</span>
+                                </div>
+                                <div class="flex items-center space-x-3 bg-orange-50 p-4 rounded-xl">
+                                    <i class="fas fa-award text-orange-600"></i>
+                                    <span class="font-semibold text-gray-800">Class Notation</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Service 2: Marine Vessel Inspections -->
+            <div>
+                <div class="flex flex-col lg:flex-row items-center gap-16">
+                    <div class="lg:w-1/2 order-2 lg:order-1 slide-in-left">
+                        <div class="space-y-6">
+                            <div class="flex items-center space-x-4">
+                                <div class="w-12 h-12 bg-gradient-to-br from-green-500 to-emerald-500 rounded-xl flex items-center justify-center">
+                                    <i class="fas fa-ship text-white text-xl"></i>
+                                </div>
+                                <div class="w-16 h-1 bg-gradient-to-r from-green-500 to-emerald-500"></div>
+                            </div>
+                            <h3 class="text-3xl md:text-4xl font-bold text-gray-900 leading-tight">
+                                Marine Vessel Inspections
+                            </h3>
+                            <p class="text-gray-600 text-lg leading-relaxed">
+                                We conduct thorough assessments of marine vessels to evaluate their condition and suitability for operation. Our inspections cover various aspects of the vessel, including:
+                            </p>
+                            
+                            <!-- Inspection Types -->
+                            <div class="space-y-4">
+                                <div class="bg-white p-6 rounded-2xl shadow-lg border border-gray-100 hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
+                                    <div class="flex items-start space-x-4">
+                                        <div class="w-8 h-8 bg-blue-100 rounded-lg flex items-center justify-center flex-shrink-0 mt-1">
+                                            <i class="fas fa-eye text-blue-600"></i>
+                                        </div>
+                                        <div>
+                                            <h4 class="font-bold text-gray-900 mb-2">Supervision</h4>
+                                            <p class="text-gray-600">We supervise vessels during building, rebuild, and major repair activities.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="bg-white p-6 rounded-2xl shadow-lg border border-gray-100 hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
+                                    <div class="flex items-start space-x-4">
+                                        <div class="w-8 h-8 bg-green-100 rounded-lg flex items-center justify-center flex-shrink-0 mt-1">
+                                            <i class="fas fa-search text-green-600"></i>
+                                        </div>
+                                        <div>
+                                            <h4 class="font-bold text-gray-900 mb-2">Pre-Hire Inspection</h4>
+                                            <p class="text-gray-600">We assess the condition of the vessel before it is hired to ensure it meets the necessary standards.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="bg-white p-6 rounded-2xl shadow-lg border border-gray-100 hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
+                                    <div class="flex items-start space-x-4">
+                                        <div class="w-8 h-8 bg-purple-100 rounded-lg flex items-center justify-center flex-shrink-0 mt-1">
+                                            <i class="fas fa-clipboard-check text-purple-600"></i>
+                                        </div>
+                                        <div>
+                                            <h4 class="font-bold text-gray-900 mb-2">General Condition & Bunker Survey</h4>
+                                            <p class="text-gray-600">Comprehensive vessel condition checks and bunker fuel quality/quantity inspections.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="bg-white p-6 rounded-2xl shadow-lg border border-gray-100 hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
+                                    <div class="flex items-start space-x-4">
+                                        <div class="w-8 h-8 bg-orange-100 rounded-lg flex items-center justify-center flex-shrink-0 mt-1">
+                                            <i class="fas fa-certificate text-orange-600"></i>
+                                        </div>
+                                        <div>
+                                            <h4 class="font-bold text-gray-900 mb-2">eCMID Inspection</h4>
+                                            <p class="text-gray-600">We provide eCMID inspection up to the IMCA marine division requirements.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="lg:w-1/2 order-1 lg:order-2 slide-in-right">
+                        <div class="relative group">
+                            <div class="absolute -inset-4 bg-gradient-to-r from-green-600 to-emerald-600 rounded-3xl blur-2xl opacity-20 group-hover:opacity-30 transition-all duration-500"></div>
+                            <div class="relative bg-white p-4 rounded-3xl shadow-2xl">
+                                <img src="https://pilotconsultation2.files.wordpress.com/2023/12/pexels-pixabay-54306.jpg" alt="Vessel Inspection" class="rounded-2xl w-full h-auto object-cover">
+                                <div class="absolute inset-0 bg-gradient-to-t from-green-900/20 to-transparent rounded-2xl"></div>
+                            </div>
+                            
+                            <!-- Floating Badge -->
+                            <div class="absolute -bottom-6 -right-6 bg-white p-6 rounded-2xl shadow-xl border border-green-100">
+                                <div class="text-center">
+                                    <div class="text-2xl font-bold text-green-600">eCMID</div>
+                                    <div class="text-sm text-gray-600">Certified</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Commitment Section -->
+    <section class="py-16 bg-blue-900 text-white">
+        <div class="container mx-auto px-4 text-center">
+            <h2 class="text-3xl font-bold mb-6">Our Commitment</h2>
+            <p class="max-w-3xl mx-auto text-lg">At Pilot Consultation and Marine Services, we are committed to providing high-quality services that meet the needs of our clients. We adhere to the highest standards of safety and professionalism in all our operations. Our team is dedicated to ensuring the success of your marine operations.</p>
+            <div class="mt-8">
+                <img src="https://pilotconsultation2.files.wordpress.com/2023/12/screenshot-2023-12-12-at-9.34.36e280afpm.jpeg" alt="ISO Certification" class="h-20 mx-auto">
+                <p class="mt-2">ISO 9001 : 2015 Certified</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Policies and Certificates Section -->
+    <section id="policies" class="py-24 bg-gradient-to-br from-slate-900 via-blue-900 to-indigo-900 relative overflow-hidden">
+        <!-- Animated Background -->
+        <div class="absolute inset-0">
+            <div class="absolute inset-0 bg-gradient-to-br from-blue-600/10 to-purple-600/10"></div>
+            <div class="absolute top-0 left-0 w-full h-full opacity-30">
+                <div class="absolute animate-pulse" style="top: 10%; left: 10%; width: 2px; height: 2px; background: #60a5fa; border-radius: 50%; box-shadow: 0 0 10px #60a5fa;"></div>
+                <div class="absolute animate-pulse" style="top: 20%; right: 15%; width: 3px; height: 3px; background: #a78bfa; border-radius: 50%; box-shadow: 0 0 15px #a78bfa; animation-delay: 1s;"></div>
+                <div class="absolute animate-pulse" style="bottom: 30%; left: 20%; width: 2px; height: 2px; background: #34d399; border-radius: 50%; box-shadow: 0 0 12px #34d399; animation-delay: 2s;"></div>
+                <div class="absolute animate-pulse" style="top: 60%; right: 25%; width: 2px; height: 2px; background: #fbbf24; border-radius: 50%; box-shadow: 0 0 8px #fbbf24; animation-delay: 3s;"></div>
+            </div>
+        </div>
+        
+        <div class="container mx-auto px-6 relative z-10">
+            <div class="text-center mb-20 fade-in-up">
+                <div class="inline-block px-6 py-3 bg-white/10 backdrop-blur-sm text-white rounded-full text-sm font-semibold mb-6 border border-white/20">
+                    <i class="fas fa-certificate mr-2"></i>
+                    Certifications & Compliance
+                </div>
+                <h2 class="text-5xl md:text-6xl font-bold text-white mb-6">
+                    Our <span class="bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">Credentials</span>
+                </h2>
+                <div class="w-32 h-1 bg-gradient-to-r from-blue-400 to-purple-400 mx-auto mb-8"></div>
+                <p class="text-xl text-blue-100 max-w-3xl mx-auto leading-relaxed">
+                    Industry-leading certifications that demonstrate our commitment to excellence and compliance
+                </p>
+            </div>
+
+            <!-- Enhanced Certificate Grid -->
+            <div class="max-w-7xl mx-auto">
+                <!-- Top Row: 2 Certificates -->
+                <div class="flex justify-center mb-12 scale-in">
+                    <div class="flex gap-12">
+                        <!-- Certificate 1 -->
+                        <div class="certificate-card group relative" onclick="openModal('cert1')">
+                            <div class="w-80 h-96 bg-white/95 backdrop-blur-sm rounded-3xl shadow-2xl overflow-hidden cursor-pointer transform transition-all duration-700 group-hover:scale-110 group-hover:rotate-2 group-hover:shadow-blue-500/25 hover:shadow-3xl border border-white/20">
+                                <div class="h-full bg-gradient-to-br from-blue-50 via-white to-blue-50 flex flex-col items-center justify-center p-8 relative">
+                                    <!-- Floating Action Button -->
+                                    <div class="absolute top-6 right-6 w-12 h-12 bg-gradient-to-br from-blue-500 to-blue-600 rounded-full flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300">
+                                        <i class="fas fa-expand-alt text-white text-sm"></i>
+                                    </div>
+                                    
+                                    <!-- Icon Container -->
+                                    <div class="w-24 h-24 bg-gradient-to-br from-blue-100 to-blue-200 rounded-2xl flex items-center justify-center mb-6 group-hover:from-blue-200 group-hover:to-blue-300 transition-all duration-500 shadow-lg">
+                                        <i class="fas fa-certificate text-4xl text-blue-600"></i>
+                                    </div>
+                                    
+                                    <h3 class="text-xl font-bold text-gray-900 text-center mb-3">eCMID AVI</h3>
+                                    <p class="text-sm text-gray-600 text-center mb-6 font-medium">Accredited Vessel Inspector</p>
+                                    
+                                    <!-- Certificate Preview -->
+                                    <div class="w-full h-48 bg-gradient-to-br from-gray-50 to-gray-100 rounded-2xl overflow-hidden shadow-inner border border-gray-200">
+                                        <img src="assets/1.png" alt="eCMID Accredited Vessel Inspector Certificate" class="w-full h-full object-contain p-2">
+                                    </div>
+                                    
+                                    <!-- Validity Badge -->
+                                    <div class="absolute bottom-4 left-4 px-3 py-1 bg-green-100 text-green-800 rounded-full text-xs font-semibold">
+                                        Valid 2027
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Certificate 2 -->
+                        <div class="certificate-card group relative" onclick="openModal('cert2')">
+                            <div class="w-80 h-96 bg-white/95 backdrop-blur-sm rounded-3xl shadow-2xl overflow-hidden cursor-pointer transform transition-all duration-700 group-hover:scale-110 group-hover:-rotate-2 group-hover:shadow-green-500/25 hover:shadow-3xl border border-white/20">
+                                <div class="h-full bg-gradient-to-br from-green-50 via-white to-green-50 flex flex-col items-center justify-center p-8 relative">
+                                    <div class="absolute top-6 right-6 w-12 h-12 bg-gradient-to-br from-green-500 to-green-600 rounded-full flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300">
+                                        <i class="fas fa-expand-alt text-white text-sm"></i>
+                                    </div>
+                                    
+                                    <div class="w-24 h-24 bg-gradient-to-br from-green-100 to-green-200 rounded-2xl flex items-center justify-center mb-6 group-hover:from-green-200 group-hover:to-green-300 transition-all duration-500 shadow-lg">
+                                        <i class="fas fa-shield-alt text-4xl text-green-600"></i>
+                                    </div>
+                                    
+                                    <h3 class="text-xl font-bold text-gray-900 text-center mb-3">IIMS Membership</h3>
+                                    <p class="text-sm text-gray-600 text-center mb-6 font-medium">Associate Member Certificate</p>
+                                    
+                                    <div class="w-full h-48 bg-gradient-to-br from-gray-50 to-gray-100 rounded-2xl overflow-hidden shadow-inner border border-gray-200">
+                                        <img src="assets/2.png" alt="IIMS Associate Member Certificate" class="w-full h-full object-contain p-2">
+                                    </div>
+                                    
+                                    <div class="absolute bottom-4 left-4 px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-xs font-semibold">
+                                        Active Member
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Center Certificate (Featured) -->
+                <div class="flex justify-center mb-12 scale-in" style="animation-delay: 0.2s;">
+                    <div class="certificate-card group relative" onclick="openModal('cert3')">
+                        <div class="w-96 h-[28rem] bg-white/95 backdrop-blur-sm rounded-3xl shadow-2xl overflow-hidden cursor-pointer transform transition-all duration-700 group-hover:scale-115 group-hover:shadow-yellow-500/30 hover:shadow-4xl border-2 border-yellow-200/50">
+                            <div class="h-full bg-gradient-to-br from-yellow-50 via-white to-amber-50 flex flex-col items-center justify-center p-10 relative">
+                                <!-- Premium Badge -->
+                                <div class="absolute top-6 right-6 w-14 h-14 bg-gradient-to-br from-yellow-400 to-amber-500 rounded-full flex items-center justify-center shadow-xl group-hover:scale-110 transition-transform duration-300">
+                                    <i class="fas fa-star text-white text-lg"></i>
+                                </div>
+                                
+                                <!-- Featured Icon -->
+                                <div class="w-28 h-28 bg-gradient-to-br from-yellow-100 to-amber-200 rounded-3xl flex items-center justify-center mb-8 group-hover:from-yellow-200 group-hover:to-amber-300 transition-all duration-500 shadow-xl">
+                                    <i class="fas fa-award text-5xl text-yellow-600"></i>
+                                </div>
+                                
+                                <h3 class="text-2xl font-bold text-gray-900 text-center mb-4">IMCA ADSI</h3>
+                                <p class="text-base text-gray-600 text-center mb-8 font-medium">Accredited Diving System Inspector</p>
+                                
+                                <div class="w-full h-56 bg-gradient-to-br from-gray-50 to-gray-100 rounded-2xl overflow-hidden shadow-inner border border-gray-200">
+                                    <img src="assets/3.png" alt="IMCA Accredited Diving System Inspector Certificate" class="w-full h-full object-contain p-3">
+                                </div>
+                                
+                                <div class="absolute bottom-6 left-6 px-4 py-2 bg-gradient-to-r from-yellow-100 to-amber-100 text-yellow-800 rounded-full text-sm font-bold border border-yellow-200">
+                                    <i class="fas fa-crown mr-1"></i>
+                                    Premium Certification
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Bottom Row: 2 Certificates -->
+                <div class="flex justify-center scale-in" style="animation-delay: 0.4s;">
+                    <div class="flex gap-12">
+                        <!-- Certificate 4 -->
+                        <div class="certificate-card group relative" onclick="openModal('cert4')">
+                            <div class="w-80 h-96 bg-white/95 backdrop-blur-sm rounded-3xl shadow-2xl overflow-hidden cursor-pointer transform transition-all duration-700 group-hover:scale-110 group-hover:rotate-2 group-hover:shadow-purple-500/25 hover:shadow-3xl border border-white/20">
+                                <div class="h-full bg-gradient-to-br from-purple-50 via-white to-purple-50 flex flex-col items-center justify-center p-8 relative">
+                                    <div class="absolute top-6 right-6 w-12 h-12 bg-gradient-to-br from-purple-500 to-purple-600 rounded-full flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300">
+                                        <i class="fas fa-expand-alt text-white text-sm"></i>
+                                    </div>
+                                    
+                                    <div class="w-24 h-24 bg-gradient-to-br from-purple-100 to-purple-200 rounded-2xl flex items-center justify-center mb-6 group-hover:from-purple-200 group-hover:to-purple-300 transition-all duration-500 shadow-lg">
+                                        <i class="fas fa-handshake text-4xl text-purple-600"></i>
+                                    </div>
+                                    
+                                    <h3 class="text-xl font-bold text-gray-900 text-center mb-3">ISO 9001:2015</h3>
+                                    <p class="text-sm text-gray-600 text-center mb-6 font-medium">Quality Management System</p>
+                                    
+                                    <div class="w-full h-48 bg-gradient-to-br from-gray-50 to-gray-100 rounded-2xl overflow-hidden shadow-inner border border-gray-200">
+                                        <img src="assets/4.png" alt="ISO 9001:2015 Quality Management System Certificate" class="w-full h-full object-contain p-2">
+                                    </div>
+                                    
+                                    <div class="absolute bottom-4 left-4 px-3 py-1 bg-purple-100 text-purple-800 rounded-full text-xs font-semibold">
+                                        ISO Certified
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Certificate 5 -->
+                        <div class="certificate-card group relative" onclick="openModal('cert5')">
+                            <div class="w-80 h-96 bg-white/95 backdrop-blur-sm rounded-3xl shadow-2xl overflow-hidden cursor-pointer transform transition-all duration-700 group-hover:scale-110 group-hover:-rotate-2 group-hover:shadow-red-500/25 hover:shadow-3xl border border-white/20">
+                                <div class="h-full bg-gradient-to-br from-red-50 via-white to-red-50 flex flex-col items-center justify-center p-8 relative">
+                                    <div class="absolute top-6 right-6 w-12 h-12 bg-gradient-to-br from-red-500 to-red-600 rounded-full flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300">
+                                        <i class="fas fa-expand-alt text-white text-sm"></i>
+                                    </div>
+                                    
+                                    <div class="w-24 h-24 bg-gradient-to-br from-red-100 to-red-200 rounded-2xl flex items-center justify-center mb-6 group-hover:from-red-200 group-hover:to-red-300 transition-all duration-500 shadow-lg">
+                                        <i class="fas fa-clipboard-check text-4xl text-red-600"></i>
+                                    </div>
+                                    
+                                    <h3 class="text-xl font-bold text-gray-900 text-center mb-3">QMS Policy</h3>
+                                    <p class="text-sm text-gray-600 text-center mb-6 font-medium">Quality Management System Policy</p>
+                                    
+                                    <div class="w-full h-48 bg-gradient-to-br from-gray-50 to-gray-100 rounded-2xl overflow-hidden shadow-inner border border-gray-200">
+                                        <img src="assets/5.png" alt="Quality Management System Policy Document" class="w-full h-full object-contain p-2">
+                                    </div>
+                                    
+                                    <div class="absolute bottom-4 left-4 px-3 py-1 bg-red-100 text-red-800 rounded-full text-xs font-semibold">
+                                        Policy Document
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Call to Action -->
+            <div class="text-center mt-20 fade-in-up">
+                <div class="inline-flex items-center space-x-4 bg-white/10 backdrop-blur-sm px-8 py-4 rounded-2xl border border-white/20">
+                    <div class="w-12 h-12 bg-gradient-to-br from-blue-400 to-purple-400 rounded-xl flex items-center justify-center">
+                        <i class="fas fa-download text-white text-xl"></i>
+                    </div>
+                    <div class="text-left">
+                        <p class="text-white font-semibold">Need Certificate Copies?</p>
+                        <p class="text-blue-200 text-sm">Contact us for official documentation</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-24 bg-gradient-to-br from-gray-50 via-white to-blue-50 relative overflow-hidden">
+        <!-- Background Pattern -->
+        <div class="absolute inset-0 opacity-5">
+            <div class="absolute inset-0" style="background-image: radial-gradient(circle at 25% 25%, #3b82f6 2px, transparent 2px), radial-gradient(circle at 75% 75%, #8b5cf6 2px, transparent 2px); background-size: 60px 60px;"></div>
+        </div>
+        
+        <div class="container mx-auto px-6 relative z-10">
+            <div class="text-center mb-20 fade-in-up">
+                <div class="inline-block px-6 py-3 bg-blue-100 text-blue-800 rounded-full text-sm font-semibold mb-6">
+                    <i class="fas fa-paper-plane mr-2"></i>
+                    Get In Touch
+                </div>
+                <h2 class="text-5xl md:text-6xl font-bold text-gray-900 mb-6">
+                    Let's <span class="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">Connect</span>
+                </h2>
+                <div class="w-32 h-1 bg-gradient-to-r from-blue-600 to-purple-600 mx-auto mb-8"></div>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
+                    Ready to navigate your business to success? Reach out to our expert team for professional marine consultation services.
+                </p>
+            </div>
+
+            <div class="max-w-7xl mx-auto">
+                <div class="grid lg:grid-cols-2 gap-16 items-start">
+                    <!-- Contact Information -->
+                    <div class="space-y-8 slide-in-left">
+                        <!-- Contact Card -->
+                        <div class="glass-card p-8 rounded-3xl">
+                            <div class="flex items-center mb-8">
+                                <div class="w-16 h-16 bg-gradient-to-br from-blue-500 to-blue-600 rounded-2xl flex items-center justify-center mr-4">
+                                    <i class="fas fa-handshake text-white text-2xl"></i>
+                                </div>
+                                <div>
+                                    <h3 class="text-2xl font-bold text-gray-900">Get in Touch</h3>
+                                    <p class="text-gray-600">We're here to help you succeed</p>
+                                </div>
+                            </div>
+                            
+                            <div class="space-y-6">
+                                <!-- Email -->
+                                <div class="flex items-start group">
+                                    <div class="w-12 h-12 bg-gradient-to-br from-blue-100 to-blue-200 rounded-xl flex items-center justify-center mr-4 group-hover:from-blue-200 group-hover:to-blue-300 transition-all duration-300">
+                                        <i class="fas fa-envelope text-blue-600 text-lg"></i>
+                                    </div>
+                                    <div class="flex-1">
+                                        <h4 class="font-bold text-gray-900 mb-2">Email Address</h4>
+                                        <a href="mailto:info@pilotconsultation.com" class="text-blue-600 hover:text-blue-700 transition-colors font-medium block">info@pilotconsultation.com</a>
+                                        <a href="mailto:S.abdallaa@pilotconsultation.com" class="text-blue-600 hover:text-blue-700 transition-colors font-medium block">S.abdallaa@pilotconsultation.com</a>
+                                    </div>
+                                </div>
+                                
+                                <!-- Phone -->
+                                <div class="flex items-start group">
+                                    <div class="w-12 h-12 bg-gradient-to-br from-green-100 to-green-200 rounded-xl flex items-center justify-center mr-4 group-hover:from-green-200 group-hover:to-green-300 transition-all duration-300">
+                                        <i class="fas fa-phone text-green-600 text-lg"></i>
+                                    </div>
+                                    <div class="flex-1">
+                                        <h4 class="font-bold text-gray-900 mb-2">Phone Number</h4>
+                                        <p class="text-gray-700 font-medium">+917(0)507014836</p>
+                                    </div>
+                                </div>
+                                
+                                <!-- Location -->
+                                <div class="flex items-start group">
+                                    <div class="w-12 h-12 bg-gradient-to-br from-purple-100 to-purple-200 rounded-xl flex items-center justify-center mr-4 group-hover:from-purple-200 group-hover:to-purple-300 transition-all duration-300">
+                                        <i class="fas fa-map-marker-alt text-purple-600 text-lg"></i>
+                                    </div>
+                                    <div class="flex-1">
+                                        <h4 class="font-bold text-gray-900 mb-2">Location</h4>
+                                        <p class="text-gray-700 font-medium">Abu Dhabi, UAE</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Quote Card -->
+                        <div class="glass-card p-8 rounded-3xl bg-gradient-to-br from-blue-50 to-purple-50">
+                            <div class="text-center">
+                                <div class="w-16 h-16 bg-gradient-to-br from-yellow-400 to-orange-500 rounded-2xl flex items-center justify-center mx-auto mb-6">
+                                    <i class="fas fa-quote-left text-white text-2xl"></i>
+                                </div>
+                                <blockquote class="text-xl font-medium text-gray-800 italic mb-4 leading-relaxed">
+                                    "Pilot Consultation Navigate your Business in Seas of Success."
+                                </blockquote>
+                                <div class="w-24 h-1 bg-gradient-to-r from-yellow-400 to-orange-500 mx-auto"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Contact Form -->
+                    <div class="slide-in-right">
+                        <div class="glass-card p-10 rounded-3xl">
+                            <div class="flex items-center mb-8">
+                                <div class="w-16 h-16 bg-gradient-to-br from-purple-500 to-purple-600 rounded-2xl flex items-center justify-center mr-4">
+                                    <i class="fas fa-paper-plane text-white text-2xl"></i>
+                                </div>
+                                <div>
+                                    <h3 class="text-2xl font-bold text-gray-900">Send Message</h3>
+                                    <p class="text-gray-600">Let's discuss your project</p>
+                                </div>
+                            </div>
+                            
+                            <form class="space-y-6">
+                                <div class="grid md:grid-cols-2 gap-6">
+                                    <div>
+                                        <label for="name" class="block text-sm font-semibold text-gray-700 mb-2">Full Name</label>
+                                        <input type="text" id="name" class="w-full px-4 py-3 bg-white border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300 hover:border-gray-300">
+                                    </div>
+                                    <div>
+                                        <label for="email" class="block text-sm font-semibold text-gray-700 mb-2">Email Address</label>
+                                        <input type="email" id="email" class="w-full px-4 py-3 bg-white border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300 hover:border-gray-300">
+                                    </div>
+                                </div>
+                                
+                                <div>
+                                    <label for="subject" class="block text-sm font-semibold text-gray-700 mb-2">Subject</label>
+                                    <input type="text" id="subject" class="w-full px-4 py-3 bg-white border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300 hover:border-gray-300">
+                                </div>
+                                
+                                <div>
+                                    <label for="message" class="block text-sm font-semibold text-gray-700 mb-2">Message</label>
+                                    <textarea id="message" rows="5" class="w-full px-4 py-3 bg-white border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300 hover:border-gray-300 resize-none"></textarea>
+                                </div>
+                                
+                                <button type="submit" class="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-bold py-4 px-8 rounded-xl transition-all duration-300 transform hover:scale-105 hover:shadow-xl flex items-center justify-center space-x-2">
+                                    <i class="fas fa-paper-plane"></i>
+                                    <span>Send Message</span>
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Certificate Modal -->
+    <div id="certificateModal" class="modal">
+        <span class="close" onclick="closeModal()">&times;</span>
+        <img class="modal-content" id="modalImage">
+        <div class="modal-caption" id="modalCaption"></div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-gradient-to-br from-gray-900 via-blue-900 to-purple-900 text-white py-20 relative overflow-hidden">
+        <!-- Background Pattern -->
+        <div class="absolute inset-0 opacity-10">
+            <div class="absolute inset-0" style="background-image: radial-gradient(circle at 20% 80%, #3b82f6 1px, transparent 1px), radial-gradient(circle at 80% 20%, #8b5cf6 1px, transparent 1px), radial-gradient(circle at 40% 40%, #06b6d4 1px, transparent 1px); background-size: 50px 50px;"></div>
+        </div>
+        
+        <div class="container mx-auto px-6 relative z-10">
+            <div class="max-w-6xl mx-auto">
+                <!-- Main Footer Content -->
+                <div class="grid lg:grid-cols-3 gap-12 mb-16">
+                    <!-- Company Info -->
+                    <div class="lg:col-span-1 fade-in-up">
+                        <div class="flex items-center mb-6">
+                            <div class="w-14 h-14 bg-gradient-to-br from-blue-500 to-purple-600 rounded-2xl flex items-center justify-center mr-4 p-2">
+                                <img src="https://pilotconsultation.com/wp-content/uploads/2023/12/screenshot-2023-12-12-143546.png" alt="Pilot Consultation Logo" class="h-full w-full object-contain">
+                            </div>
+                            <div>
+                                <span class="text-xl font-bold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">Pilot Consultation</span>
+                                <p class="text-sm text-gray-300">Marine Services</p>
+                            </div>
+                        </div>
+                        <p class="text-gray-300 text-lg leading-relaxed mb-8">
+                            Navigate your Business in Seas of Success. Professional marine consultation services with ISO 9001 certification and IMCA compliance.
+                        </p>
+                        
+                        <!-- Social Links -->
+                        <div class="flex space-x-4">
+                            <a href="#" class="w-12 h-12 bg-gradient-to-br from-blue-600 to-blue-700 rounded-xl flex items-center justify-center hover:from-blue-500 hover:to-blue-600 transition-all duration-300 transform hover:scale-110 hover:shadow-lg">
+                                <i class="fab fa-linkedin-in text-white text-lg"></i>
+                            </a>
+                            <a href="#" class="w-12 h-12 bg-gradient-to-br from-blue-500 to-cyan-600 rounded-xl flex items-center justify-center hover:from-blue-400 hover:to-cyan-500 transition-all duration-300 transform hover:scale-110 hover:shadow-lg">
+                                <i class="fab fa-twitter text-white text-lg"></i>
+                            </a>
+                            <a href="#" class="w-12 h-12 bg-gradient-to-br from-blue-600 to-purple-600 rounded-xl flex items-center justify-center hover:from-blue-500 hover:to-purple-500 transition-all duration-300 transform hover:scale-110 hover:shadow-lg">
+                                <i class="fab fa-facebook-f text-white text-lg"></i>
+                            </a>
+                            <a href="#" class="w-12 h-12 bg-gradient-to-br from-red-500 to-pink-600 rounded-xl flex items-center justify-center hover:from-red-400 hover:to-pink-500 transition-all duration-300 transform hover:scale-110 hover:shadow-lg">
+                                <i class="fab fa-instagram text-white text-lg"></i>
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <!-- Quick Links -->
+                    <div class="fade-in-up" style="animation-delay: 0.2s;">
+                        <h3 class="text-xl font-bold mb-6 text-white">Quick Links</h3>
+                        <ul class="space-y-4">
+                            <li><a href="#home" class="text-gray-300 hover:text-white transition-colors duration-300 flex items-center group">
+                                <i class="fas fa-chevron-right text-blue-400 mr-2 transform group-hover:translate-x-1 transition-transform duration-300"></i>
+                                Home
+                            </a></li>
+                            <li><a href="#overview" class="text-gray-300 hover:text-white transition-colors duration-300 flex items-center group">
+                                <i class="fas fa-chevron-right text-blue-400 mr-2 transform group-hover:translate-x-1 transition-transform duration-300"></i>
+                                About Us
+                            </a></li>
+                            <li><a href="#services" class="text-gray-300 hover:text-white transition-colors duration-300 flex items-center group">
+                                <i class="fas fa-chevron-right text-blue-400 mr-2 transform group-hover:translate-x-1 transition-transform duration-300"></i>
+                                Services
+                            </a></li>
+                            <li><a href="#certificates" class="text-gray-300 hover:text-white transition-colors duration-300 flex items-center group">
+                                <i class="fas fa-chevron-right text-blue-400 mr-2 transform group-hover:translate-x-1 transition-transform duration-300"></i>
+                                Certificates
+                            </a></li>
+                            <li><a href="#contact" class="text-gray-300 hover:text-white transition-colors duration-300 flex items-center group">
+                                <i class="fas fa-chevron-right text-blue-400 mr-2 transform group-hover:translate-x-1 transition-transform duration-300"></i>
+                                Contact
+                            </a></li>
+                        </ul>
+                    </div>
+                    
+                    <!-- Contact Info -->
+                    <div class="fade-in-up" style="animation-delay: 0.4s;">
+                        <h3 class="text-xl font-bold mb-6 text-white">Contact Info</h3>
+                        <div class="space-y-4">
+                            <div class="flex items-start group">
+                                <div class="w-10 h-10 bg-gradient-to-br from-blue-500 to-blue-600 rounded-lg flex items-center justify-center mr-3 mt-1">
+                                    <i class="fas fa-envelope text-white text-sm"></i>
+                                </div>
+                                <div>
+                                    <p class="text-gray-300 text-sm mb-1">Email</p>
+                                    <a href="mailto:info@pilotconsultation.com" class="text-white hover:text-blue-400 transition-colors duration-300">info@pilotconsultation.com</a>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-start group">
+                                <div class="w-10 h-10 bg-gradient-to-br from-green-500 to-green-600 rounded-lg flex items-center justify-center mr-3 mt-1">
+                                    <i class="fas fa-phone text-white text-sm"></i>
+                                </div>
+                                <div>
+                                    <p class="text-gray-300 text-sm mb-1">Phone</p>
+                                    <p class="text-white">+917(0)507014836</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-start group">
+                                <div class="w-10 h-10 bg-gradient-to-br from-purple-500 to-purple-600 rounded-lg flex items-center justify-center mr-3 mt-1">
+                                    <i class="fas fa-map-marker-alt text-white text-sm"></i>
+                                </div>
+                                <div>
+                                    <p class="text-gray-300 text-sm mb-1">Location</p>
+                                    <p class="text-white">Abu Dhabi, UAE</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Bottom Footer -->
+                <div class="border-t border-gray-700 pt-8">
+                    <div class="flex flex-col md:flex-row justify-between items-center">
+                        <div class="mb-4 md:mb-0">
+                            <p class="text-gray-400 text-center md:text-left">
+                                &copy; 2024 Pilot Consultation and Marine Services. All rights reserved.
+                            </p>
+                        </div>
+                        <div class="flex items-center space-x-6">
+                            <a href="#" class="text-gray-400 hover:text-white transition-colors duration-300 text-sm">Privacy Policy</a>
+                            <a href="#" class="text-gray-400 hover:text-white transition-colors duration-300 text-sm">Terms of Service</a>
+                            <div class="flex items-center text-gray-400 text-sm">
+                                <i class="fas fa-heart text-red-500 mx-1"></i>
+                                Made with passion
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        document.getElementById('menu-toggle').addEventListener('click', function() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        });
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                    
+                    // Close mobile menu if open
+                    const mobileMenu = document.getElementById('mobile-menu');
+                    if (!mobileMenu.classList.contains('hidden')) {
+                        mobileMenu.classList.add('hidden');
+                    }
+                }
+            });
+        });
+
+        // Scroll animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observe all animated elements
+        document.addEventListener('DOMContentLoaded', () => {
+            const animatedElements = document.querySelectorAll('.fade-in-up, .slide-in-left, .slide-in-right, .scale-in');
+            animatedElements.forEach(el => {
+                el.style.opacity = '0';
+                el.style.transform = el.classList.contains('slide-in-left') ? 'translateX(-50px)' : 
+                                   el.classList.contains('slide-in-right') ? 'translateX(50px)' : 
+                                   el.classList.contains('scale-in') ? 'scale(0.8)' : 'translateY(30px)';
+                el.style.transition = 'all 0.8s cubic-bezier(0.4, 0, 0.2, 1)';
+                observer.observe(el);
+            });
+
+            // Navbar scroll effect
+            window.addEventListener('scroll', () => {
+                const navbar = document.querySelector('nav');
+                if (window.scrollY > 100) {
+                    navbar.classList.add('nav-blur');
+                } else {
+                    navbar.classList.remove('nav-blur');
+                }
+            });
+
+            // Typing animation for hero text
+            const typingText = document.querySelector('.typing-animation');
+            if (typingText) {
+                const text = typingText.textContent;
+                typingText.textContent = '';
+                let i = 0;
+                const typeWriter = () => {
+                    if (i < text.length) {
+                        typingText.textContent += text.charAt(i);
+                        i++;
+                        setTimeout(typeWriter, 100);
+                    }
+                };
+                setTimeout(typeWriter, 1000);
+            }
+        });
+
+        // Certificate Modal Functions
+        function openModal(certId) {
+            const modal = document.getElementById('certificateModal');
+            const modalImg = document.getElementById('modalImage');
+            const modalCaption = document.getElementById('modalCaption');
+            
+            // Actual certificate images
+            const certificates = {
+                 'cert1': {
+                     src: 'assets/1.png',
+                     caption: 'eCMID Accredited Vessel Inspector (AVI) - Valid until October 2027'
+                 },
+                 'cert2': {
+                     src: 'assets/2.png',
+                     caption: 'International Institute of Marine Surveying - Associate Member Certificate'
+                 },
+                 'cert3': {
+                     src: 'assets/3.png',
+                     caption: 'IMCA Accredited Diving System Inspector - Surface Oriented Systems'
+                 },
+                 'cert4': {
+                     src: 'assets/4.png',
+                     caption: 'ISO 9001:2015 Quality Management System - Valid until October 2026'
+                 },
+                 'cert5': {
+                     src: 'assets/5.png',
+                     caption: 'Quality Management System Policy - Pilot Consultations and Marine Services'
+                 }
+             };
+            
+            const cert = certificates[certId];
+             if (cert) {
+                 modalImg.src = cert.src;
+                 modalCaption.textContent = cert.caption;
+                 modal.style.display = 'flex';
+                 document.body.style.overflow = 'hidden';
+             }
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('certificateModal');
+            modal.style.display = 'none';
+        }
+
+        // Close modal when clicking outside the image
+        window.onclick = function(event) {
+            const modal = document.getElementById('certificateModal');
+            if (event.target == modal) {
+                modal.style.display = 'none';
+            }
+        }
+
+        // Close modal with Escape key
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                closeModal();
+            }
+        });
+    </script>
+</body>
+</html>
