@@ -263,6 +263,33 @@
             padding: 10px 0;
             height: 150px;
         }
+        
+        /* Mobile certificate optimization */
+        @media (max-width: 640px) {
+            .certificate-card {
+                margin: 0 auto;
+                max-width: 280px;
+            }
+            
+            .certificate-card .w-72 {
+                width: 280px !important;
+                height: 350px !important;
+            }
+            
+            .certificate-card .p-8 {
+                padding: 1.5rem !important;
+            }
+            
+            .certificate-card .h-48 {
+                height: 180px !important;
+            }
+            
+            /* Ensure proper spacing on mobile */
+            .flex.flex-wrap.justify-center {
+                gap: 1rem !important;
+                padding: 0 1rem;
+            }
+        }
     </style>
 </head>
 <body class="font-sans text-gray-800">
@@ -799,10 +826,10 @@
             <div class="max-w-7xl mx-auto">
                 <!-- Top Row: 3 Certificates -->
                 <div class="flex justify-center mb-12 scale-in">
-                    <div class="flex gap-8">
+                    <div class="flex flex-wrap justify-center gap-8 max-w-6xl">
                         <!-- Certificate 1 -->
                         <div class="certificate-card group relative" onclick="openModal('cert1')">
-                            <div class="w-72 h-88 bg-white/95 backdrop-blur-sm rounded-3xl shadow-2xl overflow-hidden cursor-pointer transform transition-all duration-700 group-hover:scale-110 group-hover:rotate-2 group-hover:shadow-blue-500/25 hover:shadow-3xl border border-white/20">
+                            <div class="w-72 h-88 sm:w-80 sm:h-96 bg-white/95 backdrop-blur-sm rounded-3xl shadow-2xl overflow-hidden cursor-pointer transform transition-all duration-700 group-hover:scale-110 group-hover:rotate-2 group-hover:shadow-blue-500/25 hover:shadow-3xl border border-white/20">
                                 <div class="h-full bg-gradient-to-br from-blue-50 via-white to-blue-50 flex flex-col items-center justify-center p-6 relative">
                                     <!-- Floating Action Button -->
                                     <div class="absolute top-4 right-4 w-10 h-10 bg-gradient-to-br from-blue-500 to-blue-600 rounded-full flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300">
@@ -832,7 +859,7 @@
 
                         <!-- Certificate 2 -->
                         <div class="certificate-card group relative" onclick="openModal('cert2')">
-                            <div class="w-72 h-88 bg-white/95 backdrop-blur-sm rounded-3xl shadow-2xl overflow-hidden cursor-pointer transform transition-all duration-700 group-hover:scale-110 group-hover:-rotate-2 group-hover:shadow-green-500/25 hover:shadow-3xl border border-white/20">
+                            <div class="w-72 h-88 sm:w-80 sm:h-96 bg-white/95 backdrop-blur-sm rounded-3xl shadow-2xl overflow-hidden cursor-pointer transform transition-all duration-700 group-hover:scale-110 group-hover:-rotate-2 group-hover:shadow-green-500/25 hover:shadow-3xl border border-white/20">
                                 <div class="h-full bg-gradient-to-br from-green-50 via-white to-green-50 flex flex-col items-center justify-center p-6 relative">
                                     <div class="absolute top-4 right-4 w-10 h-10 bg-gradient-to-br from-green-500 to-green-600 rounded-full flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300">
                                         <i class="fas fa-expand-alt text-white text-xs"></i>
@@ -858,7 +885,7 @@
 
                         <!-- Certificate 3 -->
                         <div class="certificate-card group relative" onclick="openModal('cert3')">
-                            <div class="w-72 h-88 bg-white/95 backdrop-blur-sm rounded-3xl shadow-2xl overflow-hidden cursor-pointer transform transition-all duration-700 group-hover:scale-110 group-hover:rotate-2 group-hover:shadow-yellow-500/25 hover:shadow-3xl border border-white/20">
+                            <div class="w-72 h-88 sm:w-80 sm:h-96 bg-white/95 backdrop-blur-sm rounded-3xl shadow-2xl overflow-hidden cursor-pointer transform transition-all duration-700 group-hover:scale-110 group-hover:rotate-2 group-hover:shadow-yellow-500/25 hover:shadow-3xl border border-white/20">
                                 <div class="h-full bg-gradient-to-br from-yellow-50 via-white to-amber-50 flex flex-col items-center justify-center p-6 relative">
                                     <div class="absolute top-4 right-4 w-10 h-10 bg-gradient-to-br from-yellow-500 to-amber-600 rounded-full flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300">
                                         <i class="fas fa-expand-alt text-white text-xs"></i>
@@ -886,10 +913,10 @@
 
                 <!-- Middle Row: 2 Certificates -->
                 <div class="flex justify-center mb-12 scale-in" style="animation-delay: 0.2s;">
-                    <div class="flex gap-12">
+                    <div class="flex flex-wrap justify-center gap-8 max-w-4xl">
                         <!-- Certificate 4 -->
                         <div class="certificate-card group relative" onclick="openModal('cert4')">
-                            <div class="w-80 h-96 bg-white/95 backdrop-blur-sm rounded-3xl shadow-2xl overflow-hidden cursor-pointer transform transition-all duration-700 group-hover:scale-110 group-hover:rotate-2 group-hover:shadow-purple-500/25 hover:shadow-3xl border border-white/20">
+                            <div class="w-72 h-88 sm:w-80 sm:h-96 bg-white/95 backdrop-blur-sm rounded-3xl shadow-2xl overflow-hidden cursor-pointer transform transition-all duration-700 group-hover:scale-110 group-hover:rotate-2 group-hover:shadow-purple-500/25 hover:shadow-3xl border border-white/20">
                                 <div class="h-full bg-gradient-to-br from-purple-50 via-white to-purple-50 flex flex-col items-center justify-center p-8 relative">
                                     <div class="absolute top-6 right-6 w-12 h-12 bg-gradient-to-br from-purple-500 to-purple-600 rounded-full flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300">
                                         <i class="fas fa-expand-alt text-white text-sm"></i>
@@ -915,7 +942,7 @@
 
                         <!-- Certificate 5 -->
                         <div class="certificate-card group relative" onclick="openModal('cert5')">
-                            <div class="w-80 h-96 bg-white/95 backdrop-blur-sm rounded-3xl shadow-2xl overflow-hidden cursor-pointer transform transition-all duration-700 group-hover:scale-110 group-hover:-rotate-2 group-hover:shadow-red-500/25 hover:shadow-3xl border border-white/20">
+                            <div class="w-72 h-88 sm:w-80 sm:h-96 bg-white/95 backdrop-blur-sm rounded-3xl shadow-2xl overflow-hidden cursor-pointer transform transition-all duration-700 group-hover:scale-110 group-hover:-rotate-2 group-hover:shadow-red-500/25 hover:shadow-3xl border border-white/20">
                                 <div class="h-full bg-gradient-to-br from-red-50 via-white to-red-50 flex flex-col items-center justify-center p-8 relative">
                                     <div class="absolute top-6 right-6 w-12 h-12 bg-gradient-to-br from-red-500 to-red-600 rounded-full flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300">
                                         <i class="fas fa-expand-alt text-white text-sm"></i>
@@ -943,10 +970,10 @@
 
                 <!-- Bottom Row: 2 Certificates -->
                 <div class="flex justify-center scale-in" style="animation-delay: 0.4s;">
-                    <div class="flex gap-12">
+                    <div class="flex flex-wrap justify-center gap-8 max-w-4xl">
                         <!-- Certificate 6 -->
                         <div class="certificate-card group relative" onclick="openModal('cert6')">
-                            <div class="w-80 h-96 bg-white/95 backdrop-blur-sm rounded-3xl shadow-2xl overflow-hidden cursor-pointer transform transition-all duration-700 group-hover:scale-110 group-hover:rotate-2 group-hover:shadow-emerald-500/25 hover:shadow-3xl border border-white/20">
+                            <div class="w-72 h-88 sm:w-80 sm:h-96 bg-white/95 backdrop-blur-sm rounded-3xl shadow-2xl overflow-hidden cursor-pointer transform transition-all duration-700 group-hover:scale-110 group-hover:rotate-2 group-hover:shadow-emerald-500/25 hover:shadow-3xl border border-white/20">
                                 <div class="h-full bg-gradient-to-br from-emerald-50 via-white to-emerald-50 flex flex-col items-center justify-center p-8 relative">
                                     <div class="absolute top-6 right-6 w-12 h-12 bg-gradient-to-br from-emerald-500 to-emerald-600 rounded-full flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300">
                                         <i class="fas fa-expand-alt text-white text-sm"></i>
@@ -972,7 +999,7 @@
 
                         <!-- Certificate 7 -->
                         <div class="certificate-card group relative" onclick="openModal('cert7')">
-                            <div class="w-80 h-96 bg-white/95 backdrop-blur-sm rounded-3xl shadow-2xl overflow-hidden cursor-pointer transform transition-all duration-700 group-hover:scale-110 group-hover:-rotate-2 group-hover:shadow-orange-500/25 hover:shadow-3xl border border-white/20">
+                            <div class="w-72 h-88 sm:w-80 sm:h-96 bg-white/95 backdrop-blur-sm rounded-3xl shadow-2xl overflow-hidden cursor-pointer transform transition-all duration-700 group-hover:scale-110 group-hover:-rotate-2 group-hover:shadow-orange-500/25 hover:shadow-3xl border border-white/20">
                                 <div class="h-full bg-gradient-to-br from-orange-50 via-white to-orange-50 flex flex-col items-center justify-center p-8 relative">
                                     <div class="absolute top-6 right-6 w-12 h-12 bg-gradient-to-br from-orange-500 to-orange-600 rounded-full flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300">
                                         <i class="fas fa-expand-alt text-white text-sm"></i>
