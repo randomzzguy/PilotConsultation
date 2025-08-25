@@ -7,7 +7,8 @@ This guide will help you set up the contact form integration with Google Sheets 
 1. Go to [Google Sheets](https://sheets.google.com)
 2. Create a new spreadsheet
 3. Name it "Contact Form Submissions" (or any name you prefer)
-4. Copy the spreadsheet ID from the URL:
+4. **Important**: Note the name of your sheet tab (usually "Sheet1" for new sheets)
+5. Copy the spreadsheet ID from the URL:
    - URL format: `https://docs.google.com/spreadsheets/d/SPREADSHEET_ID/edit`
    - Copy the `SPREADSHEET_ID` part
 
@@ -113,6 +114,24 @@ If you see this error: `Access to fetch at 'https://script.google.com/...' has b
    - Update the URL in your `index.html`
 
 **Why this works**: When you set access to "Anyone", Google automatically handles CORS headers for the Web App.
+
+### Sheet Name Errors
+If you get errors about the sheet not being found:
+
+**Problem**: The `SHEET_NAME` in your script doesn't match the actual tab name in your Google Sheet.
+
+**Solution**:
+1. **Check your Google Sheet tab name** (bottom of the sheet, usually "Sheet1")
+2. **Update the script**:
+   ```javascript
+   const SHEET_NAME = 'Sheet1'; // Use your actual tab name
+   ```
+3. **Redeploy** the Web App after making changes
+
+**Common tab names**:
+- New sheets: "Sheet1"
+- Renamed sheets: Whatever you named it
+- Multiple tabs: Make sure you're using the correct one
 
 ### Common Issues:
 

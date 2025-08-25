@@ -3,7 +3,7 @@
 
 // Configuration
 const SPREADSHEET_ID = 'YOUR_SPREADSHEET_ID_HERE'; // Replace with your Google Sheets ID
-const SHEET_NAME = 'Contact Submissions'; // Name of the sheet tab
+const SHEET_NAME = 'Sheet1'; // Name of the sheet tab (use the actual tab name in your Google Sheet)
 const COMPANY_EMAIL = 'info@pilotconsultation.com';
 
 // Main function to handle POST requests
