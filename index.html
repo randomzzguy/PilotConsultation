@@ -1555,158 +1555,119 @@
             }
         });
 
-        // Contact Form Functionality
-        const contactForm = document.getElementById('contactForm');
-        const submitBtn = document.getElementById('submitBtn');
-        const submitText = document.getElementById('submitText');
+        /// Contact Form Functionality
+const contactForm = document.getElementById('contactForm');
+const submitBtn = document.getElementById('submitBtn');
+const submitText = document.getElementById('submitText');
 
-        // Google Apps Script Web App URL (you'll need to replace this with your actual URL)
-        const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbznnc13iDURatAdm0hddK3DXbnZ3TlRkPdQ3vptkMFOqqy2fiCnV3noA0O6cbY9j69_kQ/exec';
+// Google Apps Script Web App URL (replace with your deployed script URL)
+const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbw4yebwJSh6vIPs9MNYw3e2LlugtjHd2J1PMjYsEHEdGLBjvOB3Qo0MIoyuNBuAI3d1OA/exec';
 
-        // Email validation function
-        function isValidEmail(email) {
-            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            return emailRegex.test(email);
-        }
+// Email validation function
+function isValidEmail(email) {
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  return emailRegex.test(email);
+}
 
-        // Show notification function
-        function showNotification(message, type = 'success') {
-            // Remove existing notifications
-            const existingNotification = document.querySelector('.notification');
-            if (existingNotification) {
-                existingNotification.remove();
-            }
+// Show notification function
+function showNotification(message, type = 'success') {
+  const existingNotification = document.querySelector('.notification');
+  if (existingNotification) existingNotification.remove();
 
-            // Create notification element
-            const notification = document.createElement('div');
-            notification.className = `notification fixed top-4 right-4 z-50 p-4 rounded-xl shadow-lg transform transition-all duration-300 translate-x-full`;
-            
-            if (type === 'success') {
-                notification.classList.add('bg-gradient-to-r', 'from-green-500', 'to-green-600', 'text-white');
-                notification.innerHTML = `
-                    <div class="flex items-center space-x-3">
-                        <i class="fas fa-check-circle text-xl"></i>
-                        <div>
-                            <p class="font-semibold">Success!</p>
-                            <p class="text-sm">${message}</p>
-                        </div>
-                    </div>
-                `;
-            } else {
-                notification.classList.add('bg-gradient-to-r', 'from-red-500', 'to-red-600', 'text-white');
-                notification.innerHTML = `
-                    <div class="flex items-center space-x-3">
-                        <i class="fas fa-exclamation-circle text-xl"></i>
-                        <div>
-                            <p class="font-semibold">Error!</p>
-                            <p class="text-sm">${message}</p>
-                        </div>
-                    </div>
-                `;
-            }
+  const notification = document.createElement('div');
+  notification.className = `notification fixed top-4 right-4 z-50 p-4 rounded-xl shadow-lg transform transition-all duration-300 translate-x-full`;
+  
+  if (type === 'success') {
+    notification.classList.add('bg-gradient-to-r', 'from-green-500', 'to-green-600', 'text-white');
+    notification.innerHTML = `
+      <div class="flex items-center space-x-3">
+        <i class="fas fa-check-circle text-xl"></i>
+        <div>
+          <p class="font-semibold">Success!</p>
+          <p class="text-sm">${message}</p>
+        </div>
+      </div>
+    `;
+  } else {
+    notification.classList.add('bg-gradient-to-r', 'from-red-500', 'to-red-600', 'text-white');
+    notification.innerHTML = `
+      <div class="flex items-center space-x-3">
+        <i class="fas fa-exclamation-circle text-xl"></i>
+        <div>
+          <p class="font-semibold">Error!</p>
+          <p class="text-sm">${message}</p>
+        </div>
+      </div>
+    `;
+  }
 
-            document.body.appendChild(notification);
+  document.body.appendChild(notification);
 
-            // Animate in
-            setTimeout(() => {
-                notification.classList.remove('translate-x-full');
-            }, 100);
+  setTimeout(() => notification.classList.remove('translate-x-full'), 100);
+  setTimeout(() => {
+    notification.classList.add('translate-x-full');
+    setTimeout(() => notification.remove(), 300);
+  }, 5000);
+}
 
-            // Auto remove after 5 seconds
-            setTimeout(() => {
-                notification.classList.add('translate-x-full');
-                setTimeout(() => {
-                    if (notification.parentNode) {
-                        notification.remove();
-                    }
-                }, 300);
-            }, 5000);
-        }
+// Form submission handler
+contactForm.addEventListener('submit', async function(e) {
+  e.preventDefault();
 
-        // Form submission handler
-        contactForm.addEventListener('submit', async function(e) {
-            e.preventDefault();
+  const name = document.getElementById('name').value.trim();
+  const email = document.getElementById('email').value.trim();
+  const subject = document.getElementById('subject').value.trim();
+  const message = document.getElementById('message').value.trim();
 
-            // Get form data
-            const formData = new FormData(contactForm);
-            const name = document.getElementById('name').value.trim();
-            const email = document.getElementById('email').value.trim();
-            const subject = document.getElementById('subject').value.trim();
-            const message = document.getElementById('message').value.trim();
+  // Validation
+  if (!name) return showNotification('Please enter your full name.', 'error');
+  if (!email) return showNotification('Please enter your email address.', 'error');
+  if (!isValidEmail(email)) return showNotification('Please enter a valid email address.', 'error');
+  if (!subject) return showNotification('Please enter a subject.', 'error');
+  if (!message) return showNotification('Please enter your message.', 'error');
 
-            // Validation
-            if (!name) {
-                showNotification('Please enter your full name.', 'error');
-                document.getElementById('name').focus();
-                return;
-            }
+  // Show loading state
+  submitBtn.disabled = true;
+  submitText.textContent = 'Sending...';
+  submitBtn.classList.add('opacity-75');
 
-            if (!email) {
-                showNotification('Please enter your email address.', 'error');
-                document.getElementById('email').focus();
-                return;
-            }
+  try {
+    const submissionData = {
+      name,
+      email,
+      subject,
+      message,
+      timestamp: new Date().toISOString(),
+      companyEmail: 'info@pilotconsultation.com'
+    };
 
-            if (!isValidEmail(email)) {
-                showNotification('Please enter a valid email address.', 'error');
-                document.getElementById('email').focus();
-                return;
-            }
+    const response = await fetch(GOOGLE_SCRIPT_URL, {
+      method: 'POST',
+      mode: 'cors',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(submissionData)
+    });
 
-            if (!subject) {
-                showNotification('Please enter a subject.', 'error');
-                document.getElementById('subject').focus();
-                return;
-            }
+    const result = await response.json();
+    console.log('Server response:', result);
 
-            if (!message) {
-                showNotification('Please enter your message.', 'error');
-                document.getElementById('message').focus();
-                return;
-            }
-
-            // Show loading state
-            submitBtn.disabled = true;
-            submitText.textContent = 'Sending...';
-            submitBtn.classList.add('opacity-75');
-
-            try {
-                // Prepare data for Google Sheets and email
-                const submissionData = {
-                    name: name,
-                    email: email,
-                    subject: subject,
-                    message: message,
-                    timestamp: new Date().toISOString(),
-                    companyEmail: 'info@pilotconsultation.com'
-                };
-
-                // Send to Google Apps Script
-                const response = await fetch(GOOGLE_SCRIPT_URL, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify(submissionData)
-                });
-
-                if (response.ok) {
-                    // Success
-                    showNotification('Message sent successfully! We will get back to you within 24 hours.', 'success');
-                    contactForm.reset();
-                } else {
-                    throw new Error('Failed to send message');
-                }
-            } catch (error) {
-                console.error('Error:', error);
-                showNotification('Failed to send message. Please try again or contact us directly.', 'error');
-            } finally {
-                // Reset button state
-                submitBtn.disabled = false;
-                submitText.textContent = 'Send Message';
-                submitBtn.classList.remove('opacity-75');
-            }
-        });
+    if (result.success) {
+      showNotification('Message sent successfully! We will get back to you within 24 hours.', 'success');
+      contactForm.reset();
+    } else {
+      showNotification(result.error || 'Failed to send message.', 'error');
+    }
+  } catch (error) {
+    console.error('Error:', error);
+    showNotification('Network error. Please try again later.', 'error');
+  } finally {
+    submitBtn.disabled = false;
+    submitText.textContent = 'Send Message';
+    submitBtn.classList.remove('opacity-75');
+  }
+});
     </script>
 </body>
 </html>
