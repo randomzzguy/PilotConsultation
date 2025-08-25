@@ -302,7 +302,7 @@
         <div class="container mx-auto px-6 py-4 flex justify-between items-center">
             <div class="flex items-center group">
                 <div class="relative overflow-hidden rounded-xl">
-                    <img src="https://pilotconsultation.com/wp-content/uploads/2023/12/screenshot-2023-12-12-143546.png" alt="Logo" class="h-14 mr-3 transition-transform duration-300 group-hover:scale-110">
+                    <img src="assets/logoLatestWhitebg.svg" alt="Logo" class="h-14 mr-3 transition-transform duration-300 group-hover:scale-110">
                 </div>
                 <div class="hidden sm:block">
                     <span class="text-2xl font-bold gradient-text bg-white bg-clip-text">Pilot Consultation</span>
@@ -1291,7 +1291,7 @@
                     <div class="lg:col-span-1 fade-in-up">
                         <div class="flex items-center mb-6">
                             <div class="w-14 h-14 bg-gradient-to-br from-blue-500 to-purple-600 rounded-2xl flex items-center justify-center mr-4 p-2">
-                                <img src="https://pilotconsultation.com/wp-content/uploads/2023/12/screenshot-2023-12-12-143546.png" alt="Pilot Consultation Logo" class="h-full w-full object-contain">
+                                <img src="assets/logoLatestWhitebg.svg" alt="Pilot Consultation Logo" class="h-full w-full object-contain">
                             </div>
                             <div>
                                 <span class="text-xl font-bold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">Pilot Consultation</span>
@@ -1561,7 +1561,7 @@ const submitBtn = document.getElementById('submitBtn');
 const submitText = document.getElementById('submitText');
 
 // Google Apps Script Web App URL (replace with your deployed script URL)
-const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbw4yebwJSh6vIPs9MNYw3e2LlugtjHd2J1PMjYsEHEdGLBjvOB3Qo0MIoyuNBuAI3d1OA/exec';
+const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwmiszydBTUTgeyj0fyA-w_jcZGvdjRa_BTRpbltLtF2ueUKKKcOO7vobcR-HW2t2lpVQ/exec';
 
 // Email validation function
 function isValidEmail(email) {
@@ -1653,7 +1653,7 @@ contactForm.addEventListener('submit', async function(e) {
     const result = await response.json();
     console.log('Server response:', result);
 
-    if (result.success) {
+    if (result.status === "success") {
       showNotification('Message sent successfully! We will get back to you within 24 hours.', 'success');
       contactForm.reset();
     } else {
@@ -1668,6 +1668,7 @@ contactForm.addEventListener('submit', async function(e) {
     submitBtn.classList.remove('opacity-75');
   }
 });
+
     </script>
 </body>
 </html>
