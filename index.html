@@ -38,14 +38,67 @@
             background: linear-gradient(180deg, #1d4ed8, #2563eb);
         }
         .hero-bg {
-            background: linear-gradient(135deg, rgba(30, 64, 175, 0.95), rgba(59, 130, 246, 0.85)), 
-                       url('https://pilotconsultation2.files.wordpress.com/2023/12/sea-2.gif');
-            background-size: cover;
-            background-position: center;
-            background-attachment: fixed;
             position: relative;
             overflow: hidden;
         }
+        
+        .hero-bg::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 800px;
+            height: 800px;
+            background-image: url('assets/logoLatest.svg');
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+            opacity: 0.7;
+            z-index: 1;
+            pointer-events: none;
+            animation: logoFloat 6s ease-in-out infinite, logoGlow 4s ease-in-out infinite;
+        }
+        
+        @keyframes logoFloat {
+            0%, 100% { transform: translate(-50%, -50%) scale(1) rotate(0deg); }
+            50% { transform: translate(-50%, -50%) scale(1.05) rotate(1deg); }
+        }
+        
+        @keyframes logoGlow {
+            0%, 100% { 
+                filter: drop-shadow(0 0 20px rgba(59, 130, 246, 0.3)) drop-shadow(0 0 40px rgba(59, 130, 246, 0.2));
+            }
+            50% { 
+                filter: drop-shadow(0 0 30px rgba(59, 130, 246, 0.6)) drop-shadow(0 0 60px rgba(59, 130, 246, 0.4)) drop-shadow(0 0 80px rgba(59, 130, 246, 0.2));
+            }
+        }
+        
+        .shimmer-text {
+            background: linear-gradient(-45deg, rgba(26, 26, 46, 0.95), rgba(15, 56, 94, 0.95), rgba(15, 52, 96, 0.9), rgba(92, 171, 235, 0.7));
+            background-size: 400% 400%;
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: gradientFlowText 15s ease infinite, heroGlow 3s ease-in-out infinite;
+        }
+        
+        @keyframes gradientFlowText {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        @keyframes heroGlow {
+            0%, 100% { 
+                filter: drop-shadow(0 0 10px rgba(59, 130, 246, 0.3)) drop-shadow(0 0 20px rgba(59, 130, 246, 0.2));
+            }
+            50% { 
+                filter: drop-shadow(0 0 20px rgba(59, 130, 246, 0.8)) drop-shadow(0 0 40px rgba(59, 130, 246, 0.4)) drop-shadow(0 0 60px rgba(59, 130, 246, 0.2));
+            }
+        }
+        
+
         
         .hero-bg::before {
             content: '';
@@ -173,7 +226,7 @@
         
         .nav-blur {
             backdrop-filter: blur(20px);
-            background: rgba(30, 64, 175, 0.95);
+            background: rgba(71, 85, 105, 0.7);
         }
         
         .typing-animation {
@@ -301,12 +354,10 @@
     <nav class="nav-blur text-white sticky top-0 z-50 shadow-2xl border-b border-white/10">
         <div class="container mx-auto px-6 py-4 flex justify-between items-center">
             <div class="flex items-center group">
-                <div class="relative overflow-hidden rounded-xl">
-                    <img src="assets/logoLatestWhitebg.svg" alt="Logo" class="h-14 mr-3 transition-transform duration-300 group-hover:scale-110">
-                </div>
+                <img src="assets/logoLatest.svg" alt="Logo" class="h-20 w-20 mr-3 transition-transform duration-300 group-hover:scale-110">
                 <div class="hidden sm:block">
-                    <span class="text-2xl font-bold gradient-text bg-white bg-clip-text">Pilot Consultation</span>
-                    <p class="text-xs text-blue-200 font-medium">Marine Excellence</p>
+                    <span class="text-2xl font-bold shimmer-text uppercase">Pilot Consultation</span>
+                    <p class="text-base text-blue-200 font-medium uppercase tracking-wider">Marine Excellence</p>
                 </div>
             </div>
             <div class="hidden md:flex space-x-8">
@@ -354,23 +405,29 @@
 
     <!-- Hero Section -->
     <section class="hero-bg text-white py-40 px-4 text-center relative overflow-hidden">
+        <!-- Video Background -->
+        <video autoplay muted loop class="absolute inset-0 w-full h-full object-cover z-0">
+            <source src="assets/bg.mp4" type="video/mp4">
+        </video>
+        <!-- Gradient Overlay -->
+        <div class="absolute inset-0 bg-gradient-to-br from-blue-900/60 via-blue-800/50 to-amber-200/30 z-10"></div>
         <!-- Floating Elements -->
-        <div class="absolute inset-0 pointer-events-none">
+        <div class="absolute inset-0 pointer-events-none z-20">
             <div class="floating-animation absolute top-20 left-10 w-20 h-20 bg-white/5 rounded-full blur-xl"></div>
             <div class="floating-animation absolute top-40 right-20 w-32 h-32 bg-blue-400/10 rounded-full blur-2xl" style="animation-delay: -2s;"></div>
             <div class="floating-animation absolute bottom-32 left-1/4 w-16 h-16 bg-cyan-400/10 rounded-full blur-xl" style="animation-delay: -4s;"></div>
             <div class="floating-animation absolute bottom-20 right-1/3 w-24 h-24 bg-white/5 rounded-full blur-2xl" style="animation-delay: -1s;"></div>
         </div>
         
-        <div class="max-w-6xl mx-auto relative z-10">
+        <div class="max-w-6xl mx-auto relative z-30">
             <div class="fade-in-up mb-8">
                 <div class="inline-block px-6 py-2 bg-white/10 backdrop-blur-sm rounded-full border border-white/20 mb-6">
-                    <span class="text-sm font-medium text-blue-200">🌊 Professional Marine Services</span>
+                    <span class="text-sm font-medium text-blue-200">Professional Marine Services</span>
                 </div>
             </div>
             
             <h1 class="text-5xl md:text-7xl font-bold mb-8 fade-in-up" style="animation-delay: 0.2s;">
-                <span class="block gradient-text bg-gradient-to-r from-white via-blue-100 to-cyan-200 bg-clip-text text-transparent">
+                <span class="block shimmer-text uppercase">
                     Pilot Consultation
                 </span>
                 <span class="block text-3xl md:text-5xl font-light mt-2 text-blue-100">
@@ -1235,7 +1292,7 @@
             </div>
         </div>
         
-        <form id="contactForm" action="https://script.google.com/macros/s/AKfycbwmiszydBTUTgeyj0fyA-w_jcZGvdjRa_BTRpbltLtF2ueUKKKcOO7vobcR-HW2t2lpVQ/exec" method="POST" target="hiddenIframe" class="space-y-6">
+        <form id="contactForm" action="https://script.google.com/macros/s/AKfycbzdbUf80isOV1fiEIW41HNxryRYcQeN3dv4dX0Trzd-9vLRY3UYYRDphDCerwaVUbJ_/exec" method="POST" target="hiddenIframe" class="space-y-6">
             <div class="grid md:grid-cols-2 gap-6">
                 <div>
                     <label for="name" class="block text-sm font-semibold text-gray-700 mb-2">Full Name</label>
@@ -1293,8 +1350,8 @@
                     <!-- Company Info -->
                     <div class="lg:col-span-1 fade-in-up">
                         <div class="flex items-center mb-6">
-                            <div class="w-14 h-14 bg-gradient-to-br from-blue-500 to-purple-600 rounded-2xl flex items-center justify-center mr-4 p-2">
-                                <img src="assets/logoLatestWhitebg.svg" alt="Pilot Consultation Logo" class="h-full w-full object-contain">
+                            <div class="w-24 h-24 bg-gradient-to-br from-blue-100 to-purple-200 rounded-2xl flex items-center justify-center mr-4 p-4">
+                                <img src="assets/logoLatest.svg" alt="Pilot Consultation Logo" class="h-full w-full object-contain">
                             </div>
                             <div>
                                 <span class="text-xl font-bold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">Pilot Consultation</span>
@@ -1305,21 +1362,7 @@
                             Navigate your Business to Seas of Success. Professional marine consultation services with ISO 9001 certification and IMCA compliance.
                         </p>
                         
-                        <!-- Social Links -->
-                        <div class="flex space-x-4">
-                            <a href="#" class="w-12 h-12 bg-gradient-to-br from-blue-600 to-blue-700 rounded-xl flex items-center justify-center hover:from-blue-500 hover:to-blue-600 transition-all duration-300 transform hover:scale-110 hover:shadow-lg">
-                                <i class="fab fa-linkedin-in text-white text-lg"></i>
-                            </a>
-                            <a href="#" class="w-12 h-12 bg-gradient-to-br from-blue-500 to-cyan-600 rounded-xl flex items-center justify-center hover:from-blue-400 hover:to-cyan-500 transition-all duration-300 transform hover:scale-110 hover:shadow-lg">
-                                <i class="fab fa-twitter text-white text-lg"></i>
-                            </a>
-                            <a href="#" class="w-12 h-12 bg-gradient-to-br from-blue-600 to-purple-600 rounded-xl flex items-center justify-center hover:from-blue-500 hover:to-purple-500 transition-all duration-300 transform hover:scale-110 hover:shadow-lg">
-                                <i class="fab fa-facebook-f text-white text-lg"></i>
-                            </a>
-                            <a href="#" class="w-12 h-12 bg-gradient-to-br from-red-500 to-pink-600 rounded-xl flex items-center justify-center hover:from-red-400 hover:to-pink-500 transition-all duration-300 transform hover:scale-110 hover:shadow-lg">
-                                <i class="fab fa-instagram text-white text-lg"></i>
-                            </a>
-                        </div>
+
                     </div>
                     
                     <!-- Quick Links -->
@@ -1395,8 +1438,8 @@
                             </p>
                         </div>
                         <div class="flex items-center space-x-6">
-                            <a href="#" class="text-gray-400 hover:text-white transition-colors duration-300 text-sm">Privacy Policy</a>
-                            <a href="#" class="text-gray-400 hover:text-white transition-colors duration-300 text-sm">Terms of Service</a>
+                            <a href="#" id="privacyPolicyBtn" class="text-gray-400 hover:text-white transition-colors duration-300 text-sm">Privacy Policy</a>
+                            <a href="#" id="termsOfServiceBtn" class="text-gray-400 hover:text-white transition-colors duration-300 text-sm">Terms of Service</a>
 
                         </div>
                     </div>
@@ -1404,6 +1447,170 @@
             </div>
         </div>
     </footer>
+
+    <!-- Terms of Service Modal -->
+    <div id="termsModal" class="hidden fixed inset-0 z-50 overflow-y-auto">
+        <div id="termsModalOverlay" class="fixed inset-0 bg-black bg-opacity-75 backdrop-blur-sm"></div>
+        <div class="flex min-h-full items-center justify-center p-4">
+            <div class="relative bg-gradient-to-br from-slate-900 via-blue-900 to-slate-800 rounded-2xl shadow-2xl max-w-4xl w-full max-h-[90vh] overflow-hidden border border-blue-500/20">
+                <!-- Modal Header -->
+                <div class="sticky top-0 bg-gradient-to-r from-blue-900/90 to-slate-900/90 backdrop-blur-sm px-8 py-6 border-b border-blue-500/20">
+                    <div class="flex items-center justify-between">
+                        <h2 class="text-3xl font-bold text-white">Terms of Service</h2>
+                        <button id="closeTermsModal" class="text-gray-400 hover:text-white transition-colors duration-300 p-2 hover:bg-white/10 rounded-full">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Modal Content -->
+                <div class="px-8 py-6 overflow-y-auto max-h-[calc(90vh-120px)]">
+                    <div class="prose prose-invert max-w-none">
+                        <p class="text-gray-300 mb-6">Last updated: 25th August 2025</p>
+                        
+                        <p class="text-gray-300 mb-6">Welcome to Pilot Consultation & Marine Services (referred to as "we," "us," or "our")—please read these Terms of Service ("Terms") carefully before using <code class="bg-blue-900/30 text-blue-300 px-2 py-1 rounded">https://pilotconsultation.com/</code> (the "Site" or "Services").</p>
+                        
+                        <h3 class="text-xl font-semibold text-white mb-4 border-b border-blue-500/20 pb-2">1. Acceptance of Terms</h3>
+                        <p class="text-gray-300 mb-6">By accessing and using our Site and Services, you agree to these Terms. If you are accessing on behalf of an organization, you affirm that you have the authority to bind that entity.</p>
+                        
+                        <h3 class="text-xl font-semibold text-white mb-4 border-b border-blue-500/20 pb-2">2. Description of Services</h3>
+                        <p class="text-gray-300 mb-6">We offer IMCA-certified diving system inspections, marine vessel assessments, and related professional services.</p>
+                        
+                        <h3 class="text-xl font-semibold text-white mb-4 border-b border-blue-500/20 pb-2">3. User Responsibilities</h3>
+                        <p class="text-gray-300 mb-4">You agree to:</p>
+                        <ul class="text-gray-300 mb-6 space-y-2">
+                            <li class="flex items-start"><span class="text-blue-400 mr-2">•</span>Provide accurate and complete information when requesting services or contacting us.</li>
+                            <li class="flex items-start"><span class="text-blue-400 mr-2">•</span>Use our Site lawfully and avoid misuse, such as uploading harmful content or breaching security.</li>
+                        </ul>
+                        
+                        <h3 class="text-xl font-semibold text-white mb-4 border-b border-blue-500/20 pb-2">4. Intellectual Property</h3>
+                        <p class="text-gray-300 mb-6">All content on the Site—including text, images, and logos—is owned by us or our licensors and is protected by intellectual property laws. You may not reproduce, distribute, or modify any content without our written permission.</p>
+                        
+                        <h3 class="text-xl font-semibold text-white mb-4 border-b border-blue-500/20 pb-2">5. Payment & Fees</h3>
+                        <p class="text-gray-300 mb-6">If applicable, payment terms and any fees for services will be provided in separate agreements or during the request process.</p>
+                        
+                        <h3 class="text-xl font-semibold text-white mb-4 border-b border-blue-500/20 pb-2">6. Termination</h3>
+                        <p class="text-gray-300 mb-6">We reserve the right to suspend or terminate access if we believe you have violated these Terms, or for any reason at our discretion.</p>
+                        
+                        <h3 class="text-xl font-semibold text-white mb-4 border-b border-blue-500/20 pb-2">7. Disclaimers & Limitations of Liability</h3>
+                        <ul class="text-gray-300 mb-6 space-y-2">
+                            <li class="flex items-start"><span class="text-blue-400 mr-2">•</span>THE SITE AND SERVICES ARE PROVIDED "AS IS" WITHOUT WARRANTIES OF ANY KIND.</li>
+                            <li class="flex items-start"><span class="text-blue-400 mr-2">•</span>We are not liable for indirect, incidental, consequential, or special damages arising from use of the Site.</li>
+                            <li class="flex items-start"><span class="text-blue-400 mr-2">•</span>If applicable, we do not guarantee uninterrupted or error-free access.</li>
+                        </ul>
+                        
+                        <h3 class="text-xl font-semibold text-white mb-4 border-b border-blue-500/20 pb-2">8. Third-Party Links</h3>
+                        <p class="text-gray-300 mb-6">Our Site may contain links to external websites. We do not endorse or assume responsibility for the content or practices of third-party sites.</p>
+                        
+                        <h3 class="text-xl font-semibold text-white mb-4 border-b border-blue-500/20 pb-2">9. Governing Law & Dispute Resolution</h3>
+                        <p class="text-gray-300 mb-6">These Terms are governed by and construed in accordance with the laws of the United Arab Emirates. Any disputes shall be subject to the exclusive jurisdiction of the courts of Abu Dhabi, UAE.</p>
+                        
+                        <h3 class="text-xl font-semibold text-white mb-4 border-b border-blue-500/20 pb-2">10. Changes to Terms</h3>
+                        <p class="text-gray-300 mb-6">We may revise these Terms at any time. The "Last updated" date will indicate when changes are made. Continued use of the Site after changes signifies acceptance.</p>
+                        
+                        <h3 class="text-xl font-semibold text-white mb-4 border-b border-blue-500/20 pb-2">11. Contact Information</h3>
+                        <p class="text-gray-300 mb-6">For questions regarding these Terms, reach us at: <a href="mailto:info@pilotconsultation.com" class="text-blue-400 hover:text-blue-300 transition-colors duration-300">info@pilotconsultation.com</a>.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Privacy Policy Modal -->
+    <div id="privacyModal" class="hidden fixed inset-0 z-50 overflow-y-auto">
+        <div id="privacyModalOverlay" class="fixed inset-0 bg-black bg-opacity-75 backdrop-blur-sm"></div>
+        <div class="flex min-h-full items-center justify-center p-4">
+            <div class="relative bg-gradient-to-br from-slate-900 via-blue-900 to-slate-800 rounded-2xl shadow-2xl max-w-4xl w-full max-h-[90vh] overflow-hidden border border-blue-500/20">
+                <!-- Modal Header -->
+                <div class="sticky top-0 bg-gradient-to-r from-blue-900/90 to-slate-900/90 backdrop-blur-sm px-8 py-6 border-b border-blue-500/20">
+                    <div class="flex items-center justify-between">
+                        <h2 class="text-3xl font-bold text-white">Privacy Policy</h2>
+                        <button id="closePrivacyModal" class="text-gray-400 hover:text-white transition-colors duration-300 p-2 hover:bg-white/10 rounded-full">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Modal Content -->
+                <div class="px-8 py-6 overflow-y-auto max-h-[calc(90vh-120px)]">
+                    <div class="prose prose-invert max-w-none">
+                        <p class="text-blue-200 mb-6">Last updated: 25th August 2025</p>
+                        
+                        <div class="space-y-6 text-gray-300">
+                            <section>
+                                <h3 class="text-xl font-semibold text-white mb-3">1. Introduction</h3>
+                                <p>This Privacy Policy explains how Pilot Consultation & Marine Services ("we," "us," or "our") collects, uses, discloses, and protects your personal information when you visit <span class="text-blue-300">https://pilotconsultation.com/</span> (the "Site").</p>
+                            </section>
+                            
+                            <section>
+                                <h3 class="text-xl font-semibold text-white mb-3">2. Information We Collect</h3>
+                                <ul class="space-y-2 ml-4">
+                                    <li><strong class="text-blue-200">Personal Information:</strong> Name, email address, phone number—when you fill out forms (e.g., consultation requests).</li>
+                                    <li><strong class="text-blue-200">Usage Information:</strong> IP address, browser type, pages visited, session duration—automatically via cookies or analytics tools.</li>
+                                    <li><strong class="text-blue-200">Device Data:</strong> Device type, operating system, and other technical data.</li>
+                                </ul>
+                            </section>
+                            
+                            <section>
+                                <h3 class="text-xl font-semibold text-white mb-3">3. How We Use Your Information</h3>
+                                <ul class="space-y-2 ml-4">
+                                    <li>To respond to your inquiries and provide services (e.g., marine inspection consultation).</li>
+                                    <li>To improve our Site's performance, analyze usage trends, and enhance user experience.</li>
+                                    <li>To send occasional updates, newsletters, or marketing materials—only if you've opted in.</li>
+                                </ul>
+                            </section>
+                            
+                            <section>
+                                <h3 class="text-xl font-semibold text-white mb-3">4. Cookies & Tracking</h3>
+                                <p>We use cookies and similar technologies to customize your experience, analyze traffic, and optimize our site. You can manage or disable these through your browser settings.</p>
+                            </section>
+                            
+                            <section>
+                                <h3 class="text-xl font-semibold text-white mb-3">5. Data Sharing & Third Parties</h3>
+                                <p>We don't sell or share your personal data to unrelated third parties. It may be shared with service providers who help operate our Site (e.g., analytics, hosting) and only for necessary services.</p>
+                            </section>
+                            
+                            <section>
+                                <h3 class="text-xl font-semibold text-white mb-3">6. Data Security</h3>
+                                <p>We implement reasonable administrative, technical, and physical measures to safeguard your personal data, such as encryption and secure servers. However, no system is completely secure—so we cannot guarantee absolute protection.</p>
+                            </section>
+                            
+                            <section>
+                                <h3 class="text-xl font-semibold text-white mb-3">7. Your Rights</h3>
+                                <p class="mb-3">Depending on your jurisdiction, you may have the right to:</p>
+                                <ul class="space-y-2 ml-4">
+                                    <li>Access or correct your personal data</li>
+                                    <li>Request deletion or portability of your data</li>
+                                    <li>Object to or restrict certain processing</li>
+                                    <li>Withdraw consent at any time (e.g., unsubscribing from emails)</li>
+                                </ul>
+                                <p class="mt-3">To exercise these rights, contact us at: <a href="mailto:info@pilotconsultation.com" class="text-blue-300 hover:text-blue-200 transition-colors">info@pilotconsultation.com</a>.</p>
+                            </section>
+                            
+                            <section>
+                                <h3 class="text-xl font-semibold text-white mb-3">8. Children's Privacy</h3>
+                                <p>Our services are not directed at anyone under 16 years old, and we do not knowingly collect their personal data.</p>
+                            </section>
+                            
+                            <section>
+                                <h3 class="text-xl font-semibold text-white mb-3">9. Updates to This Policy</h3>
+                                <p>We may update this Privacy Policy periodically. The "Last updated" date will reflect any changes. Continued use of our Site constitutes your acceptance of those changes.</p>
+                            </section>
+                            
+                            <section>
+                                <h3 class="text-xl font-semibold text-white mb-3">10. Contact Us</h3>
+                                <p>If you have questions about this Policy, please get in touch with us at: <a href="mailto:info@pilotconsultation.com" class="text-blue-300 hover:text-blue-200 transition-colors">info@pilotconsultation.com</a>.</p>
+                            </section>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <script>
         // Mobile menu toggle
@@ -1662,6 +1869,62 @@ iframe.addEventListener('load', () => {
   const companyEmailInput = contactForm.querySelector('input[name="companyEmail"]');
   if (timestampInput) timestampInput.remove();
   if (companyEmailInput) companyEmailInput.remove();
+});
+
+// Privacy Policy Modal
+const privacyPolicyBtn = document.getElementById('privacyPolicyBtn');
+const privacyModal = document.getElementById('privacyModal');
+const closePrivacyModal = document.getElementById('closePrivacyModal');
+const privacyModalOverlay = document.getElementById('privacyModalOverlay');
+
+privacyPolicyBtn.addEventListener('click', function(e) {
+    e.preventDefault();
+    privacyModal.classList.remove('hidden');
+    document.body.style.overflow = 'hidden';
+});
+
+closePrivacyModal.addEventListener('click', function() {
+    privacyModal.classList.add('hidden');
+    document.body.style.overflow = 'auto';
+});
+
+privacyModalOverlay.addEventListener('click', function() {
+    privacyModal.classList.add('hidden');
+    document.body.style.overflow = 'auto';
+});
+
+// Close modal with Escape key
+document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape' && !privacyModal.classList.contains('hidden')) {
+        privacyModal.classList.add('hidden');
+        document.body.style.overflow = 'auto';
+    }
+    if (e.key === 'Escape' && !termsModal.classList.contains('hidden')) {
+        termsModal.classList.add('hidden');
+        document.body.style.overflow = 'auto';
+    }
+});
+
+// Terms of Service Modal
+const termsOfServiceBtn = document.getElementById('termsOfServiceBtn');
+const termsModal = document.getElementById('termsModal');
+const closeTermsModal = document.getElementById('closeTermsModal');
+const termsModalOverlay = document.getElementById('termsModalOverlay');
+
+termsOfServiceBtn.addEventListener('click', function(e) {
+    e.preventDefault();
+    termsModal.classList.remove('hidden');
+    document.body.style.overflow = 'hidden';
+});
+
+closeTermsModal.addEventListener('click', function() {
+    termsModal.classList.add('hidden');
+    document.body.style.overflow = 'auto';
+});
+
+termsModalOverlay.addEventListener('click', function() {
+    termsModal.classList.add('hidden');
+    document.body.style.overflow = 'auto';
 });
 
     </script>
