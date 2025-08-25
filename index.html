@@ -7,6 +7,10 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="assets/favicon-16x16.png">
+    <link rel="manifest" href="assets/site.webmanifest">
     <style>
         * {
             font-family: 'Inter', sans-serif;
@@ -511,6 +515,20 @@
                                 <div class="text-sm text-gray-600">Compliant</div>
                             </div>
                         </div>
+                        
+                        <div class="absolute -top-6 -left-6 bg-white p-6 rounded-2xl shadow-xl border border-blue-100">
+                            <div class="text-center">
+                                <div class="text-2xl font-bold text-blue-600">ISO 14001</div>
+                                <div class="text-sm text-gray-600">Certified</div>
+                            </div>
+                        </div>
+                        
+                        <div class="absolute -bottom-6 -right-6 bg-white p-6 rounded-2xl shadow-xl border border-blue-100">
+                            <div class="text-center">
+                                <div class="text-2xl font-bold text-blue-600">ISO 45001</div>
+                                <div class="text-sm text-gray-600">Certified</div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -824,126 +842,28 @@
             </div>
             
             <!-- Clients Grid -->
-            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-8 items-center justify-items-center">
-                <!-- Client 1 -->
-                <div class="glass-card p-6 w-full h-32 flex items-center justify-center group hover:scale-105 transition-all duration-300 hover:shadow-xl">
-                    <div class="text-center">
-                        <div class="w-16 h-16 bg-gradient-to-br from-blue-600 to-blue-800 rounded-lg flex items-center justify-center mx-auto mb-2">
-                            <span class="text-white font-bold text-lg">MS</span>
+            <div class="flex justify-center items-center gap-16 md:gap-24">
+                <!-- Client 1 - ADNOC -->
+                <a href="https://www.adnoc.ae/" target="_blank" rel="noopener noreferrer" class="block">
+                    <div class="glass-card p-8 w-64 h-64 rounded-2xl flex flex-col items-center justify-center group hover:scale-105 transition-all duration-300 hover:shadow-xl cursor-pointer">
+                        <div class="flex-1 flex items-center justify-center mb-4">
+                            <img src="./assets/adnoc2.svg" alt="ADNOC" class="w-50 h-30 object-contain group-hover:hidden transition-all duration-300" style="min-width: 160px; min-height: 80px;">
+                            <img src="./assets/adnoc1.svg" alt="ADNOC" class="w-50 h-30 object-contain hidden group-hover:block transition-all duration-300" style="min-width: 160px; min-height: 80px;">
                         </div>
-                        <p class="text-sm font-medium text-gray-700 group-hover:text-blue-600 transition-colors">Maersk</p>
+                        <p class="text-lg font-semibold text-gray-700 group-hover:text-blue-600 transition-colors duration-300">ADNOC</p>
                     </div>
-                </div>
+                </a>
                 
-                <!-- Client 2 -->
-                <div class="glass-card p-6 w-full h-32 flex items-center justify-center group hover:scale-105 transition-all duration-300 hover:shadow-xl">
-                    <div class="text-center">
-                        <div class="w-16 h-16 bg-gradient-to-br from-red-600 to-red-800 rounded-lg flex items-center justify-center mx-auto mb-2">
-                            <span class="text-white font-bold text-lg">SH</span>
+                <!-- Client 2 - Bureau Veritas -->
+                <a href="https://middle-east.bureauveritas.com/" target="_blank" rel="noopener noreferrer" class="block">
+                    <div class="glass-card p-8 w-64 h-64 rounded-2xl flex flex-col items-center justify-center group hover:scale-105 transition-all duration-300 hover:shadow-xl cursor-pointer">
+                        <div class="flex-1 flex items-center justify-center mb-4">
+                            <img src="./assets/bureau2.svg" alt="Bureau Veritas" class="w-22 h-22 object-contain group-hover:hidden transition-all duration-300" style="min-width: 160px; min-height: 80px;">
+                            <img src="./assets/bureau1.svg" alt="Bureau Veritas" class="w-22 h-22 object-contain hidden group-hover:block transition-all duration-300" style="min-width: 160px; min-height: 80px;">
                         </div>
-                        <p class="text-sm font-medium text-gray-700 group-hover:text-blue-600 transition-colors">Shell</p>
+                        <p class="text-lg font-semibold text-gray-700 group-hover:text-blue-600 transition-colors duration-300">Bureau Veritas</p>
                     </div>
-                </div>
-                
-                <!-- Client 3 -->
-                <div class="glass-card p-6 w-full h-32 flex items-center justify-center group hover:scale-105 transition-all duration-300 hover:shadow-xl">
-                    <div class="text-center">
-                        <div class="w-16 h-16 bg-gradient-to-br from-green-600 to-green-800 rounded-lg flex items-center justify-center mx-auto mb-2">
-                            <span class="text-white font-bold text-lg">BP</span>
-                        </div>
-                        <p class="text-sm font-medium text-gray-700 group-hover:text-blue-600 transition-colors">BP</p>
-                    </div>
-                </div>
-                
-                <!-- Client 4 -->
-                <div class="glass-card p-6 w-full h-32 flex items-center justify-center group hover:scale-105 transition-all duration-300 hover:shadow-xl">
-                    <div class="text-center">
-                        <div class="w-16 h-16 bg-gradient-to-br from-purple-600 to-purple-800 rounded-lg flex items-center justify-center mx-auto mb-2">
-                            <span class="text-white font-bold text-lg">EX</span>
-                        </div>
-                        <p class="text-sm font-medium text-gray-700 group-hover:text-blue-600 transition-colors">ExxonMobil</p>
-                    </div>
-                </div>
-                
-                <!-- Client 5 -->
-                <div class="glass-card p-6 w-full h-32 flex items-center justify-center group hover:scale-105 transition-all duration-300 hover:shadow-xl">
-                    <div class="text-center">
-                        <div class="w-16 h-16 bg-gradient-to-br from-orange-600 to-orange-800 rounded-lg flex items-center justify-center mx-auto mb-2">
-                            <span class="text-white font-bold text-lg">TO</span>
-                        </div>
-                        <p class="text-sm font-medium text-gray-700 group-hover:text-blue-600 transition-colors">TotalEnergies</p>
-                    </div>
-                </div>
-                
-                <!-- Client 6 -->
-                <div class="glass-card p-6 w-full h-32 flex items-center justify-center group hover:scale-105 transition-all duration-300 hover:shadow-xl">
-                    <div class="text-center">
-                        <div class="w-16 h-16 bg-gradient-to-br from-teal-600 to-teal-800 rounded-lg flex items-center justify-center mx-auto mb-2">
-                            <span class="text-white font-bold text-lg">CH</span>
-                        </div>
-                        <p class="text-sm font-medium text-gray-700 group-hover:text-blue-600 transition-colors">Chevron</p>
-                    </div>
-                </div>
-                
-                <!-- Client 7 -->
-                <div class="glass-card p-6 w-full h-32 flex items-center justify-center group hover:scale-105 transition-all duration-300 hover:shadow-xl">
-                    <div class="text-center">
-                        <div class="w-16 h-16 bg-gradient-to-br from-indigo-600 to-indigo-800 rounded-lg flex items-center justify-center mx-auto mb-2">
-                            <span class="text-white font-bold text-lg">EQ</span>
-                        </div>
-                        <p class="text-sm font-medium text-gray-700 group-hover:text-blue-600 transition-colors">Equinor</p>
-                    </div>
-                </div>
-                
-                <!-- Client 8 -->
-                <div class="glass-card p-6 w-full h-32 flex items-center justify-center group hover:scale-105 transition-all duration-300 hover:shadow-xl">
-                    <div class="text-center">
-                        <div class="w-16 h-16 bg-gradient-to-br from-cyan-600 to-cyan-800 rounded-lg flex items-center justify-center mx-auto mb-2">
-                            <span class="text-white font-bold text-lg">SL</span>
-                        </div>
-                        <p class="text-sm font-medium text-gray-700 group-hover:text-blue-600 transition-colors">Schlumberger</p>
-                    </div>
-                </div>
-                
-                <!-- Client 9 -->
-                <div class="glass-card p-6 w-full h-32 flex items-center justify-center group hover:scale-105 transition-all duration-300 hover:shadow-xl">
-                    <div class="text-center">
-                        <div class="w-16 h-16 bg-gradient-to-br from-rose-600 to-rose-800 rounded-lg flex items-center justify-center mx-auto mb-2">
-                            <span class="text-white font-bold text-lg">HA</span>
-                        </div>
-                        <p class="text-sm font-medium text-gray-700 group-hover:text-blue-600 transition-colors">Halliburton</p>
-                    </div>
-                </div>
-                
-                <!-- Client 10 -->
-                <div class="glass-card p-6 w-full h-32 flex items-center justify-center group hover:scale-105 transition-all duration-300 hover:shadow-xl">
-                    <div class="text-center">
-                        <div class="w-16 h-16 bg-gradient-to-br from-amber-600 to-amber-800 rounded-lg flex items-center justify-center mx-auto mb-2">
-                            <span class="text-white font-bold text-lg">BW</span>
-                        </div>
-                        <p class="text-sm font-medium text-gray-700 group-hover:text-blue-600 transition-colors">Baker Hughes</p>
-                    </div>
-                </div>
-                
-                <!-- Client 11 -->
-                <div class="glass-card p-6 w-full h-32 flex items-center justify-center group hover:scale-105 transition-all duration-300 hover:shadow-xl">
-                    <div class="text-center">
-                        <div class="w-16 h-16 bg-gradient-to-br from-emerald-600 to-emerald-800 rounded-lg flex items-center justify-center mx-auto mb-2">
-                            <span class="text-white font-bold text-lg">CO</span>
-                        </div>
-                        <p class="text-sm font-medium text-gray-700 group-hover:text-blue-600 transition-colors">ConocoPhillips</p>
-                    </div>
-                </div>
-                
-                <!-- Client 12 -->
-                <div class="glass-card p-6 w-full h-32 flex items-center justify-center group hover:scale-105 transition-all duration-300 hover:shadow-xl">
-                    <div class="text-center">
-                        <div class="w-16 h-16 bg-gradient-to-br from-slate-600 to-slate-800 rounded-lg flex items-center justify-center mx-auto mb-2">
-                            <span class="text-white font-bold text-lg">NO</span>
-                        </div>
-                        <p class="text-sm font-medium text-gray-700 group-hover:text-blue-600 transition-colors">NOV Inc.</p>
-                    </div>
-                </div>
+                </a>
             </div>
             
             <!-- Trust Indicators -->
@@ -1315,31 +1235,31 @@
                                 </div>
                             </div>
                             
-                            <form class="space-y-6">
+                            <form id="contactForm" class="space-y-6">
                                 <div class="grid md:grid-cols-2 gap-6">
                                     <div>
                                         <label for="name" class="block text-sm font-semibold text-gray-700 mb-2">Full Name</label>
-                                        <input type="text" id="name" class="w-full px-4 py-3 bg-white border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300 hover:border-gray-300">
+                                        <input type="text" id="name" name="name" class="w-full px-4 py-3 bg-white border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300 hover:border-gray-300">
                                     </div>
                                     <div>
                                         <label for="email" class="block text-sm font-semibold text-gray-700 mb-2">Email Address</label>
-                                        <input type="email" id="email" class="w-full px-4 py-3 bg-white border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300 hover:border-gray-300">
+                                        <input type="email" id="email" name="email" class="w-full px-4 py-3 bg-white border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300 hover:border-gray-300">
                                     </div>
                                 </div>
                                 
                                 <div>
                                     <label for="subject" class="block text-sm font-semibold text-gray-700 mb-2">Subject</label>
-                                    <input type="text" id="subject" class="w-full px-4 py-3 bg-white border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300 hover:border-gray-300">
+                                    <input type="text" id="subject" name="subject" class="w-full px-4 py-3 bg-white border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300 hover:border-gray-300">
                                 </div>
                                 
                                 <div>
                                     <label for="message" class="block text-sm font-semibold text-gray-700 mb-2">Message</label>
-                                    <textarea id="message" rows="5" class="w-full px-4 py-3 bg-white border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300 hover:border-gray-300 resize-none"></textarea>
+                                    <textarea id="message" name="message" rows="5" class="w-full px-4 py-3 bg-white border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300 hover:border-gray-300 resize-none"></textarea>
                                 </div>
                                 
-                                <button type="submit" class="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-bold py-4 px-8 rounded-xl transition-all duration-300 transform hover:scale-105 hover:shadow-xl flex items-center justify-center space-x-2">
+                                <button type="submit" id="submitBtn" class="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-bold py-4 px-8 rounded-xl transition-all duration-300 transform hover:scale-105 hover:shadow-xl flex items-center justify-center space-x-2">
                                     <i class="fas fa-paper-plane"></i>
-                                    <span>Send Message</span>
+                                    <span id="submitText">Send Message</span>
                                 </button>
                             </form>
                         </div>
@@ -1632,6 +1552,159 @@
         document.addEventListener('keydown', function(event) {
             if (event.key === 'Escape') {
                 closeModal();
+            }
+        });
+
+        // Contact Form Functionality
+        const contactForm = document.getElementById('contactForm');
+        const submitBtn = document.getElementById('submitBtn');
+        const submitText = document.getElementById('submitText');
+
+        // Google Apps Script Web App URL (you'll need to replace this with your actual URL)
+        const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbw4yebwJSh6vIPs9MNYw3e2LlugtjHd2J1PMjYsEHEdGLBjvOB3Qo0MIoyuNBuAI3d1OA/exec';
+
+        // Email validation function
+        function isValidEmail(email) {
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return emailRegex.test(email);
+        }
+
+        // Show notification function
+        function showNotification(message, type = 'success') {
+            // Remove existing notifications
+            const existingNotification = document.querySelector('.notification');
+            if (existingNotification) {
+                existingNotification.remove();
+            }
+
+            // Create notification element
+            const notification = document.createElement('div');
+            notification.className = `notification fixed top-4 right-4 z-50 p-4 rounded-xl shadow-lg transform transition-all duration-300 translate-x-full`;
+            
+            if (type === 'success') {
+                notification.classList.add('bg-gradient-to-r', 'from-green-500', 'to-green-600', 'text-white');
+                notification.innerHTML = `
+                    <div class="flex items-center space-x-3">
+                        <i class="fas fa-check-circle text-xl"></i>
+                        <div>
+                            <p class="font-semibold">Success!</p>
+                            <p class="text-sm">${message}</p>
+                        </div>
+                    </div>
+                `;
+            } else {
+                notification.classList.add('bg-gradient-to-r', 'from-red-500', 'to-red-600', 'text-white');
+                notification.innerHTML = `
+                    <div class="flex items-center space-x-3">
+                        <i class="fas fa-exclamation-circle text-xl"></i>
+                        <div>
+                            <p class="font-semibold">Error!</p>
+                            <p class="text-sm">${message}</p>
+                        </div>
+                    </div>
+                `;
+            }
+
+            document.body.appendChild(notification);
+
+            // Animate in
+            setTimeout(() => {
+                notification.classList.remove('translate-x-full');
+            }, 100);
+
+            // Auto remove after 5 seconds
+            setTimeout(() => {
+                notification.classList.add('translate-x-full');
+                setTimeout(() => {
+                    if (notification.parentNode) {
+                        notification.remove();
+                    }
+                }, 300);
+            }, 5000);
+        }
+
+        // Form submission handler
+        contactForm.addEventListener('submit', async function(e) {
+            e.preventDefault();
+
+            // Get form data
+            const formData = new FormData(contactForm);
+            const name = document.getElementById('name').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const subject = document.getElementById('subject').value.trim();
+            const message = document.getElementById('message').value.trim();
+
+            // Validation
+            if (!name) {
+                showNotification('Please enter your full name.', 'error');
+                document.getElementById('name').focus();
+                return;
+            }
+
+            if (!email) {
+                showNotification('Please enter your email address.', 'error');
+                document.getElementById('email').focus();
+                return;
+            }
+
+            if (!isValidEmail(email)) {
+                showNotification('Please enter a valid email address.', 'error');
+                document.getElementById('email').focus();
+                return;
+            }
+
+            if (!subject) {
+                showNotification('Please enter a subject.', 'error');
+                document.getElementById('subject').focus();
+                return;
+            }
+
+            if (!message) {
+                showNotification('Please enter your message.', 'error');
+                document.getElementById('message').focus();
+                return;
+            }
+
+            // Show loading state
+            submitBtn.disabled = true;
+            submitText.textContent = 'Sending...';
+            submitBtn.classList.add('opacity-75');
+
+            try {
+                // Prepare data for Google Sheets and email
+                const submissionData = {
+                    name: name,
+                    email: email,
+                    subject: subject,
+                    message: message,
+                    timestamp: new Date().toISOString(),
+                    companyEmail: 'info@pilotconsultation.com'
+                };
+
+                // Send to Google Apps Script
+                const response = await fetch(GOOGLE_SCRIPT_URL, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(submissionData)
+                });
+
+                if (response.ok) {
+                    // Success
+                    showNotification('Message sent successfully! We will get back to you within 24 hours.', 'success');
+                    contactForm.reset();
+                } else {
+                    throw new Error('Failed to send message');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                showNotification('Failed to send message. Please try again or contact us directly.', 'error');
+            } finally {
+                // Reset button state
+                submitBtn.disabled = false;
+                submitText.textContent = 'Send Message';
+                submitBtn.classList.remove('opacity-75');
             }
         });
     </script>
