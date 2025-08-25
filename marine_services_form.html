@@ -1,0 +1,1336 @@
+        .btn {
+            padding: 18px 36px;
+            border-radius: 16px;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            border: none;
+            min-width: 140px;
+            position: relative;
+            overflow: hidden;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #0a2a43 0%, #1e40af 25%, #2563eb 50<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Marine Services Request Form</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 25%, #334155 50%, #1e293b 75%, #0f172a 100%);
+            background-size: 400% 400%;
+            animation: gradientShift 12s ease infinite;
+            background-attachment: fixed;
+            min-height: 100vh;
+            padding: 20px;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            25% { background-position: 100% 50%; }
+            50% { background-position: 100% 100%; }
+            75% { background-position: 0% 100%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Floating particles */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                radial-gradient(circle at 20% 20%, rgba(59, 130, 246, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(16, 185, 129, 0.2) 0%, transparent 50%),
+                radial-gradient(circle at 40% 40%, rgba(139, 92, 246, 0.2) 0%, transparent 50%);
+            animation: floatParticles 20s ease-in-out infinite;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        @keyframes floatParticles {
+            0%, 100% { transform: translateY(0px) rotate(0deg); opacity: 0.3; }
+            25% { transform: translateY(-20px) rotate(90deg); opacity: 0.5; }
+            50% { transform: translateY(-40px) rotate(180deg); opacity: 0.3; }
+            75% { transform: translateY(-20px) rotate(270deg); opacity: 0.4; }
+        }
+
+        .form-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 24px;
+            box-shadow: 
+                0 32px 64px rgba(10, 42, 67, 0.4),
+                0 0 0 1px rgba(255, 255, 255, 0.1),
+                inset 0 1px 0 rgba(255, 255, 255, 0.2);
+            overflow: hidden;
+            position: relative;
+            z-index: 10;
+            animation: containerFloat 6s ease-in-out infinite;
+        }
+
+        @keyframes containerFloat {
+            0%, 100% { transform: translateY(0px) scale(1); }
+            50% { transform: translateY(-10px) scale(1.01); }
+        }
+
+        .form-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.1) 0%, rgba(16, 185, 129, 0.05) 100%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            pointer-events: none;
+        }
+
+        .form-container:hover::before {
+            opacity: 1;
+        }
+
+        .form-header {
+            background: linear-gradient(135deg, #0a2a43 0%, #1e40af 25%, #3b82f6 50%, #1e40af 75%, #0a2a43 100%);
+            background-size: 400% 400%;
+            animation: gradientFlow 8s ease infinite;
+            color: white;
+            padding: 40px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        @keyframes gradientFlow {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .form-header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: conic-gradient(transparent, rgba(255,255,255,0.1), transparent, rgba(59,130,246,0.1));
+            animation: rotate 10s linear infinite;
+            pointer-events: none;
+        }
+
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .form-header h1 {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            position: relative;
+            z-index: 2;
+            background: linear-gradient(135deg, #ffffff 0%, #e2e8f0 100%);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: textShimmer 3s ease-in-out infinite;
+        }
+
+        @keyframes textShimmer {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        .form-header p {
+            opacity: 0.9;
+            font-size: 16px;
+            position: relative;
+            z-index: 2;
+            animation: fadeInUp 1s ease 0.5s both;
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 0.9; transform: translateY(0); }
+        }
+
+        .form-header h1 {
+            font-size: 28px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .form-header p {
+            opacity: 0.9;
+            font-size: 16px;
+        }
+
+        .progress-container {
+            background: linear-gradient(135deg, rgba(248, 250, 252, 0.8) 0%, rgba(255, 255, 255, 0.9) 100%);
+            backdrop-filter: blur(10px);
+            padding: 50px 30px;
+            border-bottom: 1px solid rgba(226, 232, 240, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .progress-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, transparent 30%, rgba(59, 130, 246, 0.05) 50%, transparent 70%);
+            animation: progressShimmer 4s ease-in-out infinite;
+            pointer-events: none;
+        }
+
+        @keyframes progressShimmer {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+
+        .progress-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 20px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .progress-bar::before {
+            content: '';
+            position: absolute;
+            top: 20px;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, 
+                rgba(226, 232, 240, 0.3) 0%, 
+                rgba(203, 213, 225, 0.5) 25%, 
+                rgba(148, 163, 184, 0.3) 50%, 
+                rgba(203, 213, 225, 0.5) 75%, 
+                rgba(226, 232, 240, 0.3) 100%);
+            border-radius: 3px;
+            z-index: 1;
+            box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
+        }
+
+        .progress-line-active {
+            position: absolute;
+            top: 20px;
+            left: 0;
+            height: 4px;
+            background: linear-gradient(90deg, 
+                #0a2a43 0%, 
+                #2563eb 25%, 
+                #3b82f6 50%, 
+                #16a34a 75%, 
+                #22c55e 100%);
+            background-size: 200% 200%;
+            animation: progressFlow 2s ease infinite;
+            border-radius: 3px;
+            z-index: 2;
+            transition: width 1s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 
+                0 0 20px rgba(59, 130, 246, 0.6),
+                0 2px 4px rgba(10, 42, 67, 0.2);
+        }
+
+        @keyframes progressFlow {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .progress-step {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+            flex: 1;
+            z-index: 3;
+        }
+
+        .progress-circle {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.9);
+            color: #64748b;
+            border: 3px solid rgba(226, 232, 240, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 16px;
+            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            margin-bottom: 12px;
+            box-shadow: 
+                0 4px 12px rgba(0, 0, 0, 0.1),
+                inset 0 1px 0 rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .progress-circle::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: conic-gradient(transparent, rgba(59, 130, 246, 0.1), transparent);
+            animation: circleRotate 3s linear infinite;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        @keyframes circleRotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .progress-step.active .progress-circle {
+            background: linear-gradient(135deg, #0a2a43 0%, #2563eb 50%, #3b82f6 100%);
+            color: white;
+            border-color: transparent;
+            transform: scale(1.2) rotate(360deg);
+            box-shadow: 
+                0 8px 32px rgba(10, 42, 67, 0.4),
+                0 0 0 4px rgba(59, 130, 246, 0.2),
+                inset 0 1px 0 rgba(255, 255, 255, 0.2);
+            animation: activeCircle 2s ease infinite;
+        }
+
+        .progress-step.active .progress-circle::before {
+            opacity: 1;
+        }
+
+        @keyframes activeCircle {
+            0%, 100% { transform: scale(1.2) rotate(0deg); box-shadow: 0 8px 32px rgba(10, 42, 67, 0.4), 0 0 0 4px rgba(59, 130, 246, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.2); }
+            50% { transform: scale(1.25) rotate(180deg); box-shadow: 0 12px 40px rgba(10, 42, 67, 0.6), 0 0 0 6px rgba(59, 130, 246, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.3); }
+        }
+
+        .progress-step.completed .progress-circle {
+            background: linear-gradient(135deg, #16a34a 0%, #22c55e 50%, #4ade80 100%);
+            color: white;
+            border-color: transparent;
+            transform: scale(1.1);
+            box-shadow: 
+                0 6px 24px rgba(22, 163, 74, 0.4),
+                0 0 0 3px rgba(34, 197, 94, 0.2),
+                inset 0 1px 0 rgba(255, 255, 255, 0.2);
+            animation: completedPulse 3s ease infinite;
+        }
+
+        @keyframes completedPulse {
+            0%, 100% { transform: scale(1.1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .progress-label {
+            font-size: 13px;
+            color: #64748b;
+            text-align: center;
+            font-weight: 600;
+            transition: all 0.4s ease;
+            text-shadow: 0 1px 2px rgba(255, 255, 255, 0.8);
+        }
+
+        .progress-step.active .progress-label {
+            color: #0a2a43;
+            font-weight: 700;
+            transform: scale(1.05);
+            text-shadow: 0 2px 4px rgba(10, 42, 67, 0.1);
+        }
+
+        .progress-step.completed .progress-label {
+            color: #16a34a;
+            font-weight: 700;
+            transform: scale(1.02);
+        }
+
+        .form-content {
+            padding: 40px;
+        }
+
+        .form-step {
+            display: none;
+            animation: magicalAppear 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+        }
+
+        .form-step.active {
+            display: block !important;
+        }
+
+        @keyframes magicalAppear {
+            0% { 
+                opacity: 0; 
+                transform: translateY(30px) scale(0.95) rotateX(10deg); 
+                filter: blur(10px);
+            }
+            50% { 
+                opacity: 0.7; 
+                transform: translateY(-5px) scale(1.02) rotateX(-2deg); 
+                filter: blur(2px);
+            }
+            100% { 
+                opacity: 1; 
+                transform: translateY(0) scale(1) rotateX(0deg); 
+                filter: blur(0);
+            }
+        }
+
+        .step-title {
+            font-size: 28px;
+            background: linear-gradient(135deg, #0a2a43 0%, #2563eb 50%, #3b82f6 100%);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 32px;
+            font-weight: 700;
+            position: relative;
+            animation: titleFloat 4s ease-in-out infinite;
+        }
+
+        @keyframes titleFloat {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-3px); }
+        }
+
+        .step-title::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            width: 60px;
+            height: 3px;
+            background: linear-gradient(90deg, #2563eb, #3b82f6, #8b5cf6);
+            border-radius: 2px;
+            animation: underlineGlow 3s ease-in-out infinite;
+        }
+
+        @keyframes underlineGlow {
+            0%, 100% { box-shadow: 0 0 5px rgba(59, 130, 246, 0.5); transform: scaleX(1); }
+            50% { box-shadow: 0 0 20px rgba(59, 130, 246, 0.8); transform: scaleX(1.2); }
+        }
+
+        .step-title {
+            font-size: 24px;
+            color: #0a2a43;
+            margin-bottom: 24px;
+            font-weight: 600;
+        }
+
+        .form-group {
+            margin-bottom: 24px;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #374151;
+            font-weight: 500;
+            font-size: 14px;
+        }
+
+        .required {
+            color: #dc2626;
+        }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 16px 20px;
+            border: 2px solid rgba(226, 232, 240, 0.5);
+            border-radius: 12px;
+            font-size: 16px;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(10px);
+            box-shadow: 
+                inset 0 1px 2px rgba(0, 0, 0, 0.05),
+                0 1px 3px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            border-color: #2563eb;
+            background: rgba(255, 255, 255, 0.95);
+            box-shadow: 
+                0 0 0 4px rgba(59, 130, 246, 0.1),
+                0 0 20px rgba(59, 130, 246, 0.2),
+                inset 0 1px 2px rgba(0, 0, 0, 0.05);
+            transform: translateY(-2px) scale(1.02);
+        }
+
+        .radio-option {
+            display: flex;
+            align-items: center;
+            padding: 20px;
+            border: 2px solid rgba(226, 232, 240, 0.3);
+            border-radius: 16px;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            background: rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(10px);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .radio-option::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(59, 130, 246, 0.1), transparent);
+            transition: left 0.6s ease;
+        }
+
+        .radio-option:hover::before {
+            left: 100%;
+        }
+
+        .radio-option:hover {
+            border-color: #2563eb;
+            background: rgba(59, 130, 246, 0.05);
+            transform: translateY(-4px) scale(1.02);
+            box-shadow: 
+                0 8px 25px rgba(59, 130, 246, 0.15),
+                0 0 0 1px rgba(59, 130, 246, 0.1);
+        }
+
+        .radio-option.selected {
+            border-color: #2563eb;
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.1) 0%, rgba(147, 197, 253, 0.1) 100%);
+            transform: translateY(-2px);
+            box-shadow: 
+                0 12px 30px rgba(59, 130, 246, 0.2),
+                0 0 0 2px rgba(59, 130, 246, 0.2),
+                inset 0 1px 0 rgba(255, 255, 255, 0.2);
+            animation: selectedGlow 2s ease infinite;
+        }
+
+        @keyframes selectedGlow {
+            0%, 100% { box-shadow: 0 12px 30px rgba(59, 130, 246, 0.2), 0 0 0 2px rgba(59, 130, 246, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.2); }
+            50% { box-shadow: 0 16px 40px rgba(59, 130, 246, 0.3), 0 0 0 3px rgba(59, 130, 246, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.3); }
+        }
+
+        .radio-option input[type="radio"] {
+            margin-right: 12px;
+            width: auto;
+        }
+
+        .radio-option label {
+            margin-bottom: 0;
+            cursor: pointer;
+            flex: 1;
+        }
+
+        .dynamic-fields {
+            margin-top: 24px;
+            padding: 24px;
+            background: #f8fafc;
+            border-radius: 8px;
+            border: 1px solid #e2e8f0;
+        }
+
+        .file-upload {
+            border: 2px dashed #cbd5e1;
+            border-radius: 8px;
+            padding: 40px;
+            text-align: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .file-upload:hover {
+            border-color: #0a2a43;
+            background: #f8fafc;
+        }
+
+        .file-upload.dragover {
+            border-color: #0a2a43;
+            background: #f0f9ff;
+        }
+
+        .file-upload-icon {
+            font-size: 48px;
+            color: #64748b;
+            margin-bottom: 16px;
+        }
+
+        .file-upload-text {
+            color: #374151;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        .file-upload-subtext {
+            color: #64748b;
+            font-size: 14px;
+        }
+
+        .uploaded-files {
+            margin-top: 16px;
+        }
+
+        .uploaded-file {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px 16px;
+            background: #f0f9ff;
+            border-radius: 6px;
+            margin-bottom: 8px;
+        }
+
+        .file-info {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .remove-file {
+            background: #dc2626;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            padding: 4px 8px;
+            cursor: pointer;
+            font-size: 12px;
+        }
+
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 24px;
+        }
+
+        .checkbox-group input[type="checkbox"] {
+            width: auto;
+        }
+
+        .form-buttons {
+            display: flex;
+            justify-content: space-between;
+            gap: 16px;
+            margin-top: 32px;
+            padding-top: 24px;
+            border-top: 1px solid #e2e8f0;
+        }
+
+        .btn {
+            padding: 14px 28px;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+            min-width: 120px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #0a2a43 0%, #1e40af 25%, #2563eb 50%, #3b82f6 75%, #2563eb 100%);
+            background-size: 400% 400%;
+            color: white;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 
+                0 8px 30px rgba(10, 42, 67, 0.3),
+                inset 0 1px 0 rgba(255, 255, 255, 0.2);
+            animation: buttonGradient 4s ease infinite;
+        }
+
+        @keyframes buttonGradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .btn-primary::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: conic-gradient(transparent, rgba(255,255,255,0.3), transparent);
+            animation: buttonRotate 3s linear infinite;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        @keyframes buttonRotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .btn-primary:hover::before {
+            opacity: 1;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-6px) scale(1.05);
+            box-shadow: 
+                0 20px 50px rgba(10, 42, 67, 0.4),
+                0 0 0 4px rgba(59, 130, 246, 0.2),
+                inset 0 1px 0 rgba(255, 255, 255, 0.3);
+            animation: buttonGradient 2s ease infinite, buttonPulse 1s ease infinite;
+        }
+
+        @keyframes buttonPulse {
+            0%, 100% { transform: translateY(-6px) scale(1.05); }
+            50% { transform: translateY(-8px) scale(1.08); }
+        }
+
+        .btn-secondary {
+            background: rgba(248, 250, 252, 0.8);
+            color: #374151;
+            border: 2px solid rgba(226, 232, 240, 0.5);
+            backdrop-filter: blur(10px);
+            box-shadow: 
+                0 4px 15px rgba(0, 0, 0, 0.1),
+                inset 0 1px 0 rgba(255, 255, 255, 0.2);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(241, 245, 249, 0.9);
+            border-color: rgba(203, 213, 225, 0.7);
+            transform: translateY(-3px);
+            box-shadow: 
+                0 8px 25px rgba(0, 0, 0, 0.15),
+                0 0 0 2px rgba(148, 163, 184, 0.2);
+        }
+
+        .btn-secondary {
+            background: #f8fafc;
+            color: #374151;
+            border: 2px solid #e5e7eb;
+        }
+
+        .btn-secondary:hover {
+            background: #f1f5f9;
+            border-color: #cbd5e1;
+        }
+
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none !important;
+            box-shadow: none !important;
+        }
+
+        .confirmation-step {
+            text-align: center;
+            padding: 40px;
+        }
+
+        .confirmation-icon {
+            font-size: 72px;
+            color: #16a34a;
+            margin-bottom: 24px;
+        }
+
+        .confirmation-title {
+            font-size: 28px;
+            color: #0a2a43;
+            margin-bottom: 16px;
+            font-weight: 600;
+        }
+
+        .confirmation-text {
+            color: #64748b;
+            margin-bottom: 32px;
+            font-size: 16px;
+            line-height: 1.6;
+        }
+
+        @media (max-width: 768px) {
+            .form-row {
+                grid-template-columns: 1fr;
+                gap: 16px;
+            }
+            
+            .progress-bar {
+                flex-wrap: wrap;
+                gap: 10px;
+            }
+            
+            .progress-step {
+                flex: none;
+                width: calc(16.66% - 10px);
+            }
+            
+            .progress-label {
+                display: none;
+            }
+            
+            .form-content {
+                padding: 20px;
+            }
+            
+            .form-buttons {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <div class="form-header">
+            <h1>Marine Services Request</h1>
+            <p>Professional marine consultation and inspection services</p>
+        </div>
+
+        <div class="progress-container">
+            <div class="progress-bar">
+                <div class="progress-step active" data-step="1">
+                    <div class="progress-circle">1</div>
+                    <div class="progress-label">Contact Info</div>
+                    <div class="progress-line"></div>
+                </div>
+                <div class="progress-step" data-step="2">
+                    <div class="progress-circle">2</div>
+                    <div class="progress-label">Service Type</div>
+                    <div class="progress-line"></div>
+                </div>
+                <div class="progress-step" data-step="3">
+                    <div class="progress-circle">3</div>
+                    <div class="progress-label">Details</div>
+                    <div class="progress-line"></div>
+                </div>
+                <div class="progress-step" data-step="4">
+                    <div class="progress-circle">4</div>
+                    <div class="progress-label">Documents</div>
+                    <div class="progress-line"></div>
+                </div>
+                <div class="progress-step" data-step="5">
+                    <div class="progress-circle">5</div>
+                    <div class="progress-label">Notes</div>
+                    <div class="progress-line"></div>
+                </div>
+                <div class="progress-step" data-step="6">
+                    <div class="progress-circle">6</div>
+                    <div class="progress-label">Review</div>
+                </div>
+            </div>
+        </div>
+
+        <form class="form-content">
+            <!-- Step 1: Contact Info -->
+            <div class="form-step active" data-step="1">
+                <h2 class="step-title">Contact Information</h2>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="fullName">Full Name <span class="required">*</span></label>
+                        <input type="text" id="fullName" name="fullName" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email Address <span class="required">*</span></label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="phone">Phone Number</label>
+                        <input type="tel" id="phone" name="phone">
+                    </div>
+                    <div class="form-group">
+                        <label for="company">Company</label>
+                        <input type="text" id="company" name="company">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 2: Service Type -->
+            <div class="form-step" data-step="2">
+                <h2 class="step-title">Select Service Type</h2>
+                <div class="form-group">
+                    <label>Choose the service you require <span class="required">*</span></label>
+                    <div class="radio-group">
+                        <div class="radio-option" data-service="mws">
+                            <input type="radio" id="mws" name="serviceType" value="Marine Warranty Survey">
+                            <label for="mws">Marine Warranty Survey (MWS)</label>
+                        </div>
+                        <div class="radio-option" data-service="diving">
+                            <input type="radio" id="diving" name="serviceType" value="Diving Inspection Services">
+                            <label for="diving">Diving Inspection Services</label>
+                        </div>
+                        <div class="radio-option" data-service="vessel">
+                            <input type="radio" id="vessel" name="serviceType" value="Vessel Assurance / IMCA eCMID">
+                            <label for="vessel">Vessel Assurance / IMCA eCMID</label>
+                        </div>
+                        <div class="radio-option" data-service="rov">
+                            <input type="radio" id="rov" name="serviceType" value="ROV / NDT Inspection">
+                            <label for="rov">ROV / NDT Inspection</label>
+                        </div>
+                        <div class="radio-option" data-service="audit">
+                            <input type="radio" id="audit" name="serviceType" value="Audit & Risk Assessment">
+                            <label for="audit">Audit & Risk Assessment</label>
+                        </div>
+                        <div class="radio-option" data-service="other">
+                            <input type="radio" id="other" name="serviceType" value="Other">
+                            <label for="other">Other (please specify)</label>
+                        </div>
+                    </div>
+                    <div class="form-group" id="otherServiceInput" style="display: none; margin-top: 16px;">
+                        <label for="otherService">Please specify the service required</label>
+                        <input type="text" id="otherService" name="otherService" placeholder="Describe your specific requirements">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 3: Dynamic Fields -->
+            <div class="form-step" data-step="3">
+                <h2 class="step-title">Service Details</h2>
+                <div id="dynamicFields"></div>
+            </div>
+
+            <!-- Step 4: File Upload -->
+            <div class="form-step" data-step="4">
+                <h2 class="step-title">Supporting Documents</h2>
+                <div class="form-group">
+                    <label>Upload relevant documents (optional)</label>
+                    <div class="file-upload" id="fileUpload">
+                        <div class="file-upload-icon">📁</div>
+                        <div class="file-upload-text">Drag and drop files here or click to browse</div>
+                        <div class="file-upload-subtext">Accepted formats: PDF, DOCX, JPG, PNG (max 20MB)</div>
+                        <input type="file" id="fileInput" multiple accept=".pdf,.docx,.jpg,.jpeg,.png" style="display: none;">
+                    </div>
+                    <div class="uploaded-files" id="uploadedFiles"></div>
+                </div>
+            </div>
+
+            <!-- Step 5: Notes -->
+            <div class="form-step" data-step="5">
+                <h2 class="step-title">Additional Information</h2>
+                <div class="form-group">
+                    <label for="notes">Additional Notes or Requirements</label>
+                    <textarea id="notes" name="notes" rows="6" placeholder="Please provide any additional information about your requirements, timeline, or specific concerns..."></textarea>
+                </div>
+            </div>
+
+            <!-- Step 6: Confirmation -->
+            <div class="form-step" data-step="6">
+                <h2 class="step-title">Review & Submit</h2>
+                <div class="form-group">
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="callback" name="callback">
+                        <label for="callback">I would like to request a call back to discuss my requirements</label>
+                    </div>
+                </div>
+                <div style="background: #f8fafc; padding: 24px; border-radius: 8px; margin-bottom: 24px;">
+                    <h3 style="color: #0a2a43; margin-bottom: 16px;">Your Request Summary:</h3>
+                    <div id="requestSummary"></div>
+                </div>
+            </div>
+
+            <!-- Confirmation Success -->
+            <div class="form-step" data-step="7">
+                <div class="confirmation-step">
+                    <div class="confirmation-icon">✅</div>
+                    <h2 class="confirmation-title">Request Submitted Successfully</h2>
+                    <p class="confirmation-text">
+                        Thank you for your marine services request. We have received your information and will contact you within 24 hours to discuss your requirements and provide a detailed consultation.
+                    </p>
+                    <button type="button" class="btn btn-primary" onclick="window.location.reload()">Submit Another Request</button>
+                </div>
+            </div>
+
+            <div class="form-buttons">
+                <button type="button" class="btn btn-secondary" id="prevBtn" style="display: none;">Previous</button>
+                <button type="button" class="btn btn-primary" id="nextBtn">Next</button>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        let currentStep = 1;
+        const totalSteps = 6;
+        let uploadedFiles = [];
+
+        // Service type dynamic fields configuration
+        const serviceFields = {
+            mws: [
+                { label: 'Vessel Type', type: 'select', name: 'vesselType', options: ['Cargo Ship', 'Tanker', 'Passenger Vessel', 'Offshore Unit', 'Tugboat', 'Other'], required: true },
+                { label: 'Operation Type', type: 'text', name: 'operationType', required: true },
+                { label: 'Estimated Dates', type: 'date', name: 'estimatedDates', required: true }
+            ],
+            diving: [
+                { label: 'Scope of Work', type: 'textarea', name: 'scope', required: true },
+                { label: 'Vessel Size/Structure', type: 'text', name: 'vesselSize', required: true },
+                { label: 'Preferred Location', type: 'text', name: 'preferredLocation', required: true }
+            ],
+            vessel: [
+                { label: 'Vessel Name', type: 'text', name: 'vesselName', required: true },
+                { label: 'IMO Number', type: 'text', name: 'imoNumber', required: true },
+                { label: 'Inspection Type', type: 'select', name: 'inspectionType', options: ['Annual Survey', 'Intermediate Survey', 'Special Survey', 'Pre-Purchase Survey'], required: true },
+                { label: 'Required Date', type: 'date', name: 'requiredDate', required: true }
+            ],
+            rov: [
+                { label: 'Inspection Type', type: 'select', name: 'inspectionType', options: ['Hull Survey', 'Propeller Inspection', 'Underwater Structure', 'Pipeline Inspection', 'Other'], required: true },
+                { label: 'Depth/Environment', type: 'text', name: 'depthEnvironment', required: true }
+            ],
+            audit: [
+                { label: 'Audit Scope', type: 'textarea', name: 'auditScope', required: true },
+                { label: 'Location', type: 'text', name: 'location', required: true },
+                { label: 'Timeline', type: 'text', name: 'timeline', required: true }
+            ]
+        };
+
+        // Initialize form
+        document.addEventListener('DOMContentLoaded', function() {
+            setupEventListeners();
+            showStep(1); // Make sure step 1 is shown initially
+            updateProgress();
+            updateButtons();
+        });
+
+        function setupEventListeners() {
+            // Navigation buttons
+            document.getElementById('nextBtn').addEventListener('click', nextStep);
+            document.getElementById('prevBtn').addEventListener('click', prevStep);
+
+            // Service type selection
+            document.querySelectorAll('input[name="serviceType"]').forEach(radio => {
+                radio.addEventListener('change', function() {
+                    document.querySelectorAll('.radio-option').forEach(option => option.classList.remove('selected'));
+                    this.closest('.radio-option').classList.add('selected');
+                    
+                    if (this.value === 'Other') {
+                        document.getElementById('otherServiceInput').style.display = 'block';
+                    } else {
+                        document.getElementById('otherServiceInput').style.display = 'none';
+                    }
+                    
+                    generateDynamicFields();
+                });
+            });
+
+            // File upload
+            const fileUpload = document.getElementById('fileUpload');
+            const fileInput = document.getElementById('fileInput');
+
+            fileUpload.addEventListener('click', () => fileInput.click());
+            fileInput.addEventListener('change', handleFileSelect);
+            
+            // Drag and drop
+            fileUpload.addEventListener('dragover', handleDragOver);
+            fileUpload.addEventListener('drop', handleFileDrop);
+            fileUpload.addEventListener('dragleave', handleDragLeave);
+        }
+
+        function nextStep() {
+            if (validateCurrentStep()) {
+                if (currentStep === totalSteps) {
+                    submitForm();
+                } else {
+                    currentStep++;
+                    showStep(currentStep);
+                    updateProgress();
+                    updateButtons();
+                }
+            }
+        }
+
+        function prevStep() {
+            if (currentStep > 1) {
+                currentStep--;
+                showStep(currentStep);
+                updateProgress();
+                updateButtons();
+            }
+        }
+
+        function showStep(step) {
+            // Hide all steps
+            document.querySelectorAll('.form-step').forEach(stepEl => {
+                stepEl.classList.remove('active');
+                stepEl.style.display = 'none';
+            });
+            
+            // Show current step
+            const currentStepEl = document.querySelector(`.form-step[data-step="${step}"]`);
+            if (currentStepEl) {
+                currentStepEl.classList.add('active');
+                currentStepEl.style.display = 'block';
+            }
+
+            if (step === 6) {
+                generateSummary();
+            }
+        }
+
+        function updateProgress() {
+            document.querySelectorAll('.progress-step').forEach((stepEl, index) => {
+                const stepNumber = index + 1;
+                stepEl.classList.remove('active', 'completed');
+                
+                if (stepNumber < currentStep) {
+                    stepEl.classList.add('completed');
+                } else if (stepNumber === currentStep) {
+                    stepEl.classList.add('active');
+                }
+            });
+
+            // Update the progress line
+            updateProgressLine();
+        }
+
+        function updateProgressLine() {
+            const progressContainer = document.querySelector('.progress-bar');
+            let existingLine = progressContainer.querySelector('.progress-line-active');
+            
+            if (!existingLine) {
+                existingLine = document.createElement('div');
+                existingLine.className = 'progress-line-active';
+                progressContainer.appendChild(existingLine);
+            }
+
+            const completedSteps = currentStep - 1;
+            const totalSteps = 6;
+            const progressPercentage = (completedSteps / (totalSteps - 1)) * 100;
+            
+            existingLine.style.width = `${Math.min(progressPercentage, 100)}%`;
+        }
+
+        function updateButtons() {
+            const prevBtn = document.getElementById('prevBtn');
+            const nextBtn = document.getElementById('nextBtn');
+
+            prevBtn.style.display = currentStep > 1 ? 'block' : 'none';
+            
+            if (currentStep === totalSteps) {
+                nextBtn.textContent = 'Request Consultation';
+                nextBtn.classList.add('btn-primary');
+            } else {
+                nextBtn.textContent = 'Next';
+            }
+        }
+
+        function validateCurrentStep() {
+            const currentStepEl = document.querySelector(`[data-step="${currentStep}"]`);
+            const requiredInputs = currentStepEl.querySelectorAll('[required]');
+            let isValid = true;
+
+            requiredInputs.forEach(input => {
+                if (!input.value.trim()) {
+                    input.style.borderColor = '#dc2626';
+                    isValid = false;
+                } else {
+                    input.style.borderColor = '#e5e7eb';
+                }
+            });
+
+            // Special validation for service type
+            if (currentStep === 2) {
+                const selectedService = document.querySelector('input[name="serviceType"]:checked');
+                if (!selectedService) {
+                    alert('Please select a service type.');
+                    return false;
+                }
+            }
+
+            if (!isValid) {
+                alert('Please fill in all required fields.');
+            }
+
+            return isValid;
+        }
+
+        function generateDynamicFields() {
+            const selectedService = document.querySelector('input[name="serviceType"]:checked');
+            const dynamicFieldsContainer = document.getElementById('dynamicFields');
+            
+            if (!selectedService || selectedService.value === 'Other') {
+                dynamicFieldsContainer.innerHTML = '<p style="color: #64748b;">Please select a service type to see relevant fields.</p>';
+                return;
+            }
+
+            const serviceKey = selectedService.closest('.radio-option').dataset.service;
+            const fields = serviceFields[serviceKey] || [];
+
+            let html = '<div class="dynamic-fields">';
+            html += '<h3 style="color: #0a2a43; margin-bottom: 20px;">Service-Specific Information</h3>';
+
+            fields.forEach(field => {
+                html += '<div class="form-group">';
+                html += `<label for="${field.name}">${field.label}${field.required ? ' <span class="required">*</span>' : ''}</label>`;
+
+                if (field.type === 'select') {
+                    html += `<select id="${field.name}" name="${field.name}"${field.required ? ' required' : ''}>`;
+                    html += '<option value="">Select an option</option>';
+                    field.options.forEach(option => {
+                        html += `<option value="${option}">${option}</option>`;
+                    });
+                    html += '</select>';
+                } else if (field.type === 'textarea') {
+                    html += `<textarea id="${field.name}" name="${field.name}" rows="3"${field.required ? ' required' : ''}></textarea>`;
+                } else {
+                    html += `<input type="${field.type}" id="${field.name}" name="${field.name}"${field.required ? ' required' : ''}>`;
+                }
+
+                html += '</div>';
+            });
+
+            html += '</div>';
+            dynamicFieldsContainer.innerHTML = html;
+        }
+
+        // File handling
+        function handleDragOver(e) {
+            e.preventDefault();
+            e.currentTarget.classList.add('dragover');
+        }
+
+        function handleDragLeave(e) {
+            e.currentTarget.classList.remove('dragover');
+        }
+
+        function handleFileDrop(e) {
+            e.preventDefault();
+            e.currentTarget.classList.remove('dragover');
+            const files = e.dataTransfer.files;
+            processFiles(files);
+        }
+
+        function handleFileSelect(e) {
+            const files = e.target.files;
+            processFiles(files);
+        }
+
+        function processFiles(files) {
+            Array.from(files).forEach(file => {
+                if (file.size > 20 * 1024 * 1024) {
+                    alert(`File "${file.name}" is too large. Maximum size is 20MB.`);
+                    return;
+                }
+
+                const allowedTypes = ['application/pdf', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document', 'image/jpeg', 'image/png', 'image/jpg'];
+                if (!allowedTypes.includes(file.type)) {
+                    alert(`File "${file.name}" is not a supported format.`);
+                    return;
+                }
+
+                uploadedFiles.push(file);
+                displayUploadedFile(file);
+            });
+        }
+
+        function displayUploadedFile(file) {
+            const uploadedFilesContainer = document.getElementById('uploadedFiles');
+            const fileDiv = document.createElement('div');
+            fileDiv.className = 'uploaded-file';
+            fileDiv.innerHTML = `
+                <div class="file-info">
+                    <span>📄</span>
+                    <span>${file.name} (${(file.size / 1024 / 1024).toFixed(2)} MB)</span>
+                </div>
+                <button type="button" class="remove-file" onclick="removeFile('${file.name}')">Remove</button>
+            `;
+            uploadedFilesContainer.appendChild(fileDiv);
+        }
+
+        function removeFile(fileName) {
+            uploadedFiles = uploadedFiles.filter(file => file.name !== fileName);
+            const fileElements = document.querySelectorAll('.uploaded-file');
+            fileElements.forEach(el => {
+                if (el.textContent.includes(fileName)) {
+                    el.remove();
+                }
+            });
+        }
+
+        function generateSummary() {
+            const summaryContainer = document.getElementById('requestSummary');
+            let summary = '';
+
+            // Contact info
+            const fullName = document.getElementById('fullName').value;
+            const email = document.getElementById('email').value;
+            const phone = document.getElementById('phone').value;
+            const company = document.getElementById('company').value;
+
+            summary += `<p><strong>Contact:</strong> ${fullName} (${email})${phone ? ', ' + phone : ''}${company ? ', ' + company : ''}</p>`;
+
+            // Service type
+            const selectedService = document.querySelector('input[name="serviceType"]:checked');
+            if (selectedService) {
+                summary += `<p><strong>Service:</strong> ${selectedService.value}</p>`;
+            }
+
+            // Files
+            if (uploadedFiles.length > 0) {
+                summary += `<p><strong>Documents:</strong> ${uploadedFiles.length} file(s) uploaded</p>`;
+            }
+
+            // Notes
+            const notes = document.getElementById('notes').value;
+            if (notes) {
+                summary += `<p><strong>Additional Notes:</strong> ${notes.substring(0, 100)}${notes.length > 100 ? '...' : ''}</p>`;
+            }
+
+            // Callback preference
+            const callback = document.getElementById('callback').checked;
+            if (callback) {
+                summary += `<p><strong>Call Back Requested:</strong> Yes</p>`;
+            }
+
+            summaryContainer.innerHTML = summary;
+        }
+
+        function submitForm() {
+            // Show loading state
+            const nextBtn = document.getElementById('nextBtn');
+            nextBtn.textContent = 'Submitting...';
+            nextBtn.disabled = true;
+
+            // Simulate form submission
+            setTimeout(() => {
+                currentStep = 7;
+                showStep(currentStep);
+                document.querySelector('.form-buttons').style.display = 'none';
+                
+                // Hide progress bar for success step
+                document.querySelector('.progress-container').style.display = 'none';
+            }, 1500);
+        }
+    </script>
+</body>
+</html>
