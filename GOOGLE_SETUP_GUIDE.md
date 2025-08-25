@@ -30,11 +30,12 @@ This guide will help you set up the contact form integration with Google Sheets 
 2. Click the gear icon next to "Type" and select "Web app"
 3. Set the following:
    - **Description**: "Contact Form Handler"
-   - **Execute as**: "Me"
-   - **Who has access**: "Anyone" (this is required for the form to work)
+   - **Execute as**: "Me" (important)
+   - **Who has access**: "Anyone" (CRITICAL - this automatically handles CORS)
 4. Click "Deploy"
-5. **Important**: Copy the Web App URL that appears
-6. Click "Done"
+5. **Important**: You may see a security warning. Click "Advanced" then "Go to [your project name] (unsafe)" to authorize the script
+6. **Important**: Copy the Web App URL that appears
+7. Click "Done"
 
 ### Important: If you update the script later
 If you make changes to the Google Apps Script code (like adding CORS headers), you need to:
@@ -88,6 +89,30 @@ The sheet will automatically create these columns:
 - **Status**: Defaults to "New" (you can update this manually)
 
 ## Troubleshooting
+
+### CORS Errors ("No 'Access-Control-Allow-Origin' header")
+If you see this error: `Access to fetch at 'https://script.google.com/...' has been blocked by CORS policy`
+
+**Root Cause**: The Google Apps Script Web App is not properly configured to allow cross-origin requests.
+
+**Solution**:
+1. **Check deployment settings** in Google Apps Script:
+   - Go to your script project
+   - Click "Deploy" → "Manage deployments"
+   - Verify these settings:
+     - **Execute as**: "Me" 
+     - **Who has access**: "Anyone" ← This is CRITICAL for CORS
+
+2. **If settings are wrong**:
+   - Click the pencil icon to edit
+   - Change "Who has access" to "Anyone"
+   - Click "Deploy" to update
+
+3. **If you made script changes**:
+   - Create a new deployment version
+   - Update the URL in your `index.html`
+
+**Why this works**: When you set access to "Anyone", Google automatically handles CORS headers for the Web App.
 
 ### Common Issues:
 

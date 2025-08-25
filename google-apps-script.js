@@ -16,12 +16,7 @@ function doPost(e) {
     if (!data.name || !data.email || !data.subject || !data.message) {
       return ContentService
         .createTextOutput(JSON.stringify({success: false, error: 'Missing required fields'}))
-        .setMimeType(ContentService.MimeType.JSON)
-        .setHeaders({
-          'Access-Control-Allow-Origin': '*',
-          'Access-Control-Allow-Methods': 'POST, GET, OPTIONS',
-          'Access-Control-Allow-Headers': 'Content-Type'
-        });
+        .setMimeType(ContentService.MimeType.JSON);
     }
     
     // Save to Google Sheets
@@ -33,12 +28,7 @@ function doPost(e) {
     if (sheetResult && emailResult) {
       return ContentService
         .createTextOutput(JSON.stringify({success: true, message: 'Form submitted successfully'}))
-        .setMimeType(ContentService.MimeType.JSON)
-        .setHeaders({
-          'Access-Control-Allow-Origin': '*',
-          'Access-Control-Allow-Methods': 'POST, GET, OPTIONS',
-          'Access-Control-Allow-Headers': 'Content-Type'
-        });
+        .setMimeType(ContentService.MimeType.JSON);
     } else {
       throw new Error('Failed to process form submission');
     }
@@ -47,12 +37,7 @@ function doPost(e) {
     console.error('Error processing form:', error);
     return ContentService
       .createTextOutput(JSON.stringify({success: false, error: error.toString()}))
-      .setMimeType(ContentService.MimeType.JSON)
-      .setHeaders({
-        'Access-Control-Allow-Origin': '*',
-        'Access-Control-Allow-Methods': 'POST, GET, OPTIONS',
-        'Access-Control-Allow-Headers': 'Content-Type'
-      });
+      .setMimeType(ContentService.MimeType.JSON);
   }
 }
 
@@ -192,25 +177,8 @@ function sendEmailNotification(data) {
 // Function to handle GET requests (for testing)
 function doGet(e) {
   return ContentService
-    .createTextOutput('Contact Form API is running. Use POST method to submit forms.')
-    .setMimeType(ContentService.MimeType.TEXT)
-    .setHeaders({
-      'Access-Control-Allow-Origin': '*',
-      'Access-Control-Allow-Methods': 'POST, GET, OPTIONS',
-      'Access-Control-Allow-Headers': 'Content-Type'
-    });
-}
-
-// Function to handle OPTIONS requests (CORS preflight)
-function doOptions(e) {
-  return ContentService
-    .createTextOutput('')
-    .setHeaders({
-      'Access-Control-Allow-Origin': '*',
-      'Access-Control-Allow-Methods': 'POST, GET, OPTIONS',
-      'Access-Control-Allow-Headers': 'Content-Type',
-      'Access-Control-Max-Age': '86400'
-    });
+    .createTextOutput(JSON.stringify({ message: 'Contact form endpoint is working!' }))
+    .setMimeType(ContentService.MimeType.JSON);
 }
 
 // Test function to verify setup
