@@ -405,12 +405,12 @@
 
     <!-- Hero Section -->
     <section class="hero-bg text-white py-40 px-4 text-center relative overflow-hidden">
-        <!-- Video Background -->
-        <video autoplay muted loop class="absolute inset-0 w-full h-full object-cover z-0">
-            <source src="assets/bg.mp4" type="video/mp4">
+        <!-- Video Background (Desktop Only) -->
+        <video id="heroVideo" autoplay muted loop class="absolute inset-0 w-full h-full object-cover z-0 hidden md:block">
+            <!-- Source will be added dynamically for desktop users -->
         </video>
         <!-- Gradient Overlay -->
-        <div class="absolute inset-0 bg-gradient-to-br from-blue-900/60 via-blue-800/50 to-amber-200/30 z-10"></div>
+        <div class="absolute inset-0 bg-gradient-to-br from-black/70 via-blue-900/60 to-black/50 z-10"></div>
         <!-- Floating Elements -->
         <div class="absolute inset-0 pointer-events-none z-20">
             <div class="floating-animation absolute top-20 left-10 w-20 h-20 bg-white/5 rounded-full blur-xl"></div>
@@ -440,8 +440,8 @@
                     Specialized marine inspection services based in 
                     <span class="font-semibold text-white">Abu Dhabi, UAE</span>
                 </p>
-                <p class="text-lg text-blue-200 max-w-2xl mx-auto">
-                    IMCA certified diving system inspections • Marine vessel assessments • Professional excellence
+                <p class="text-sm text-blue-200 max-w-2xl mx-auto uppercase">
+                    IMCA CERTIFIED INSPECTIONS • MARINE ASSESSMENTS • PROFESSIONAL EXCELLENCE
                 </p>
             </div>
             
@@ -1350,7 +1350,7 @@
                     <!-- Company Info -->
                     <div class="lg:col-span-1 fade-in-up">
                         <div class="flex items-center mb-6">
-                            <div class="w-24 h-24 bg-gradient-to-br from-blue-100 to-purple-200 rounded-2xl flex items-center justify-center mr-4 p-4">
+                            <div class="w-24 h-24 bg-gradient-to-br from-slate-50 to-gray-50 rounded-2xl flex items-center justify-center mr-4 p-4">
                                 <img src="assets/logoLatest.svg" alt="Pilot Consultation Logo" class="h-full w-full object-contain">
                             </div>
                             <div>
@@ -1925,6 +1925,31 @@ closeTermsModal.addEventListener('click', function() {
 termsModalOverlay.addEventListener('click', function() {
     termsModal.classList.add('hidden');
     document.body.style.overflow = 'auto';
+});
+
+// Conditional video loading for desktop only
+function loadVideoForDesktop() {
+    const heroVideo = document.getElementById('heroVideo');
+    const isDesktop = window.innerWidth >= 768; // md breakpoint in Tailwind
+    
+    if (isDesktop && heroVideo) {
+        // Only load video source if on desktop
+        if (!heroVideo.querySelector('source')) {
+            const source = document.createElement('source');
+            source.src = 'assets/output.webm';
+            source.type = 'video/webm';
+            heroVideo.appendChild(source);
+            heroVideo.load(); // Reload video with new source
+        }
+    }
+}
+
+// Load video on page load if desktop
+loadVideoForDesktop();
+
+// Re-check on window resize
+window.addEventListener('resize', function() {
+    loadVideoForDesktop();
 });
 
     </script>
