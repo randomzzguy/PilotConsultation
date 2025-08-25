@@ -36,6 +36,14 @@ This guide will help you set up the contact form integration with Google Sheets 
 5. **Important**: Copy the Web App URL that appears
 6. Click "Done"
 
+### Important: If you update the script later
+If you make changes to the Google Apps Script code (like adding CORS headers), you need to:
+1. Click "Deploy" > "Manage deployments"
+2. Click the pencil icon next to your existing deployment
+3. Change the version to "New version"
+4. Click "Deploy"
+5. The Web App URL will remain the same, but the changes will take effect
+
 ## Step 4: Update Your Website
 
 1. Open `index.html`
@@ -83,17 +91,24 @@ The sheet will automatically create these columns:
 
 ### Common Issues:
 
-1. **"Failed to send message" error**:
+1. **CORS Error ("Access to fetch has been blocked by CORS policy")**:
+   - This means the Google Apps Script needs to be updated with CORS headers
+   - Copy the updated `google-apps-script.js` code that includes CORS headers
+   - Redeploy the Web App with a new version (see "If you update the script later" section)
+   - Wait a few minutes for changes to propagate
+
+2. **"Failed to send message" error**:
    - Check that the Google Script URL is correctly set in `index.html`
    - Verify the Web App is deployed with "Anyone" access
    - Check the Apps Script execution log for errors
+   - Ensure you're using the latest version with CORS headers
 
-2. **Emails not sending**:
+3. **Emails not sending**:
    - Verify the `COMPANY_EMAIL` is correct in the Apps Script
    - Check your Gmail spam folder
    - Ensure the Apps Script has permission to send emails
 
-3. **Data not saving to sheet**:
+4. **Data not saving to sheet**:
    - Verify the `SPREADSHEET_ID` is correct
    - Check that the spreadsheet is accessible by the same Google account
    - Run the `testSetup()` function to debug
