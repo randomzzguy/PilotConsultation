@@ -1222,48 +1222,51 @@
                         </div>
                     </div>
 
-                    <!-- Contact Form -->
-                    <div class="slide-in-right">
-                        <div class="glass-card p-10 rounded-3xl">
-                            <div class="flex items-center mb-8">
-                                <div class="w-16 h-16 bg-gradient-to-br from-purple-500 to-purple-600 rounded-2xl flex items-center justify-center mr-4">
-                                    <i class="fas fa-paper-plane text-white text-2xl"></i>
-                                </div>
-                                <div>
-                                    <h3 class="text-2xl font-bold text-gray-900">Send Message</h3>
-                                    <p class="text-gray-600">Let's discuss your project</p>
-                                </div>
-                            </div>
-                            
-                            <form id="contactForm" class="space-y-6">
-                                <div class="grid md:grid-cols-2 gap-6">
-                                    <div>
-                                        <label for="name" class="block text-sm font-semibold text-gray-700 mb-2">Full Name</label>
-                                        <input type="text" id="name" name="name" class="w-full px-4 py-3 bg-white border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300 hover:border-gray-300">
-                                    </div>
-                                    <div>
-                                        <label for="email" class="block text-sm font-semibold text-gray-700 mb-2">Email Address</label>
-                                        <input type="email" id="email" name="email" class="w-full px-4 py-3 bg-white border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300 hover:border-gray-300">
-                                    </div>
-                                </div>
-                                
-                                <div>
-                                    <label for="subject" class="block text-sm font-semibold text-gray-700 mb-2">Subject</label>
-                                    <input type="text" id="subject" name="subject" class="w-full px-4 py-3 bg-white border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300 hover:border-gray-300">
-                                </div>
-                                
-                                <div>
-                                    <label for="message" class="block text-sm font-semibold text-gray-700 mb-2">Message</label>
-                                    <textarea id="message" name="message" rows="5" class="w-full px-4 py-3 bg-white border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300 hover:border-gray-300 resize-none"></textarea>
-                                </div>
-                                
-                                <button type="submit" id="submitBtn" class="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-bold py-4 px-8 rounded-xl transition-all duration-300 transform hover:scale-105 hover:shadow-xl flex items-center justify-center space-x-2">
-                                    <i class="fas fa-paper-plane"></i>
-                                    <span id="submitText">Send Message</span>
-                                </button>
-                            </form>
-                        </div>
-                    </div>
+<!-- Contact Form -->
+<div class="slide-in-right">
+    <div class="glass-card p-10 rounded-3xl">
+        <div class="flex items-center mb-8">
+            <div class="w-16 h-16 bg-gradient-to-br from-purple-500 to-purple-600 rounded-2xl flex items-center justify-center mr-4">
+                <i class="fas fa-paper-plane text-white text-2xl"></i>
+            </div>
+            <div>
+                <h3 class="text-2xl font-bold text-gray-900">Send Message</h3>
+                <p class="text-gray-600">Let's discuss your project</p>
+            </div>
+        </div>
+        
+        <form id="contactForm" action="https://script.google.com/macros/s/AKfycbwmiszydBTUTgeyj0fyA-w_jcZGvdjRa_BTRpbltLtF2ueUKKKcOO7vobcR-HW2t2lpVQ/exec" method="POST" target="hiddenIframe" class="space-y-6">
+            <div class="grid md:grid-cols-2 gap-6">
+                <div>
+                    <label for="name" class="block text-sm font-semibold text-gray-700 mb-2">Full Name</label>
+                    <input type="text" id="name" name="name" class="w-full px-4 py-3 bg-white border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300 hover:border-gray-300">
+                </div>
+                <div>
+                    <label for="email" class="block text-sm font-semibold text-gray-700 mb-2">Email Address</label>
+                    <input type="email" id="email" name="email" class="w-full px-4 py-3 bg-white border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300 hover:border-gray-300">
+                </div>
+            </div>
+            
+            <div>
+                <label for="subject" class="block text-sm font-semibold text-gray-700 mb-2">Subject</label>
+                <input type="text" id="subject" name="subject" class="w-full px-4 py-3 bg-white border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300 hover:border-gray-300">
+            </div>
+            
+            <div>
+                <label for="message" class="block text-sm font-semibold text-gray-700 mb-2">Message</label>
+                <textarea id="message" name="message" rows="5" class="w-full px-4 py-3 bg-white border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300 hover:border-gray-300 resize-none"></textarea>
+            </div>
+            
+            <button type="submit" id="submitBtn" class="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-bold py-4 px-8 rounded-xl transition-all duration-300 transform hover:scale-105 hover:shadow-xl flex items-center justify-center space-x-2">
+                <i class="fas fa-paper-plane"></i>
+                <span id="submitText">Send Message</span>
+            </button>
+        </form>
+        
+        <!-- Hidden iframe for form submission -->
+        <iframe name="hiddenIframe" style="display: none;"></iframe>
+    </div>
+</div>
                 </div>
             </div>
         </div>
@@ -1555,13 +1558,11 @@
             }
         });
 
-        /// Contact Form Functionality
+/// Contact Form Functionality
 const contactForm = document.getElementById('contactForm');
 const submitBtn = document.getElementById('submitBtn');
 const submitText = document.getElementById('submitText');
-
-// Google Apps Script Web App URL (replace with your deployed script URL)
-const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwmiszydBTUTgeyj0fyA-w_jcZGvdjRa_BTRpbltLtF2ueUKKKcOO7vobcR-HW2t2lpVQ/exec';
+const iframe = document.querySelector('iframe[name="hiddenIframe"]');
 
 // Email validation function
 function isValidEmail(email) {
@@ -1611,7 +1612,7 @@ function showNotification(message, type = 'success') {
 }
 
 // Form submission handler
-contactForm.addEventListener('submit', async function(e) {
+contactForm.addEventListener('submit', function(e) {
   e.preventDefault();
 
   const name = document.getElementById('name').value.trim();
@@ -1631,42 +1632,36 @@ contactForm.addEventListener('submit', async function(e) {
   submitText.textContent = 'Sending...';
   submitBtn.classList.add('opacity-75');
 
-  try {
-    const submissionData = {
-      name,
-      email,
-      subject,
-      message,
-      timestamp: new Date().toISOString(),
-      companyEmail: 'info@pilotconsultation.com'
-    };
+  // Add hidden inputs for timestamp and companyEmail
+  const timestampInput = document.createElement('input');
+  timestampInput.type = 'hidden';
+  timestampInput.name = 'timestamp';
+  timestampInput.value = new Date().toISOString();
+  contactForm.appendChild(timestampInput);
 
-    const response = await fetch(GOOGLE_SCRIPT_URL, {
-      method: 'POST',
-      mode: 'cors',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(submissionData)
-    });
+  const companyEmailInput = document.createElement('input');
+  companyEmailInput.type = 'hidden';
+  companyEmailInput.name = 'companyEmail';
+  companyEmailInput.value = 'info@pilotconsultation.com';
+  contactForm.appendChild(companyEmailInput);
 
-    const result = await response.json();
-    console.log('Server response:', result);
+  // Submit the form to the iframe
+  contactForm.submit();
+});
 
-    if (result.status === "success") {
-      showNotification('Message sent successfully! We will get back to you within 24 hours.', 'success');
-      contactForm.reset();
-    } else {
-      showNotification(result.error || 'Failed to send message.', 'error');
-    }
-  } catch (error) {
-    console.error('Error:', error);
-    showNotification('Network error. Please try again later.', 'error');
-  } finally {
-    submitBtn.disabled = false;
-    submitText.textContent = 'Send Message';
-    submitBtn.classList.remove('opacity-75');
-  }
+// Handle iframe load to show success notification
+iframe.addEventListener('load', () => {
+  showNotification('Message sent successfully! We will get back to you within 24 hours.', 'success');
+  contactForm.reset();
+  submitBtn.disabled = false;
+  submitText.textContent = 'Send Message';
+  submitBtn.classList.remove('opacity-75');
+
+  // Remove hidden inputs to prevent duplicates on next submission
+  const timestampInput = contactForm.querySelector('input[name="timestamp"]');
+  const companyEmailInput = contactForm.querySelector('input[name="companyEmail"]');
+  if (timestampInput) timestampInput.remove();
+  if (companyEmailInput) companyEmailInput.remove();
 });
 
     </script>
