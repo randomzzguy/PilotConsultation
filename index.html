@@ -406,7 +406,7 @@
     <!-- Hero Section -->
     <section class="hero-bg text-white py-40 px-4 text-center relative overflow-hidden">
         <!-- Video Background (Desktop Only) -->
-        <video id="heroVideo" autoplay muted loop class="absolute inset-0 w-full h-full object-cover z-0 hidden md:block">
+        <video id="heroVideo" autoplay muted loop class="absolute inset-0 w-full h-full object-cover z-0 hidden md:block" style="display: none;">
             <!-- Source will be added dynamically for desktop users -->
         </video>
         <!-- Gradient Overlay -->
@@ -1933,7 +1933,8 @@ function loadVideoForDesktop() {
     const isDesktop = window.innerWidth >= 768; // md breakpoint in Tailwind
     
     if (isDesktop && heroVideo) {
-        // Only load video source if on desktop
+        // Show video and load source if on desktop
+        heroVideo.style.display = 'block';
         if (!heroVideo.querySelector('source')) {
             const source = document.createElement('source');
             source.src = 'assets/output.webm';
@@ -1941,6 +1942,9 @@ function loadVideoForDesktop() {
             heroVideo.appendChild(source);
             heroVideo.load(); // Reload video with new source
         }
+    } else if (heroVideo) {
+        // Hide video completely on mobile
+        heroVideo.style.display = 'none';
     }
 }
 
