@@ -125,6 +125,41 @@
             50% { transform: translateY(-20px); }
         }
         
+        /* Disable resource-intensive animations on mobile to prevent overheating */
+        @media (max-width: 768px) {
+            /* Disable CPU-intensive animations */
+            .hero-logo {
+                animation: none !important;
+            }
+            .shimmer-text {
+                animation: none !important;
+                background: linear-gradient(135deg, #3b82f6, #1e40af);
+                background-clip: text;
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+            }
+            .floating-animation {
+                animation: none !important;
+            }
+            .hero-bg::before {
+                animation: none !important;
+            }
+            .animate-pulse {
+                animation: none !important;
+            }
+            
+            /* Reduce GPU usage */
+            * {
+                will-change: auto !important;
+                transform: translateZ(0) !important;
+            }
+            
+            /* Disable blur effects that are GPU intensive */
+            .blur-xl, .blur-2xl {
+                filter: none !important;
+            }
+        }
+        
         .fade-in-up {
             opacity: 0;
             transform: translateY(30px);
@@ -1647,10 +1682,11 @@
             });
         });
 
-        // Scroll animations
+        // Scroll animations with mobile optimization
+        const isMobile = window.innerWidth <= 768;
         const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
+            threshold: isMobile ? 0.2 : 0.1,
+            rootMargin: isMobile ? '0px 0px -20px 0px' : '0px 0px -50px 0px'
         };
 
         const observer = new IntersectionObserver((entries) => {
@@ -1658,35 +1694,56 @@
                 if (entry.isIntersecting) {
                     entry.target.style.opacity = '1';
                     entry.target.style.transform = 'translateY(0)';
+                    // Unobserve after animation to reduce performance impact
+                    observer.unobserve(entry.target);
                 }
             });
         }, observerOptions);
 
-        // Observe all animated elements
+        // Observe animated elements with mobile optimization
         document.addEventListener('DOMContentLoaded', () => {
             const animatedElements = document.querySelectorAll('.fade-in-up, .slide-in-left, .slide-in-right, .scale-in');
-            animatedElements.forEach(el => {
-                el.style.opacity = '0';
-                el.style.transform = el.classList.contains('slide-in-left') ? 'translateX(-50px)' : 
-                                   el.classList.contains('slide-in-right') ? 'translateX(50px)' : 
-                                   el.classList.contains('scale-in') ? 'scale(0.8)' : 'translateY(30px)';
-                el.style.transition = 'all 0.8s cubic-bezier(0.4, 0, 0.2, 1)';
-                observer.observe(el);
-            });
+            
+            // Reduce animations on mobile for better performance
+            if (isMobile) {
+                // On mobile, only animate critical elements and make them visible immediately
+                animatedElements.forEach(el => {
+                    el.style.opacity = '1';
+                    el.style.transform = 'none';
+                    el.style.transition = 'none';
+                });
+            } else {
+                // Full animations on desktop
+                animatedElements.forEach(el => {
+                    el.style.opacity = '0';
+                    el.style.transform = el.classList.contains('slide-in-left') ? 'translateX(-50px)' : 
+                                       el.classList.contains('slide-in-right') ? 'translateX(50px)' : 
+                                       el.classList.contains('scale-in') ? 'scale(0.8)' : 'translateY(30px)';
+                    el.style.transition = 'all 0.8s cubic-bezier(0.4, 0, 0.2, 1)';
+                    observer.observe(el);
+                });
+            }
 
-            // Navbar scroll effect
+            // Navbar scroll effect with throttling for better performance
+            let scrollTimeout;
             window.addEventListener('scroll', () => {
-                const navbar = document.querySelector('nav');
-                if (window.scrollY > 100) {
-                    navbar.classList.add('nav-blur');
-                } else {
-                    navbar.classList.remove('nav-blur');
+                if (scrollTimeout) {
+                    return;
                 }
-            });
+                scrollTimeout = setTimeout(() => {
+                    const navbar = document.querySelector('nav');
+                    if (window.scrollY > 100) {
+                        navbar.classList.add('nav-blur');
+                    } else {
+                        navbar.classList.remove('nav-blur');
+                    }
+                    scrollTimeout = null;
+                }, 16); // ~60fps
+            }, { passive: true });
 
-            // Typing animation for hero text
+            // Typing animation for hero text (disabled on mobile for performance)
             const typingText = document.querySelector('.typing-animation');
-            if (typingText) {
+            if (typingText && !isMobile) {
                 const text = typingText.textContent;
                 typingText.textContent = '';
                 let i = 0;
