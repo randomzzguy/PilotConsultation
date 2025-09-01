@@ -11,6 +11,8 @@
     <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="assets/favicon-16x16.png">
     <link rel="manifest" href="assets/site.webmanifest">
+    <!-- Cloudflare Turnstile CAPTCHA -->
+    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
     <style>
         * {
             font-family: 'Inter', sans-serif;
@@ -1329,28 +1331,38 @@
         </div>
         
         <form id="contactForm" action="https://script.google.com/macros/s/AKfycbx1iqD33PIMGEElUO81JyiDh12oiPDxeiNhYGKUE5mX42Hun9T2dEGFzdSgfG-jpINcRg/exec" method="POST" target="hiddenIframe" class="space-y-6">
+            <!-- Honeypot fields for bot detection (hidden from users) -->
+            <input type="text" name="website" style="display: none !important;" tabindex="-1" autocomplete="off">
+            <input type="email" name="email_confirm" style="display: none !important;" tabindex="-1" autocomplete="off">
+            <input type="text" name="phone_number" style="position: absolute; left: -9999px; top: -9999px;" tabindex="-1" autocomplete="off">
+            
             <div class="grid md:grid-cols-2 gap-6">
                 <div>
                     <label for="name" class="block text-sm font-semibold text-gray-700 mb-2">Full Name</label>
-                    <input type="text" id="name" name="name" class="w-full px-4 py-3 bg-white border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300 hover:border-gray-300">
+                    <input type="text" id="name" name="name" required minlength="2" maxlength="100" class="w-full px-4 py-3 bg-white border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300 hover:border-gray-300">
                 </div>
                 <div>
                     <label for="email" class="block text-sm font-semibold text-gray-700 mb-2">Email Address</label>
-                    <input type="email" id="email" name="email" class="w-full px-4 py-3 bg-white border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300 hover:border-gray-300">
+                    <input type="email" id="email" name="email" required maxlength="254" class="w-full px-4 py-3 bg-white border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300 hover:border-gray-300">
                 </div>
             </div>
             
             <div>
                 <label for="subject" class="block text-sm font-semibold text-gray-700 mb-2">Subject</label>
-                <input type="text" id="subject" name="subject" class="w-full px-4 py-3 bg-white border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300 hover:border-gray-300">
+                <input type="text" id="subject" name="subject" required minlength="5" maxlength="200" class="w-full px-4 py-3 bg-white border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300 hover:border-gray-300">
             </div>
             
             <div>
                 <label for="message" class="block text-sm font-semibold text-gray-700 mb-2">Message</label>
-                <textarea id="message" name="message" rows="5" class="w-full px-4 py-3 bg-white border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300 hover:border-gray-300 resize-none"></textarea>
+                <textarea id="message" name="message" rows="5" required minlength="20" maxlength="2000" class="w-full px-4 py-3 bg-white border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300 hover:border-gray-300 resize-none"></textarea>
             </div>
             
-            <button type="submit" id="submitBtn" class="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-bold py-4 px-8 rounded-xl transition-all duration-300 transform hover:scale-105 hover:shadow-xl flex items-center justify-center space-x-2">
+            <!-- Cloudflare Turnstile CAPTCHA -->
+            <div class="flex justify-center">
+                <div class="cf-turnstile" data-sitekey="YOUR_TURNSTILE_SITE_KEY_HERE" data-callback="onTurnstileSuccess" data-expired-callback="onTurnstileExpired" data-error-callback="onTurnstileError"></div>
+            </div>
+            
+            <button type="submit" id="submitBtn" class="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-bold py-4 px-8 rounded-xl transition-all duration-300 transform hover:scale-105 hover:shadow-xl flex items-center justify-center space-x-2" disabled>
                 <i class="fas fa-paper-plane"></i>
                 <span id="submitText">Send Message</span>
             </button>
@@ -1827,16 +1839,127 @@
             }
         });
 
-/// Contact Form Functionality
+/// Contact Form Functionality with Anti-Bot Protection
 const contactForm = document.getElementById('contactForm');
 const submitBtn = document.getElementById('submitBtn');
 const submitText = document.getElementById('submitText');
 const iframe = document.querySelector('iframe[name="hiddenIframe"]');
 
+// Anti-bot protection variables
+let formStartTime = Date.now();
+let lastSubmissionTime = localStorage.getItem('lastSubmission') || 0;
+const SUBMISSION_COOLDOWN = 60000; // 1 minute between submissions
+const MIN_FORM_TIME = 5000; // Minimum 5 seconds to fill form
+let turnstileToken = null; // Store Turnstile token
+
+// Cloudflare Turnstile callback functions
+function onTurnstileSuccess(token) {
+    turnstileToken = token;
+    // Enable submit button if all other validations pass
+    checkFormValidity();
+}
+
+function onTurnstileExpired() {
+    turnstileToken = null;
+    submitBtn.disabled = true;
+    showNotification('CAPTCHA expired. Please verify again.', 'error');
+}
+
+function onTurnstileError() {
+    turnstileToken = null;
+    submitBtn.disabled = true;
+    showNotification('CAPTCHA error. Please refresh and try again.', 'error');
+}
+
+// Check if form is valid and enable/disable submit button
+function checkFormValidity() {
+    const name = document.getElementById('name').value.trim();
+    const email = document.getElementById('email').value.trim();
+    const subject = document.getElementById('subject').value.trim();
+    const message = document.getElementById('message').value.trim();
+    
+    const isFormValid = name.length >= 2 && 
+                       isValidEmail(email) && 
+                       subject.length >= 5 && 
+                       message.length >= 20 && 
+                       turnstileToken !== null;
+    
+    submitBtn.disabled = !isFormValid;
+}
+
 // Email validation function
 function isValidEmail(email) {
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   return emailRegex.test(email);
+}
+
+// Spam content detection
+function containsSpam(text) {
+  const spamPatterns = [
+    /\b(viagra|cialis|casino|lottery|winner|congratulations)\b/i,
+    /\b(click here|free money|make money|work from home)\b/i,
+    /\b(bitcoin|crypto|investment|trading)\b/i,
+    /(http[s]?:\/\/|www\.|bit\.ly|tinyurl)/i,
+    /[A-Z]{10,}/, // Excessive caps
+    /[!]{3,}/, // Multiple exclamation marks
+    /\b\d{4,}\b.*\b\d{4,}\b/, // Multiple long numbers
+    /[\u4e00-\u9fff]+/g, // Chinese characters (adjust based on your target audience)
+    /[\u0400-\u04FF]+/g // Cyrillic characters (adjust based on your target audience)
+  ];
+  
+  return spamPatterns.some(pattern => pattern.test(text));
+}
+
+// Check for bot behavior
+function detectBotBehavior() {
+  // Check honeypot fields
+  const honeypotFields = ['website', 'email_confirm', 'phone_number'];
+  for (let field of honeypotFields) {
+    if (document.querySelector(`[name="${field}"]`).value) {
+      return 'Honeypot field filled';
+    }
+  }
+  
+  // Check form completion time (too fast = bot)
+  const formTime = Date.now() - formStartTime;
+  if (formTime < MIN_FORM_TIME) {
+    return 'Form completed too quickly';
+  }
+  
+  // Check submission rate limiting
+  const timeSinceLastSubmission = Date.now() - parseInt(lastSubmissionTime);
+  if (timeSinceLastSubmission < SUBMISSION_COOLDOWN) {
+    return `Please wait ${Math.ceil((SUBMISSION_COOLDOWN - timeSinceLastSubmission) / 1000)} seconds before submitting again`;
+  }
+  
+  return null;
+}
+
+// Enhanced content validation
+function validateContent(name, email, subject, message) {
+  // Check for spam content
+  const allContent = `${name} ${email} ${subject} ${message}`;
+  if (containsSpam(allContent)) {
+    return 'Message contains prohibited content';
+  }
+  
+  // Check for repetitive characters
+  if (/(..).*\1.*\1.*\1/.test(message)) {
+    return 'Message contains too much repetitive content';
+  }
+  
+  // Check for meaningful content
+  const words = message.split(/\s+/).filter(word => word.length > 2);
+  if (words.length < 5) {
+    return 'Please provide a more detailed message';
+  }
+  
+  // Check for valid name format
+  if (!/^[a-zA-Z\s'-]+$/.test(name)) {
+    return 'Please enter a valid name using only letters, spaces, hyphens, and apostrophes';
+  }
+  
+  return null;
 }
 
 // Show notification function
@@ -1880,7 +2003,7 @@ function showNotification(message, type = 'success') {
   }, 5000);
 }
 
-// Form submission handler
+// Form submission handler with enhanced anti-bot protection
 contactForm.addEventListener('submit', function(e) {
   e.preventDefault();
 
@@ -1889,17 +2012,43 @@ contactForm.addEventListener('submit', function(e) {
   const subject = document.getElementById('subject').value.trim();
   const message = document.getElementById('message').value.trim();
 
-  // Validation
+  // Basic validation
   if (!name) return showNotification('Please enter your full name.', 'error');
   if (!email) return showNotification('Please enter your email address.', 'error');
   if (!isValidEmail(email)) return showNotification('Please enter a valid email address.', 'error');
   if (!subject) return showNotification('Please enter a subject.', 'error');
   if (!message) return showNotification('Please enter your message.', 'error');
+  
+  // Turnstile CAPTCHA validation
+  if (!turnstileToken) {
+    return showNotification('Please complete the CAPTCHA verification.', 'error');
+  }
+
+  // Anti-bot detection
+  const botCheck = detectBotBehavior();
+  if (botCheck) {
+    return showNotification(botCheck, 'error');
+  }
+
+  // Enhanced content validation
+  const contentCheck = validateContent(name, email, subject, message);
+  if (contentCheck) {
+    return showNotification(contentCheck, 'error');
+  }
+
+  // Additional human verification - simple math challenge
+  const mathResult = prompt('Please solve this simple math problem to verify you are human: What is 7 + 3?');
+  if (mathResult !== '10') {
+    return showNotification('Incorrect answer. Please try again.', 'error');
+  }
 
   // Show loading state
   submitBtn.disabled = true;
   submitText.textContent = 'Sending...';
   submitBtn.classList.add('opacity-75');
+
+  // Record submission time for rate limiting
+  localStorage.setItem('lastSubmission', Date.now().toString());
 
   // Add hidden inputs for timestamp and companyEmail
   const timestampInput = document.createElement('input');
@@ -1913,25 +2062,69 @@ contactForm.addEventListener('submit', function(e) {
   companyEmailInput.name = 'companyEmail';
   companyEmailInput.value = 'info@pilotconsultation.com';
   contactForm.appendChild(companyEmailInput);
+  
+  // Add Turnstile token to form
+  const turnstileInput = document.createElement('input');
+  turnstileInput.type = 'hidden';
+  turnstileInput.name = 'cf-turnstile-response';
+  turnstileInput.value = turnstileToken;
+  contactForm.appendChild(turnstileInput);
 
   // Submit the form to the iframe
   contactForm.submit();
 });
 
-// Handle iframe load to show success notification
-iframe.addEventListener('load', () => {
-  showNotification('Message sent successfully! We will get back to you within 24 hours.', 'success');
-  contactForm.reset();
-  submitBtn.disabled = false;
-  submitText.textContent = 'Send Message';
-  submitBtn.classList.remove('opacity-75');
-
-  // Remove hidden inputs to prevent duplicates on next submission
-  const timestampInput = contactForm.querySelector('input[name="timestamp"]');
-  const companyEmailInput = contactForm.querySelector('input[name="companyEmail"]');
-  if (timestampInput) timestampInput.remove();
-  if (companyEmailInput) companyEmailInput.remove();
+// Reset form start time when user starts interacting with form
+contactForm.addEventListener('focusin', function() {
+  if (!formStartTime || Date.now() - formStartTime > 300000) { // Reset after 5 minutes
+    formStartTime = Date.now();
+  }
 });
+
+// Handle iframe response
+iframe.addEventListener('load', function() {
+  // Only handle if form was actually submitted
+  if (submitBtn.disabled) {
+    // Reset form
+    contactForm.reset();
+    
+    // Reset button state
+    submitBtn.disabled = false;
+    submitText.textContent = 'Send Message';
+    submitBtn.classList.remove('opacity-75');
+    
+    // Reset form start time for next submission
+    formStartTime = Date.now();
+    
+    // Show success message
+    showNotification('Thank you! Your message has been sent successfully.');
+    
+    // Remove any dynamically added hidden inputs
+    const hiddenInputs = contactForm.querySelectorAll('input[type="hidden"]');
+    hiddenInputs.forEach(input => {
+      if (input.name === 'timestamp' || input.name === 'companyEmail' || input.name === 'cf-turnstile-response') {
+        input.remove();
+      }
+    });
+    
+    // Reset Turnstile
+    turnstileToken = null;
+    if (window.turnstile) {
+      window.turnstile.reset();
+    }
+  }
+});
+
+// Add event listeners for real-time form validation
+document.getElementById('name').addEventListener('input', checkFormValidity);
+document.getElementById('email').addEventListener('input', checkFormValidity);
+document.getElementById('subject').addEventListener('input', checkFormValidity);
+document.getElementById('message').addEventListener('input', checkFormValidity);
+
+// Initial form validation check
+checkFormValidity();
+
+// Note: iframe load handling is now done in the enhanced handler above
 
 // Privacy Policy Modal
 const privacyPolicyBtn = document.getElementById('privacyPolicyBtn');
