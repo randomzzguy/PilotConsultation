@@ -1879,8 +1879,7 @@ function onTurnstileSuccess(token) {
         captchaContainer.classList.add('border-green-500', 'bg-green-50');
         captchaContainer.classList.remove('border-gray-200', 'bg-gray-50', 'border-red-500', 'bg-red-50');
         
-        // Show success notification
-        showNotification('Security verification completed successfully!', 'success');
+        // Visual feedback only - notification removed
         
         // Revert to normal styling after 2 seconds
         setTimeout(() => {
@@ -1893,7 +1892,7 @@ function onTurnstileSuccess(token) {
 function onTurnstileExpired() {
     turnstileToken = null;
     submitBtn.disabled = true;
-    showNotification('CAPTCHA expired. Please verify again.', 'error');
+    // Visual feedback only - notification removed
     
     // Highlight CAPTCHA container for expired state
     const captchaContainer = document.getElementById('captcha-container');
@@ -1912,7 +1911,7 @@ function onTurnstileExpired() {
 function onTurnstileError() {
     turnstileToken = null;
     submitBtn.disabled = true;
-    showNotification('CAPTCHA error. Please refresh and try again.', 'error');
+    // Visual feedback only - notification removed
 }
 
 // Highlight CAPTCHA container when validation fails
