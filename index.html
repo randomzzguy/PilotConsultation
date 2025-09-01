@@ -1360,8 +1360,14 @@
             </div>
             
             <!-- Cloudflare Turnstile CAPTCHA -->
-            <div class="flex justify-center">
-                <div class="cf-turnstile" id="turnstile-widget" data-callback="onTurnstileSuccess" data-expired-callback="onTurnstileExpired" data-error-callback="onTurnstileError"></div>
+            <div>
+                <label class="block text-sm font-semibold text-gray-700 mb-2">
+                    Security Verification <span class="text-red-500">*</span>
+                </label>
+                <div class="flex justify-center p-4 border border-gray-200 rounded-xl bg-gray-50" id="captcha-container">
+                    <div class="cf-turnstile" id="turnstile-widget" data-callback="onTurnstileSuccess" data-expired-callback="onTurnstileExpired" data-error-callback="onTurnstileError"></div>
+                </div>
+                <p class="text-xs text-gray-500 mt-1">Please complete the security verification above to enable the send button.</p>
             </div>
             
             <button type="submit" id="submitBtn" class="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-bold py-4 px-8 rounded-xl transition-all duration-300 transform hover:scale-105 hover:shadow-xl flex items-center justify-center space-x-2" disabled>
@@ -1866,18 +1872,66 @@ function onTurnstileSuccess(token) {
     turnstileToken = token;
     // Enable submit button if all other validations pass
     checkFormValidity();
+    
+    // Provide positive visual feedback
+    const captchaContainer = document.getElementById('captcha-container');
+    if (captchaContainer) {
+        captchaContainer.classList.add('border-green-500', 'bg-green-50');
+        captchaContainer.classList.remove('border-gray-200', 'bg-gray-50', 'border-red-500', 'bg-red-50');
+        
+        // Show success notification
+        showNotification('Security verification completed successfully!', 'success');
+        
+        // Revert to normal styling after 2 seconds
+        setTimeout(() => {
+            captchaContainer.classList.remove('border-green-500', 'bg-green-50');
+            captchaContainer.classList.add('border-gray-200', 'bg-gray-50');
+        }, 2000);
+    }
 }
 
 function onTurnstileExpired() {
     turnstileToken = null;
     submitBtn.disabled = true;
     showNotification('CAPTCHA expired. Please verify again.', 'error');
+    
+    // Highlight CAPTCHA container for expired state
+    const captchaContainer = document.getElementById('captcha-container');
+    if (captchaContainer) {
+        captchaContainer.classList.add('border-orange-500', 'bg-orange-50');
+        captchaContainer.classList.remove('border-gray-200', 'bg-gray-50', 'border-green-500', 'bg-green-50');
+        
+        // Revert to normal styling after 3 seconds
+        setTimeout(() => {
+            captchaContainer.classList.remove('border-orange-500', 'bg-orange-50');
+            captchaContainer.classList.add('border-gray-200', 'bg-gray-50');
+        }, 3000);
+    }
 }
 
 function onTurnstileError() {
     turnstileToken = null;
     submitBtn.disabled = true;
     showNotification('CAPTCHA error. Please refresh and try again.', 'error');
+}
+
+// Highlight CAPTCHA container when validation fails
+function highlightCaptcha() {
+    const captchaContainer = document.getElementById('captcha-container');
+    if (captchaContainer) {
+        // Add error styling
+        captchaContainer.classList.add('border-red-500', 'bg-red-50');
+        captchaContainer.classList.remove('border-gray-200', 'bg-gray-50');
+        
+        // Scroll to CAPTCHA if not visible
+        captchaContainer.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        
+        // Remove error styling after 3 seconds
+        setTimeout(() => {
+            captchaContainer.classList.remove('border-red-500', 'bg-red-50');
+            captchaContainer.classList.add('border-gray-200', 'bg-gray-50');
+        }, 3000);
+    }
 }
 
 // Check if form is valid and enable/disable submit button
@@ -2030,7 +2084,8 @@ contactForm.addEventListener('submit', function(e) {
   
   // Turnstile CAPTCHA validation
   if (!turnstileToken) {
-    return showNotification('Please complete the CAPTCHA verification.', 'error');
+    highlightCaptcha();
+    return showNotification('Please complete the CAPTCHA verification to send your message.', 'error');
   }
 
   // Anti-bot detection
