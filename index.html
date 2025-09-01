@@ -13,6 +13,8 @@
     <link rel="manifest" href="assets/site.webmanifest">
     <!-- Cloudflare Turnstile CAPTCHA -->
     <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+    <!-- Configuration Module -->
+    <script src="config.js"></script>
     <style>
         * {
             font-family: 'Inter', sans-serif;
@@ -1359,7 +1361,7 @@
             
             <!-- Cloudflare Turnstile CAPTCHA -->
             <div class="flex justify-center">
-                <div class="cf-turnstile" data-sitekey="YOUR_TURNSTILE_SITE_KEY_HERE" data-callback="onTurnstileSuccess" data-expired-callback="onTurnstileExpired" data-error-callback="onTurnstileError"></div>
+                <div class="cf-turnstile" id="turnstile-widget" data-callback="onTurnstileSuccess" data-expired-callback="onTurnstileExpired" data-error-callback="onTurnstileError"></div>
             </div>
             
             <button type="submit" id="submitBtn" class="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-bold py-4 px-8 rounded-xl transition-all duration-300 transform hover:scale-105 hover:shadow-xl flex items-center justify-center space-x-2" disabled>
@@ -1714,6 +1716,13 @@
 
         // Observe animated elements with mobile optimization
         document.addEventListener('DOMContentLoaded', () => {
+            // Initialize Turnstile widget with site key from CONFIG
+            const turnstileWidget = document.getElementById('turnstile-widget');
+            if (turnstileWidget && window.CONFIG && window.CONFIG.TURNSTILE_SITE_KEY) {
+                turnstileWidget.setAttribute('data-sitekey', window.CONFIG.TURNSTILE_SITE_KEY);
+                console.log('Turnstile widget initialized with site key from CONFIG');
+            }
+            
             const animatedElements = document.querySelectorAll('.fade-in-up, .slide-in-left, .slide-in-right, .scale-in');
             
             // Reduce animations on mobile for better performance
