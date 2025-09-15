@@ -3,7 +3,8 @@
 
 const CONFIG = {
     // Cloudflare Turnstile Configuration
-    TURNSTILE_SITE_KEY: '0x4AAAAAABxPUXr36M_oikVR', // Replace with your actual site key
+    TURNSTILE_SITE_KEY: '0x4AAAAAABxPUXr36M_oikVR', // Production site key
+    TURNSTILE_SECRET_KEY: '0x4AAAAAABxPUVWFhDqhSEL_HfStE3mJDT0', // Production secret key for server-side validation
     
     // Development mode flag
     IS_DEVELOPMENT: window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1',
