@@ -1896,6 +1896,13 @@ const SUBMISSION_COOLDOWN = 60000; // 1 minute between submissions
 const MIN_FORM_TIME = 5000; // Minimum 5 seconds to fill form
 let turnstileToken = null; // Store Turnstile token
 
+// Behavioral tracking variables
+let mouseMovements = 0;
+let keystrokes = 0;
+let focusEvents = 0;
+let scrollEvents = 0;
+let humanBehaviorScore = 0;
+
 // Cloudflare Turnstile callback functions
 function onTurnstileSuccess(token) {
     turnstileToken = token;
@@ -1984,24 +1991,52 @@ function isValidEmail(email) {
   return emailRegex.test(email);
 }
 
-// Spam content detection
+// Enhanced spam content detection
 function containsSpam(text) {
   const spamPatterns = [
-    /\b(viagra|cialis|casino|lottery|winner|congratulations)\b/i,
-    /\b(click here|free money|make money|work from home)\b/i,
-    /\b(bitcoin|crypto|investment|trading)\b/i,
-    /(http[s]?:\/\/|www\.|bit\.ly|tinyurl)/i,
+    // Pharmaceutical spam
+    /\b(viagra|cialis|levitra|pharmacy|pills|medication|prescription)\b/i,
+    
+    // Financial/gambling spam
+    /\b(casino|lottery|winner|congratulations|jackpot|prize|gambling|bet)\b/i,
+    /\b(loan|credit|debt|mortgage|refinance|insurance|investment)\b/i,
+    /\b(bitcoin|crypto|cryptocurrency|trading|forex|binary|options)\b/i,
+    
+    // Marketing spam
+    /\b(click here|free money|make money|work from home|earn|income)\b/i,
+    /\b(limited time|act now|urgent|hurry|don't miss|exclusive offer)\b/i,
+    /\b(guaranteed|100%|risk-free|no obligation|instant|immediate)\b/i,
+    
+    // Adult content
+    /\b(adult|xxx|porn|sex|dating|singles|hookup|escort)\b/i,
+    
+    // URLs and suspicious links
+    /(http[s]?:\/\/|www\.|bit\.ly|tinyurl|t\.co|goo\.gl|short\.link)/i,
+    
+    // Suspicious patterns
     /[A-Z]{10,}/, // Excessive caps
     /[!]{3,}/, // Multiple exclamation marks
-    /\b\d{4,}\b.*\b\d{4,}\b/, // Multiple long numbers
-    /[\u4e00-\u9fff]+/g, // Chinese characters (adjust based on your target audience)
-    /[\u0400-\u04FF]+/g // Cyrillic characters (adjust based on your target audience)
+    /\$+\d+/, // Money symbols with numbers
+    /\b\d{4,}\b.*\b\d{4,}\b/, // Multiple long numbers (phone/card numbers)
+    /(.)\1{4,}/, // Repeated characters (aaaaa, 11111)
+    
+    // Non-English spam (adjust based on your target audience)
+    /[\u4e00-\u9fff]+/g, // Chinese characters
+    /[\u0400-\u04FF]+/g, // Cyrillic characters
+    /[\u0590-\u05FF]+/g, // Hebrew characters
+    /[\u0600-\u06FF]+/g, // Arabic characters
+    
+    // Common spam phrases
+    /\b(seo|backlinks|website traffic|google ranking|social media)\b/i,
+    /\b(weight loss|diet pills|lose weight|fat burner)\b/i,
+    /\b(replica|fake|counterfeit|knockoff)\b/i,
+    /\b(mlm|pyramid|network marketing|affiliate)\b/i
   ];
   
   return spamPatterns.some(pattern => pattern.test(text));
 }
 
-// Check for bot behavior
+// Advanced bot behavior detection
 function detectBotBehavior() {
   // Check honeypot fields
   const honeypotFields = ['website', 'email_confirm', 'phone_number'];
@@ -2017,13 +2052,90 @@ function detectBotBehavior() {
     return 'Form completed too quickly';
   }
   
-  // Check submission rate limiting
+  // Enhanced rate limiting with progressive delays
   const timeSinceLastSubmission = Date.now() - parseInt(lastSubmissionTime);
-  if (timeSinceLastSubmission < SUBMISSION_COOLDOWN) {
-    return `Please wait ${Math.ceil((SUBMISSION_COOLDOWN - timeSinceLastSubmission) / 1000)} seconds before submitting again`;
+  const submissionCount = parseInt(localStorage.getItem('submissionCount') || '0');
+  
+  // Progressive cooldown based on submission count
+  let requiredCooldown = SUBMISSION_COOLDOWN;
+  if (submissionCount > 3) requiredCooldown = 300000; // 5 minutes after 3 attempts
+  if (submissionCount > 5) requiredCooldown = 900000; // 15 minutes after 5 attempts
+  if (submissionCount > 10) requiredCooldown = 3600000; // 1 hour after 10 attempts
+  
+  if (timeSinceLastSubmission < requiredCooldown) {
+    return `Please wait ${Math.ceil((requiredCooldown - timeSinceLastSubmission) / 1000)} seconds before submitting again`;
+  }
+  
+  // Browser fingerprinting checks
+  if (!window.navigator || !window.screen) {
+    return 'Invalid browser environment';
+  }
+  
+  // Check for headless browser indicators
+  if (navigator.webdriver || 
+      window.phantom || 
+      window._phantom || 
+      window.callPhantom ||
+      window.chrome?.runtime?.onConnect ||
+      navigator.userAgent.includes('HeadlessChrome') ||
+      navigator.userAgent.includes('PhantomJS')) {
+    return 'Automated browser detected';
+  }
+  
+  // Check for suspicious user agent
+  const userAgent = navigator.userAgent;
+  if (!userAgent || 
+      userAgent.length < 50 || 
+      userAgent.includes('bot') || 
+      userAgent.includes('crawler') ||
+      userAgent.includes('spider')) {
+    return 'Suspicious user agent';
+  }
+  
+  // Check for missing browser features
+  if (typeof window.localStorage === 'undefined' ||
+      typeof window.sessionStorage === 'undefined' ||
+      typeof document.cookie === 'undefined') {
+    return 'Missing browser features';
+  }
+  
+  // Check screen resolution (bots often have unusual resolutions)
+  if (screen.width < 100 || screen.height < 100 || 
+      screen.width > 5000 || screen.height > 5000) {
+    return 'Unusual screen resolution';
+  }
+  
+  // Check human behavior score
+  calculateHumanBehaviorScore();
+  if (humanBehaviorScore < 3) {
+    return 'Insufficient human-like behavior detected';
   }
   
   return null;
+}
+
+// Calculate human behavior score based on interactions
+function calculateHumanBehaviorScore() {
+  humanBehaviorScore = 0;
+  
+  // Mouse movement indicates human behavior
+  if (mouseMovements > 10) humanBehaviorScore += 2;
+  else if (mouseMovements > 5) humanBehaviorScore += 1;
+  
+  // Natural typing patterns
+  if (keystrokes > 20) humanBehaviorScore += 2;
+  else if (keystrokes > 10) humanBehaviorScore += 1;
+  
+  // Focus events show user interaction
+  if (focusEvents > 3) humanBehaviorScore += 1;
+  
+  // Scrolling indicates reading behavior
+  if (scrollEvents > 2) humanBehaviorScore += 1;
+  
+  // Time spent on page
+  const timeOnPage = Date.now() - formStartTime;
+  if (timeOnPage > 30000) humanBehaviorScore += 2; // 30+ seconds
+  else if (timeOnPage > 15000) humanBehaviorScore += 1; // 15+ seconds
 }
 
 // Enhanced content validation
@@ -2139,8 +2251,10 @@ contactForm.addEventListener('submit', function(e) {
   submitText.textContent = 'Sending...';
   submitBtn.classList.add('opacity-75');
 
-  // Record submission time for rate limiting
+  // Record submission time and count for rate limiting
   localStorage.setItem('lastSubmission', Date.now().toString());
+  const currentCount = parseInt(localStorage.getItem('submissionCount') || '0');
+  localStorage.setItem('submissionCount', (currentCount + 1).toString());
 
   // Add hidden inputs for timestamp and companyEmail
   const timestampInput = document.createElement('input');
@@ -2204,6 +2318,9 @@ iframe.addEventListener('load', function() {
     if (window.turnstile) {
       window.turnstile.reset();
     }
+    
+    // Reset submission count on successful submission
+    localStorage.setItem('submissionCount', '0');
   }
 });
 
@@ -2215,6 +2332,23 @@ document.getElementById('message').addEventListener('input', checkFormValidity);
 
 // Initial form validation check
 checkFormValidity();
+
+// Behavioral tracking event listeners
+document.addEventListener('mousemove', function() {
+  mouseMovements++;
+});
+
+document.addEventListener('keydown', function() {
+  keystrokes++;
+});
+
+contactForm.addEventListener('focusin', function() {
+  focusEvents++;
+});
+
+window.addEventListener('scroll', function() {
+  scrollEvents++;
+});
 
 // Note: iframe load handling is now done in the enhanced handler above
 
